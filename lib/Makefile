@@ -6,14 +6,14 @@
 #    By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/05 11:23:44 by skrabby           #+#    #+#              #
-#    Updated: 2019/11/27 21:28:27 by oelaina          ###   ########.fr        #
+#    Updated: 2019/11/27 22:36:38 by oelaina          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
+NAME = libft.a
 
-PRINTF_DIR = ./srcs/ft_printf/%.c
-LIBFT_DIR = ./srcs/libft/%.c
+PRINTF_DIR = ./ft_printf/%.c
+LIBFT_DIR = ./libft/%.c
 
 PRINTF_SRCS = ft_printf \
 	   flags \
@@ -118,10 +118,12 @@ PRINTF_HEADER = ./srcs/ft_printf/ft_printf.h
 all: $(NAME)
 
 obj/%.o: $(LIBFT_DIR)
-	@gcc -Wall -Wextra -Werror -c $< -o $@ 
+	@gcc -Wall -Wextra -Werror -c $< -o $@
+	@rm -rf ../lem_in
 
 obj/%.o: $(PRINTF_DIR)
 	@gcc -Wall -Wextra -Werror -c $< -o $@
+	@rm -rf ../lem_in
 
 $(NAME): obj $(OBJ)
 	@ar rc $(NAME) $(OBJ)

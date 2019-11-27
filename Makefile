@@ -6,13 +6,13 @@
 #    By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/05 11:23:44 by skrabby           #+#    #+#              #
-#    Updated: 2019/11/27 22:15:56 by oelaina          ###   ########.fr        #
+#    Updated: 2019/11/27 22:36:18 by oelaina          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lem_in
 
-LIB = -lftprintf -L./lib
+LIB = -lft -L./lib
 
 SRCS_DIR = ./srcs/
 
@@ -20,7 +20,8 @@ FLAGS = -Wall -Wextra -Werror
 
 SRCS = main \
 
-HEADER = -I./include -I./lib/srcs/libft/
+HEADER = 	-I./include \
+			-I./lib/libft/
 
 OBJ =	$(addprefix obj/, $(addsuffix .o, $(SRCS)))
 
@@ -28,7 +29,7 @@ all: $(NAME)
 
 obj/%.o: srcs/%.c
 	@gcc $(FLAGS) -c $< $(HEADER) -o $@
-
+	
 $(NAME): obj $(OBJ)
 	@make -C lib
 	@gcc $(FLAGS) $(OBJ) $(HEADER) -o $(NAME) $(LIB)
