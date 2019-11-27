@@ -6,7 +6,7 @@
 #    By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/05 11:23:44 by skrabby           #+#    #+#              #
-#    Updated: 2019/11/27 22:36:18 by oelaina          ###   ########.fr        #
+#    Updated: 2019/11/27 22:41:37 by oelaina          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,9 +31,11 @@ obj/%.o: srcs/%.c
 	@gcc $(FLAGS) -c $< $(HEADER) -o $@
 	
 $(NAME): obj $(OBJ)
+	@tput setaf 7; tput bold; echo "Compiling LIB"
 	@make -C lib
+	@tput setaf 7; tput bold; echo "Compiling LEM_IN"
 	@gcc $(FLAGS) $(OBJ) $(HEADER) -o $(NAME) $(LIB)
-	@tput setaf 6; tput bold; echo "DONE LEM_IN"
+	@tput setaf 2; tput bold; echo "DONE LEM_IN"
 
 obj:
 	@mkdir obj

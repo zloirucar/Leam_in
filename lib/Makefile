@@ -6,7 +6,7 @@
 #    By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/05 11:23:44 by skrabby           #+#    #+#              #
-#    Updated: 2019/11/27 22:36:38 by oelaina          ###   ########.fr        #
+#    Updated: 2019/11/27 22:41:22 by oelaina          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -128,7 +128,7 @@ obj/%.o: $(PRINTF_DIR)
 $(NAME): obj $(OBJ)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	@tput setaf 6; tput bold; echo "DONE LIB"
+	@tput setaf 2; tput bold; echo "DONE LIB"
 
 obj:
 	@mkdir obj
