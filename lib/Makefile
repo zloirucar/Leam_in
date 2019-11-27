@@ -6,7 +6,7 @@
 #    By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/05 11:23:44 by skrabby           #+#    #+#              #
-#    Updated: 2019/11/27 21:13:04 by oelaina          ###   ########.fr        #
+#    Updated: 2019/11/27 21:28:27 by oelaina          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -133,11 +133,9 @@ obj:
 
 clean:
 	@rm -rf obj
-	@tput setaf 6; tput bold; echo "DONE Clean!"
 
 fclean: clean
 	@rm -f $(NAME)
-	@tput setaf 6; tput bold; echo "DONE Fclean!"
 
 re: fclean all
 
