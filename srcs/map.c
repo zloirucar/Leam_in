@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 20:17:31 by oelaina           #+#    #+#             */
-/*   Updated: 2019/12/08 21:11:21 by oelaina          ###   ########.fr       */
+/*   Updated: 2019/12/08 21:20:29 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,19 @@ t_map	*init_map()
 	return (map);
 }
 
+void	parse_count(t_map *map, char *line)
+{
+	get_next_line(0, &line);
+	map->count = ft_atoi(line);
+	free(line);
+}
+
 void	parse_map(t_map *map)
 {
 	char	*line;
 
+	line = NULL;
+	parse_count(map, line);
 	while (get_next_line(0, &line))
 	{
 		if (ft_strnstr(line, "-", 1))

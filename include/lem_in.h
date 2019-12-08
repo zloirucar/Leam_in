@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:09:22 by oelaina           #+#    #+#             */
-/*   Updated: 2019/12/08 20:19:15 by oelaina          ###   ########.fr       */
+/*   Updated: 2019/12/08 21:21:03 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef	struct			s_cell
 typedef	struct			s_map
 {
 	int					size_arr;
+	int					count;
 	t_cell				**arr_cell;
 	t_cell				*start;
 	t_cell				*end;
@@ -41,4 +42,5 @@ void					parse_start_end(t_map *map, char *line);
 void					add_to_arr(t_map *map, char *line);
 t_map					*init_map();
 void					parse_map(t_map *map);
+void					parse_count(t_map *map, char *line);
 #endif
