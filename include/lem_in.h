@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:09:22 by oelaina           #+#    #+#             */
-/*   Updated: 2019/11/28 23:14:54 by oelaina          ###   ########.fr       */
+/*   Updated: 2019/12/08 20:19:15 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,12 @@ typedef	struct			s_map
 
 }						t_map;
 
+t_cell					*init_cell();
+void					set_cell(t_cell *cell, char *line);
+void					arr_cellcpy(t_cell **dest, t_cell **src, int size);
+void					inc_arr_cell(t_cell ***arr_cell, int* size);
+void					parse_start_end(t_map *map, char *line);
+void					add_to_arr(t_map *map, char *line);
+t_map					*init_map();
 void					parse_map(t_map *map);
-
-
 #endif
