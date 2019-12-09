@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:09:22 by oelaina           #+#    #+#             */
-/*   Updated: 2019/12/08 21:21:03 by oelaina          ###   ########.fr       */
+/*   Updated: 2019/12/08 22:01:18 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ typedef	struct			s_map
 {
 	int					size_arr;
 	int					count;
+	int					check_cell;
+	int					check_link;
+	int					check_start;
+	int					check_end;
 	t_cell				**arr_cell;
 	t_cell				*start;
 	t_cell				*end;
