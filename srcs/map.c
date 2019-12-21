@@ -6,15 +6,15 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 20:17:31 by oelaina           #+#    #+#             */
-/*   Updated: 2019/12/08 22:04:21 by oelaina          ###   ########.fr       */
+/*   Updated: 2019/12/21 11:38:11 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	parse_start_end(t_map *map, char *line)
+void parse_start_end(t_map *map, char *line)
 {
-	char	*loc_line;
+	char *loc_line;
 
 	if (ft_strstr(line, "##start"))
 	{
@@ -34,7 +34,7 @@ void	parse_start_end(t_map *map, char *line)
 	}
 }
 
-void	add_to_arr(t_map *map, char *line)
+void add_to_arr(t_map *map, char *line)
 {
 	if (ft_strnstr(line, "#", 1) || ft_strnstr(line, "L", 1))
 		return;
@@ -45,9 +45,9 @@ void	add_to_arr(t_map *map, char *line)
 	map->check_cell = 1;
 }
 
-t_map	*init_map()
+t_map *init_map()
 {
-	t_map	*map;
+	t_map *map;
 
 	if (!(map = (t_map *)malloc(sizeof(t_map))))
 		exit(1);
@@ -62,23 +62,26 @@ t_map	*init_map()
 	return (map);
 }
 
-void	parse_count(t_map *map, char *line)
+void parse_count(t_map *map, char *line)
 {
 	get_next_line(0, &line);
 	map->count = ft_atoi(line);
 	free(line);
 }
 
-void	parse_map(t_map *map)
+void parse_map(t_map *map)
 {
-	char	*line;
+	char *line;
 
 	line = NULL;
 	parse_count(map, line);
 	while (get_next_line(0, &line))
 	{
 		parse_start_end(map, line);
-		add_to_arr(map, line);
+		if (check_char(line, '-') == 1)
+			parse_links(map, line);
+		else
+			add_to_arr(map, line);
 		free(line);
 	}
 }

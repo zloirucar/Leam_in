@@ -6,7 +6,7 @@
 #    By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/05 11:23:44 by skrabby           #+#    #+#              #
-#    Updated: 2019/12/08 20:19:50 by oelaina          ###   ########.fr        #
+#    Updated: 2019/12/21 11:18:47 by oelaina          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,9 @@ FLAGS = -Wall -Wextra -Werror
 
 SRCS = main \
 	   cell \
-	   map		
+	   map	\
+	   tools \
+	   links 	
 
 HEADER = 	-I./include \
 			-I./lib/libft/
