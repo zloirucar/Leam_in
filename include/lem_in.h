@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:09:22 by oelaina           #+#    #+#             */
-/*   Updated: 2019/12/21 11:31:56 by oelaina          ###   ########.fr       */
+/*   Updated: 2019/12/29 15:40:28 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 typedef	struct			s_cell
 {
 	char				*name;
+	struct	s_cell		*next;
+	struct	s_cell		*prev;
+	int					distance;
+	int					is_visited;
 	int					y;
 	int					x;
 	int					size_neib;
@@ -32,10 +36,11 @@ typedef	struct			s_map
 	int					check_link;
 	int					check_start;
 	int					check_end;
+	t_cell				*shortest_path;
+	t_cell				**paths;
 	t_cell				**arr_cell;
 	t_cell				*start;
 	t_cell				*end;
-
 }						t_map;
 
 /* cell operations*/
