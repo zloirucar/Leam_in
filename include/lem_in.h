@@ -6,7 +6,7 @@
 /*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:09:22 by oelaina           #+#    #+#             */
-/*   Updated: 2019/12/29 15:40:28 by skrabby          ###   ########.fr       */
+/*   Updated: 2019/12/29 21:02:11 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef	struct			s_map
 {
 	int					size_arr;
 	int					count;
+	int					count_cells;			
 	int					check_cell;
 	int					check_link;
 	int					check_start;
@@ -39,8 +40,9 @@ typedef	struct			s_map
 	t_cell				*shortest_path;
 	t_cell				**paths;
 	t_cell				**arr_cell;
-	t_cell				*start;
-	t_cell				*end;
+	int					start;
+	int					end;
+
 }						t_map;
 
 /* cell operations*/
@@ -59,4 +61,7 @@ void					parse_count(t_map *map, char *line);
 /* tools */
 void					clear_2D_arr(char **arr);
 int						check_char(char* line, char c);
+/* solver */
+void					shortest_path(t_map *map);
+t_cell					*tcell_dup(t_cell *cur);
 #endif

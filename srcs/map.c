@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 20:17:31 by oelaina           #+#    #+#             */
-/*   Updated: 2019/12/21 11:38:11 by oelaina          ###   ########.fr       */
+/*   Updated: 2019/12/29 18:05:59 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ void parse_start_end(t_map *map, char *line)
 	if (ft_strstr(line, "##start"))
 	{
 		get_next_line(0, &loc_line);
-		map->start = init_cell();
-		set_cell(map->start, loc_line);
+		map->start = map->count_cells;
+		add_to_arr(map, loc_line);
 		free(loc_line);
 		map->check_start = 1;
 	}
 	else if (ft_strstr(line, "##end"))
 	{
 		get_next_line(0, &loc_line);
-		map->end = init_cell();
-		set_cell(map->end, loc_line);
+		map->end = map->count_cells;
+		add_to_arr(map, loc_line);
 		free(loc_line);
 		map->check_end = 1;
 	}
@@ -52,13 +52,14 @@ t_map *init_map()
 	if (!(map = (t_map *)malloc(sizeof(t_map))))
 		exit(1);
 	map->arr_cell = NULL;
-	map->end = NULL;
-	map->start = NULL;
+	map->end = 0;
+	map->start = 0;
 	map->size_arr = 0;
 	map->check_cell = 0;
 	map->check_link = 0;
 	map->check_start = 0;
 	map->check_end = 0;
+	map->count_cells = 0;
 	return (map);
 }
 
@@ -77,11 +78,14 @@ void parse_map(t_map *map)
 	parse_count(map, line);
 	while (get_next_line(0, &line))
 	{
-		parse_start_end(map, line);
 		if (check_char(line, '-') == 1)
 			parse_links(map, line);
 		else
+		{
+			parse_start_end(map, line);
 			add_to_arr(map, line);
+			map->count_cells++;
+		}
 		free(line);
 	}
 }

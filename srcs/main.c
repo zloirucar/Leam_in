@@ -6,7 +6,7 @@
 /*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:13:09 by oelaina           #+#    #+#             */
-/*   Updated: 2019/12/29 14:04:15 by skrabby          ###   ########.fr       */
+/*   Updated: 2019/12/29 19:13:43 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static void	visual_struct(t_map *map)
 	int size;
 
 	size = 0;
-	ft_printf("START %s %d %d\n", map->start->name, map->start->y, map->start->x);
-	ft_printf("END %s %d %d\n", map->end->name, map->end->y, map->end->x);
+	ft_printf("START %s %d %d\n", map->arr_cell[map->start]->name, map->arr_cell[map->start]->y, map->arr_cell[map->start]->x);
+	ft_printf("END %s %d %d\n", map->arr_cell[map->end]->name, map->arr_cell[map->end]->y, map->arr_cell[map->end]->x);
 	ft_printf("SIZE OF MAP_ARR %d\n", map->size_arr);
 	ft_printf("COUNT = %d\n", map->count);
 	while (size < map->size_arr)
@@ -27,10 +27,9 @@ static void	visual_struct(t_map *map)
 		size++;
 	}
 	int i = 0;
-	ft_printf("SIZENEIB: %d", map->start->size_neib);
-	while (i < map->start->size_neib)
+	while (i < map->arr_cell[map->start]->size_neib)
 	{
-		ft_printf("NEIGHBOURS OF START: %s \n", map->start->neib[i]->name);
+		ft_printf("NAME OF NEIB START: %s\n", map->arr_cell[map->start]->neib[i]->name);
 		i++;
 	}
 }
@@ -41,6 +40,7 @@ int	main(void)
 
 	map = init_map();
 	parse_map(map);
+	shortest_path(map);
 	visual_struct(map);
 	return (0);
 }
