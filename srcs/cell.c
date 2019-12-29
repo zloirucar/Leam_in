@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 20:13:48 by oelaina           #+#    #+#             */
-/*   Updated: 2019/12/08 21:15:59 by oelaina          ###   ########.fr       */
+/*   Updated: 2019/12/29 14:23:51 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,12 @@ void	inc_arr_cell(t_cell ***arr_cell, int* size)
 	if (!(buff = (t_cell **)malloc(sizeof(t_cell *) * (*size))))
 		exit (1);
 	arr_cellcpy(buff, *arr_cell, *size - 1);
-	if (*size - 1 <= 0)
+	if (*size - 1 >= 0)
 		free (*arr_cell);
 	if(!(*arr_cell = (t_cell **)malloc(sizeof(t_cell *) * (*size + 1))))
 		exit (1);
 	arr_cellcpy(*arr_cell, buff, *size - 1);
-	if (*size - 1 <= 0)
+	if (*size - 1 >= 0)
 		free (buff);
 	(*size)++;
 }
