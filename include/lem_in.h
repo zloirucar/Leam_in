@@ -6,7 +6,7 @@
 /*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:09:22 by oelaina           #+#    #+#             */
-/*   Updated: 2019/12/30 20:53:00 by skrabby          ###   ########.fr       */
+/*   Updated: 2019/12/30 21:41:40 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int						check_char(char* line, char c);
 /* solver */
 void					shortest_path(t_map *map);
 t_cell					*tcell_dup(t_cell *cur);
+void					del_neib(t_map *map, t_neib *list,	char* name);
 #endif
 
 /*

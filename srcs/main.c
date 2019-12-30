@@ -6,7 +6,7 @@
 /*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:13:09 by oelaina           #+#    #+#             */
-/*   Updated: 2019/12/30 21:04:24 by skrabby          ###   ########.fr       */
+/*   Updated: 2019/12/30 21:46:37 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,12 @@ static void	visual_struct(t_map *map)
 		ft_printf("NAME: %s  DISTANCE: %d\n", map->arr_cell[size]->name, map->arr_cell[size]->distance);
 		size++;
 	}
+	
 	int i;
 	i = 0;
 	t_neib *tmp;
+	
+	del_neib(map, map->arr_cell[4]->next_neib, "E");
 	while (i < map->size_arr)
 	{
 		tmp = map->arr_cell[i]->next_neib;

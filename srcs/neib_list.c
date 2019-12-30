@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   neib_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 19:32:47 by oelaina           #+#    #+#             */
-/*   Updated: 2019/12/30 20:40:42 by oelaina          ###   ########.fr       */
+/*   Updated: 2019/12/30 22:11:44 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ t_neib	*neib_addlast(t_neib *alst, int index)
 	}
 	else
 	{
-		ft_printf("HERE2\n");
 		tmp = alst;
 		while (tmp->next)
 			tmp = tmp->next;
@@ -43,4 +42,20 @@ t_neib	*neib_addlast(t_neib *alst, int index)
 		tmp->index = index;
 	}
 	return (alst);
+}
+
+void	del_neib(t_map *map, t_neib *list,	char* name)
+{
+	t_neib *buf;
+	t_neib *next_cell;
+	t_neib *cur_cell;
+
+	if (list == NULL)
+		return;
+	cur_cell = list;
+	next_cell = cur_cell->next;
+	while (cur_cell->next != NULL)
+	{
+		cur_cell = cur_cell->next;
+	}
 }

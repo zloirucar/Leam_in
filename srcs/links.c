@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   links.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 21:52:12 by oelaina           #+#    #+#             */
-/*   Updated: 2019/12/30 20:41:24 by oelaina          ###   ########.fr       */
+/*   Updated: 2019/12/30 21:12:29 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-/*static void add_neib(t_cell *cell1, t_cell *cell2)
-{
-	inc_arr_cell(&(cell1->neib), &(cell1->size_neib));
-	inc_arr_cell(&(cell2->neib), &(cell2->size_neib));
-	cell1->neib[cell1->size_neib - 1] = cell2;
-	cell2->neib[cell2->size_neib - 1] = cell1;
-}*/
 
 static int valid_link(char **arr)
 {
@@ -54,7 +46,6 @@ static int check_names(t_map *map, char *name1, char *name2)
 	}
 	if (check1 >= 0 && check2 >= 0 && check1 != check2)
 	{
-		//add_neib(map->arr_cell[check1], map->arr_cell[check2]);
 		map->arr_cell[check1]->next_neib = neib_addlast(map->arr_cell[check1]->next_neib, check2);
 		map->arr_cell[check2]->next_neib = neib_addlast(map->arr_cell[check2]->next_neib, check1);
 		return (1);
@@ -77,7 +68,7 @@ static int find_cell(t_map *map, char *line)
 	}
 	else
 	{
-		ft_printf("LINK %s--%s\n",arr[0], arr[1]);
+		//ft_printf("LINK %s--%s\n",arr[0], arr[1]);
 		check_names(map, arr[0], arr[1]);
 		clear_2D_arr(arr);
 		return (1);

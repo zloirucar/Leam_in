@@ -6,7 +6,7 @@
 /*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/28 21:19:08 by skrabby           #+#    #+#             */
-/*   Updated: 2019/12/30 21:04:30 by skrabby          ###   ########.fr       */
+/*   Updated: 2019/12/30 21:18:28 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ void	delete_shortest_path()
 
 int	visit_nodes_neighbours(t_map *map, t_cell *this_node)
 {
-	int	i;
-	i = 0;
+
 	t_neib *tmp;
 
 	tmp = this_node->next_neib;
 	while (tmp)
-	{ 
-		ft_printf("NEIB(%s): %s\n", map->arr_cell[tmp->index]->name);
+	{
+		ft_printf("INDEX: %d:\n", tmp->index);
+		ft_printf("NEIB: %s\n", map->arr_cell[tmp->index]->name);
 		if (!map->arr_cell[tmp->index]->is_visited)
 		{
 			if ((this_node->distance + 1 < map->arr_cell[tmp->index]->distance) || map->arr_cell[tmp->index]->distance == 0)
@@ -39,7 +39,7 @@ int	visit_nodes_neighbours(t_map *map, t_cell *this_node)
 		}
 		if (map->arr_cell[tmp->index] == map->arr_cell[map->end])
 			return (1);
-		i++;
+		tmp = tmp->next;
 	}
 	return (0);
 }
