@@ -6,7 +6,7 @@
 /*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 20:13:48 by oelaina           #+#    #+#             */
-/*   Updated: 2019/12/30 18:40:11 by skrabby          ###   ########.fr       */
+/*   Updated: 2019/12/30 20:53:12 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	set_cell(t_cell *cell, char *line)
 	cell->x = ft_atoi(arr[2]);
 	cell->is_visited = 0;
 	cell->distance = 0;
-	cell->size_neib = 0;
+
 	while (arr[i] != '\0')
 	{
 //		free(arr[i]);
@@ -40,6 +40,7 @@ t_cell	*init_cell()
 
 	if(!(cell = (t_cell *)malloc(sizeof(t_cell))))
 		exit(1);
+	cell->next_neib = NULL;
 	return (cell);
 }
 
@@ -56,15 +57,13 @@ void	arr_cellcpy(t_cell **dest, t_cell **src, int size)
 		dest[size]->name = src[size]->name;
 		dest[size]->y = src[size]->y;
 		dest[size]->x = src[size]->x;
-		dest[size]->size_neib = src[size]->size_neib;
-		dest[size]->neib = src[size]->neib;
-		dest[size]->is_visited = src[size]->is_visited;
-	//	while (i < dest[size]->size_neib)
-//		{
-	//		dest[size]->neib[i] = src[size]->neib[i];
-	//		i++;
-	//	}
-	//	free (src[size]);
+	//	ft_printf("ADDRESS DEST : %p, ADDRES SRC: %p\n", dest[size]->neib, src[size]->neib);
+	/*	while (i < dest[size]->size_neib)
+		{
+			ft_printf("NAME dest %s NAME SRC %s\n", dest[size]->neib[i]->name, src[size]->neib[i]->name);
+			i++;
+		}*/
+		//free (src[size]);
 		size--;
 	}
 }
