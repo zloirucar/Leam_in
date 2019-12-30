@@ -6,7 +6,7 @@
 /*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:13:09 by oelaina           #+#    #+#             */
-/*   Updated: 2019/12/29 19:13:43 by skrabby          ###   ########.fr       */
+/*   Updated: 2019/12/30 15:01:16 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@ static void	visual_struct(t_map *map)
 		size++;
 	}
 	int i = 0;
-	while (i < map->arr_cell[map->start]->size_neib)
+	while (i < map->arr_cell[map->start]->neib[0]->size_neib)
 	{
-		ft_printf("NAME OF NEIB START: %s\n", map->arr_cell[map->start]->neib[i]->name);
+		ft_printf("NAME: %s\n", map->arr_cell[map->start]->neib[0]->name);
+		ft_printf("NAME OF NEIB START: %s\n", map->arr_cell[map->start]->neib[0]->neib[i]->name);
 		i++;
 	}
 }

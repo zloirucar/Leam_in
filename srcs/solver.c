@@ -6,7 +6,7 @@
 /*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/28 21:19:08 by skrabby           #+#    #+#             */
-/*   Updated: 2019/12/29 21:38:32 by skrabby          ###   ########.fr       */
+/*   Updated: 2019/12/30 13:35:57 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	delete_shortest_path()
 }
 
 
-void	visit_nodes_neighbours(t_cell *this_node, int distance)
+int	visit_nodes_neighbours(t_map *map, t_cell *this_node, int distance)
 {
 	int	i;
 	i = 0;
 
-	ft_printf("T: %d\n", this_node->size_neib);
+	ft_printf("NAME : %s T: %d\n", this_node->name, this_node->size_neib);
 	while (i < this_node->size_neib)
 	{ 
 		ft_printf("NEIB: %s\n", this_node->neib[i]->name);
@@ -36,22 +36,24 @@ void	visit_nodes_neighbours(t_cell *this_node, int distance)
 				this_node->neib[i]->prev = this_node;
 			}
 		}
+		if (this_node->neib[i] == map->arr_cell[map->end])
+			return (1);
 		i++;
 	}
+	return (0);
 }
 
 int		visit_node(t_map *map, t_cell *prev_node, t_cell *new_node, int distance)
 {
 	ft_printf("S: %s, %d, %d, %d\n", new_node->name, new_node->y, new_node->x, new_node->size_neib);
-	//ft_printf("T: %s, %d, %d, %d\n", map->arr_cell[4]->name, map->arr_cell[4]->y, map->arr_cell[4]->x, map->arr_cell[4]->size_neib);
 	if ((distance < new_node->distance) || new_node->distance == 0)
 	{
 		new_node->prev = prev_node;
 		new_node->distance = distance;
 	}
-	visit_nodes_neighbours(new_node, distance + 1);
+	
 	new_node->is_visited = 1;
-	if (new_node == map->arr_cell[map->end])
+	if (visit_nodes_neighbours(map, new_node, distance + 1))
 		return (1);
 	else
 		return (0);
@@ -74,38 +76,70 @@ t_cell		*tcell_dup(t_cell *cur)
 		return (prev);
 }
 
+t_cell		*checklist_addlast(t_cell *checklist, t_cell *new)
+{
+	t_cell *tmp;
+
+	tmp = checklist;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = new;
+	return (checklist);
+}
+
+void		printshort(t_map *map)
+{
+	t_cell *tmp;
+
+	tmp = map->arr_cell[map->end];
+	ft_printf("ROUTE: %s\n", tmp->name);
+	while (tmp != map->arr_cell[map->start])
+	{
+		tmp = tmp->prev;
+		ft_printf("ROUTE: %s\n", tmp->name);
+	}
+}
+
 void		shortest_path(t_map *map)
 {
 	t_cell *cur;
 	t_cell *prev;
+	t_cell *checklist;
+
 	int		distance;
 	int		i;
+	int		j;
 	
 	distance = 0;
 	i = 0;
+	j = 0;
+	checklist = NULL;
 	cur = map->arr_cell[map->start];
-	//ft_printf("CHECK: %d\n", cur->size_neib);
-	//cur = map->arr_cell[map->start]->neib[0];
-	//ft_printf("CHECK: %d \n", cur->size_neib);
+	prev = cur;
 	cur->is_visited = 1;
-	
+	ft_printf("START: %s, %d, %d, %d, %p\n", cur->name, cur->x, cur->y, cur->is_visited, &(*cur));
 	while (cur != map->arr_cell[map->end])
 	{
-		i = 0;
-		distance++;
-		prev = cur;
+		if (checklist == NULL)
+			checklist = map->arr_cell[map->start];
+		else 
+			checklist = checklist->next;
+		prev = checklist;
 		ft_printf("PREV: %s\n", prev->name);
 		while (i < prev->size_neib)
 		{
 			cur = prev->neib[i];
-			if (cur == prev)
-				i++;
-			else if (!cur->is_visited)
+			ft_printf("CURR: %s, %d, %d, %d, %p\n", cur->name, cur->x, cur->y, cur->is_visited, &(*cur));
+			if (!cur->is_visited)
 			{
+				checklist = checklist_addlast(checklist, cur);
 				if (visit_node(map, prev, cur, distance))
-					break ;
-			i++;
+				{
+					printshort(map);
+						return;
+				}
 			}
+			i++;
 		}
 	}
 }
