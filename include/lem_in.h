@@ -6,7 +6,7 @@
 /*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:09:22 by oelaina           #+#    #+#             */
-/*   Updated: 2019/12/29 21:02:11 by skrabby          ###   ########.fr       */
+/*   Updated: 2019/12/30 18:16:20 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,3 +65,27 @@ int						check_char(char* line, char c);
 void					shortest_path(t_map *map);
 t_cell					*tcell_dup(t_cell *cur);
 #endif
+
+/*
+2
+##start
+A 2 0
+##end
+H 2 6
+B 0 8
+C 4 2
+D 0 2
+E 0 4
+F 0 6
+G 4 4
+A-B
+A-E
+B-C
+C-D
+E-D
+H-D
+F-D
+E-F
+F-G
+G-H
+*/

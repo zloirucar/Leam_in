@@ -6,7 +6,7 @@
 /*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:13:09 by oelaina           #+#    #+#             */
-/*   Updated: 2019/12/30 15:01:16 by skrabby          ###   ########.fr       */
+/*   Updated: 2019/12/30 18:38:28 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	visual_struct(t_map *map)
 	ft_printf("COUNT = %d\n", map->count);
 	while (size < map->size_arr)
 	{
-		ft_printf("%s %d %d\n", map->arr_cell[size]->name, map->arr_cell[size]->y, map->arr_cell[size]->x);
+		ft_printf("NAME: %s  DISTANCE: %d\n", map->arr_cell[size]->name, map->arr_cell[size]->distance);
 		size++;
 	}
 	int i = 0;

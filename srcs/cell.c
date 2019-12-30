@@ -6,7 +6,7 @@
 /*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 20:13:48 by oelaina           #+#    #+#             */
-/*   Updated: 2019/12/30 13:35:55 by skrabby          ###   ########.fr       */
+/*   Updated: 2019/12/30 18:40:11 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	arr_cellcpy(t_cell **dest, t_cell **src, int size)
 		dest[size]->x = src[size]->x;
 		dest[size]->size_neib = src[size]->size_neib;
 		dest[size]->neib = src[size]->neib;
+		dest[size]->is_visited = src[size]->is_visited;
 	//	while (i < dest[size]->size_neib)
 //		{
 	//		dest[size]->neib[i] = src[size]->neib[i];
