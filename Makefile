@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+         #
+#    By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/05 11:23:44 by skrabby           #+#    #+#              #
-#    Updated: 2019/12/29 17:22:32 by skrabby          ###   ########.fr        #
+#    Updated: 2019/12/30 19:52:44 by oelaina          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ SRCS = main \
 	   map	\
 	   tools \
 	   links \
-	   solver
+	   solver \
+	   neib_list
 
 HEADER = 	-I./include \
 			-I./lib/libft/

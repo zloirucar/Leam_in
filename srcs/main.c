@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:13:09 by oelaina           #+#    #+#             */
-/*   Updated: 2019/12/30 15:01:16 by skrabby          ###   ########.fr       */
+/*   Updated: 2019/12/30 20:44:22 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,19 @@ static void	visual_struct(t_map *map)
 		ft_printf("%s %d %d\n", map->arr_cell[size]->name, map->arr_cell[size]->y, map->arr_cell[size]->x);
 		size++;
 	}
-	int i = 0;
-	while (i < map->arr_cell[map->start]->neib[0]->size_neib)
+	int i;
+	i = 0;
+	t_neib *tmp;
+	while (i < map->size_arr)
 	{
-		ft_printf("NAME: %s\n", map->arr_cell[map->start]->neib[0]->name);
-		ft_printf("NAME OF NEIB START: %s\n", map->arr_cell[map->start]->neib[0]->neib[i]->name);
+		tmp = map->arr_cell[i]->next_neib;
+		ft_printf("ARRNAME: %s\n", map->arr_cell[i]->name);
+		while (tmp)
+		{
+			ft_printf("NAME: %s\n", map->arr_cell[tmp->index]->name); 
+			//map->arr_cell[tmp->index]->name
+			tmp = tmp->next;
+		}
 		i++;
 	}
 }
@@ -41,7 +49,7 @@ int	main(void)
 
 	map = init_map();
 	parse_map(map);
-	shortest_path(map);
+	//shortest_path(map);
 	visual_struct(map);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:09:22 by oelaina           #+#    #+#             */
-/*   Updated: 2019/12/29 21:02:11 by skrabby          ###   ########.fr       */
+/*   Updated: 2019/12/30 20:27:15 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define LEAM_IN_H
 
 #include "libft.h"
+
+typedef	struct 			s_neib
+{
+	int					index;
+	struct	s_neib		*next;
+}						t_neib;
 
 typedef	struct			s_cell
 {
@@ -24,8 +30,7 @@ typedef	struct			s_cell
 	int					is_visited;
 	int					y;
 	int					x;
-	int					size_neib;
-	struct	s_cell		**neib;
+	t_neib				*next_neib;
 }						t_cell;
 
 typedef	struct			s_map
@@ -54,6 +59,8 @@ void					parse_start_end(t_map *map, char *line);
 void					add_to_arr(t_map *map, char *line);
 /* links operations */
 void					parse_links(t_map *map, char *line);
+t_neib					*init_neib(void);
+t_neib					*neib_addlast(t_neib *alst, int index);
 /*map operations */
 t_map					*init_map();
 void					parse_map(t_map *map);
