@@ -14,10 +14,12 @@
 # define LEAM_IN_H
 
 #include "libft.h"
+#include "stdio.h"
 
 typedef	struct 			s_neib
 {
-	int					index;
+	int					index;		// neighbors index in arr_cell
+	int					weight;		// distance from cell to neighbor
 	struct	s_neib		*next;
 }						t_neib;
 
@@ -42,12 +44,12 @@ typedef	struct			s_map
 	int					check_link;
 	int					check_start;
 	int					check_end;
+	
 	t_cell				*shortest_path;
 	t_cell				**paths;
-	t_cell				**arr_cell;
-	int					start;
-	int					end;
-
+	t_cell				**arr_cell;		// all nodes
+	int					start;			// start node index
+	int					end;			// end node index
 }						t_map;
 
 /* cell operations*/
@@ -72,6 +74,10 @@ int						check_char(char* line, char c);
 void					shortest_path(t_map *map);
 t_cell					*tcell_dup(t_cell *cur);
 void					del_neib(t_map *map, t_neib *list,	char* name);
+void					bhandari_algo(t_map *map);
+void					revert_weights(t_map *map, t_neib *list, char *find_name);
+int						get_weight(t_map *map, t_neib *list, char *find_name);
+
 #endif
 
 /*

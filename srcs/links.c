@@ -57,9 +57,7 @@ static int check_names(t_map *map, char *name1, char *name2)
 static int find_cell(t_map *map, char *line)
 {
 	char **arr;
-	int i;
 
-	i = 0;
 	arr = ft_strsplit(line, '-');
 	if (valid_link(arr) == 0)
 	{

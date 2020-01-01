@@ -18,6 +18,7 @@ t_neib		*init_neib(void)
 
 	if(!(tmp = (t_neib*)malloc(sizeof(t_neib))))
 		exit(1);
+	tmp->weight = 1;
 	tmp->next = NULL;
 	return (tmp);
 }
@@ -44,18 +45,25 @@ t_neib	*neib_addlast(t_neib *alst, int index)
 	return (alst);
 }
 
-void	del_neib(t_map *map, t_neib *list,	char* name)
+void	del_neib(t_map *map, t_neib *list,	char* find_name)
 {
-	t_neib *buf;
-	t_neib *next_cell;
+//	t_neib *begin;
+	t_neib *prev_cell;
 	t_neib *cur_cell;
 
 	if (list == NULL)
 		return;
 	cur_cell = list;
-	next_cell = cur_cell->next;
-	while (cur_cell->next != NULL)
+	while (cur_cell)
 	{
+
+		if (ft_strstr(map->arr_cell[cur_cell->index]->name, find_name))
+		{
+			printf("YESBLYAT, %s\n", map->arr_cell[cur_cell->index]->name);
+			prev_cell->next = cur_cell->next;
+			free(cur_cell);
+		}
+		prev_cell = cur_cell;
 		cur_cell = cur_cell->next;
 	}
 }
