@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solver.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/28 21:19:08 by skrabby           #+#    #+#             */
-/*   Updated: 2019/12/30 21:18:28 by skrabby          ###   ########.fr       */
+/*   Updated: 2020/01/02 18:33:41 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,7 +330,7 @@ void		save_paths(t_map *map)
 	{
 		prev = cur->prev;
 		printf("NAMEMEMEMEE: %s\n", cur->name);
-		prev = prev;
+		//prev = prev;
 		thispath = path_addlast(thispath, cur);
 		prev->next_neib = del_neib(map, prev->next_neib, cur->name);
 		cur->next_neib = del_neib(map, cur->next_neib, prev->name);

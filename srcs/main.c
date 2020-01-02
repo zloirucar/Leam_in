@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:13:09 by oelaina           #+#    #+#             */
-/*   Updated: 2019/12/30 21:46:37 by skrabby          ###   ########.fr       */
+/*   Updated: 2020/01/02 18:34:08 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int	main(void)
 
 	map = init_map();
 	parse_map(map);
-	bhandari_algo(map);
-	print_shortest(map->paths->path);
+	//bhandari_algo(map);
+	//print_shortest(map->paths->path);
 	visual_struct(map);
 	return (0);
 }

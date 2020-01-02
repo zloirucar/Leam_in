@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 11:08:20 by oelaina           #+#    #+#             */
-/*   Updated: 2019/12/21 11:29:54 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/02 18:39:07 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	clear_2D_arr(char **arr)
 	free(arr);
 }
 
-int	check_char(char* line, char c)
+int		check_char(char* line, char c)
 {
 	int i;
 
@@ -38,4 +38,10 @@ int	check_char(char* line, char c)
 		i++;
 	}
 	return (0);
+}
+
+void	error_msg(void)
+{
+	ft_fprintf(2, "ERROR\n");
+	exit (1);
 }

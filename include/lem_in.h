@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:09:22 by oelaina           #+#    #+#             */
-/*   Updated: 2019/12/30 21:41:40 by skrabby          ###   ########.fr       */
+/*   Updated: 2020/01/02 18:58:22 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef	struct			s_map
 	int					check_link;
 	int					check_start;
 	int					check_end;
+	int					check_count;
 	t_finpaths			*paths;
 	t_path				*shortest_path;
 	t_path				*delete_path;
@@ -79,10 +80,11 @@ t_neib					*neib_addlast(t_neib *alst, int index);
 /*map operations */
 t_map					*init_map();
 void					parse_map(t_map *map);
-void					parse_count(t_map *map, char *line);
+int						parse_count(t_map *map, char *line);
 /* tools */
 void					clear_2D_arr(char **arr);
 int						check_char(char* line, char c);
+void					error_msg(void);
 /* solver */
 int						shortest_path(t_map *map);
 t_cell					*tcell_dup(t_cell *cur);

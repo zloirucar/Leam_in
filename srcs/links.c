@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   links.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 21:52:12 by oelaina           #+#    #+#             */
-/*   Updated: 2019/12/30 21:12:29 by skrabby          ###   ########.fr       */
+/*   Updated: 2020/01/02 19:07:40 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ static int find_cell(t_map *map, char *line)
 	else
 	{
 		//ft_printf("LINK %s--%s\n",arr[0], arr[1]);
-		check_names(map, arr[0], arr[1]);
+		if (check_names(map, arr[0], arr[1]) == 0)
+			error_msg();
 		clear_2D_arr(arr);
 		return (1);
 	}
@@ -78,15 +79,9 @@ void		parse_links(t_map *map, char *line)
 	if (map->check_start == 1 && map->check_end == 1)
 	{
 		if (find_cell(map, line) == 0)
-		{
-			ft_fprintf(2, "ERROR\n");
-			exit(1);
-		}
+			error_msg();
 		map->check_link = 1;
 	}
 	else
-	{
-		ft_fprintf(2, "ERROR\n");
-		exit(1);
-	}
+		error_msg();
 }

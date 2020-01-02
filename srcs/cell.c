@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cell.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 20:13:48 by oelaina           #+#    #+#             */
-/*   Updated: 2019/12/30 20:53:12 by skrabby          ###   ########.fr       */
+/*   Updated: 2020/01/02 18:32:27 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	arr_cellcpy(t_cell **dest, t_cell **src, int size)
 		dest[size]->name = src[size]->name;
 		dest[size]->y = src[size]->y;
 		dest[size]->x = src[size]->x;
-		dest[size]->index = src[size]->index;
+		//dest[size]->index = src[size]->index;
 	//	ft_printf("ADDRESS DEST : %p, ADDRES SRC: %p\n", dest[size]->neib, src[size]->neib);
 /*		while (i < dest[size]->size_neib)
 		{
