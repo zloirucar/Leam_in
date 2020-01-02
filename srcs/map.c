@@ -41,8 +41,9 @@ void add_to_arr(t_map *map, char *line)
 	else
 		inc_arr_cell(&(map->arr_cell), &(map->size_arr));
 	map->arr_cell[map->size_arr - 1] = init_cell();
-	set_cell(map->arr_cell[map->size_arr - 1], line);
+	set_cell(map->arr_cell[map->size_arr - 1], line, map->size_arr - 1);
 	map->check_cell = 1;
+	
 }
 
 t_map *init_map()
@@ -52,6 +53,9 @@ t_map *init_map()
 	if (!(map = (t_map *)malloc(sizeof(t_map))))
 		exit(1);
 	map->arr_cell = NULL;
+	map->delete_path = NULL;
+	map->shortest_path = NULL;
+	map->paths = NULL;
 	map->end = 0;
 	map->start = 0;
 	map->size_arr = 0;

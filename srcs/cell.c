@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-void	set_cell(t_cell *cell, char *line)
+void	set_cell(t_cell *cell, char *line, int index)
 {
 	char	**arr;
 	int		i;
@@ -24,6 +24,10 @@ void	set_cell(t_cell *cell, char *line)
 	cell->x = ft_atoi(arr[2]);
 	cell->is_visited = 0;
 	cell->distance = 0;
+	cell->prev = NULL;
+	cell->next = NULL;
+	cell->next_neib = NULL;
+	cell->index = index;
 	while (arr[i])
 	{
 //		free(arr[i]);
@@ -39,7 +43,6 @@ t_cell	*init_cell()
 
 	if(!(cell = (t_cell *)malloc(sizeof(t_cell))))
 		exit(1);
-	cell->next_neib = NULL;
 	return (cell);
 }
 
@@ -51,6 +54,7 @@ void	arr_cellcpy(t_cell **dest, t_cell **src, int size)
 		dest[size]->name = src[size]->name;
 		dest[size]->y = src[size]->y;
 		dest[size]->x = src[size]->x;
+		dest[size]->index = src[size]->index;
 	//	ft_printf("ADDRESS DEST : %p, ADDRES SRC: %p\n", dest[size]->neib, src[size]->neib);
 /*		while (i < dest[size]->size_neib)
 		{

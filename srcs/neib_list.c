@@ -32,6 +32,7 @@ t_neib	*neib_addlast(t_neib *alst, int index)
 	{
 		alst = init_neib();
 		alst->index = index;
+		alst->next = NULL;
 	}
 	else
 	{
@@ -45,25 +46,31 @@ t_neib	*neib_addlast(t_neib *alst, int index)
 	return (alst);
 }
 
-void	del_neib(t_map *map, t_neib *list,	char* find_name)
+t_neib	*del_neib(t_map *map, t_neib *list,	char* find_name)
 {
-//	t_neib *begin;
 	t_neib *prev_cell;
 	t_neib *cur_cell;
-
+	t_neib *begin;
+	
 	if (list == NULL)
-		return;
+		return NULL;
+	begin = list;
 	cur_cell = list;
+	prev_cell = NULL;
 	while (cur_cell)
 	{
-
 		if (ft_strstr(map->arr_cell[cur_cell->index]->name, find_name))
 		{
 			printf("YESBLYAT, %s\n", map->arr_cell[cur_cell->index]->name);
-			prev_cell->next = cur_cell->next;
+			if (prev_cell)
+				prev_cell->next = cur_cell->next;
+			else
+				begin = cur_cell->next;
 			free(cur_cell);
+			return (begin);
 		}
 		prev_cell = cur_cell;
 		cur_cell = cur_cell->next;
 	}
+	return (begin);
 }

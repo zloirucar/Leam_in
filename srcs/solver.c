@@ -30,6 +30,13 @@ int	visit_nodes_neighbours(t_map *map, t_cell *this_node)
 			{
 				map->arr_cell[tmp->index]->distance = this_node->distance + weight;
 				map->arr_cell[tmp->index]->prev = this_node;
+				if (weight == -1)
+				{
+					printf("DELETE ROUTE: %s, %s\n", this_node->name, map->arr_cell[tmp->index]->name);
+				//	del_neib(map, this_node->next_neib, map->arr_cell[tmp->index]->name);
+					map->delete_path = path_addlast(map->delete_path, this_node);
+					map->delete_path = path_addlast(map->delete_path, map->arr_cell[tmp->index]);
+				}
 			}
 		}
 		if (map->arr_cell[tmp->index] == map->arr_cell[map->end])
@@ -61,10 +68,13 @@ int		get_weight(t_map *map, t_neib *list, char *find_name)
 
 int		visit_node(t_map *map, t_cell *prev_node, t_cell *new_node)
 {
-	if ((prev_node->distance + 1 < new_node->distance) || new_node->distance == 0)
+	int weight;
+
+	weight = get_weight(map, prev_node->next_neib, new_node->name);
+	if ((prev_node->distance + weight < new_node->distance) || new_node->distance == 0)
 	{
 		new_node->prev = prev_node;
-		new_node->distance = prev_node->distance + get_weight(map, prev_node->next_neib, new_node->name);
+		new_node->distance = prev_node->distance + weight;
 	}	
 	new_node->is_visited = 1;
 	if (visit_nodes_neighbours(map, new_node))
@@ -78,10 +88,18 @@ t_cell		*checklist_addlast(t_cell *checklist, t_cell *new)
 	t_cell *tmp;
 
 	tmp = checklist;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = new;
-	tmp->next->next = NULL;
+	if (tmp == NULL)
+	{
+		tmp = new;
+		tmp->next = NULL;
+	}
+	else
+	{
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+		tmp->next->next = NULL;
+	}
 	return (checklist);
 }
 
@@ -100,7 +118,7 @@ void		printshort(t_map *map)
 
 //Dijkstra's Algorithm
 
-void		shortest_path(t_map *map)
+int		shortest_path(t_map *map)
 {
 	t_cell *cur;
 	t_cell *prev;
@@ -131,15 +149,16 @@ void		shortest_path(t_map *map)
 				if (visit_node(map, prev, cur))
 				{
 					printshort(map);
-						return;
+						return (1);
 				}
 			}
 			tmp = tmp->next;
 		}
 	}
+	return (0);
 }
 
-void		reload_map(t_map *map)
+void		update_map(t_map *map)
 {
 	int i;
 
@@ -165,16 +184,164 @@ void	revert_weights(t_map *map, t_neib *list, char *find_name)
 
 		if (ft_strstr(map->arr_cell[cur_cell->index]->name, find_name))
 		{
-			printf("SOOQABLYAT, %s\n", map->arr_cell[cur_cell->index]->name);
-			cur_cell->weight = -1;
+			cur_cell->weight *= -1;
+			printf("CHECK WEIGHT:  NAME:%s WEIGHT: %d\n", map->arr_cell[cur_cell->index]->name, cur_cell->weight);
 		}
 		cur_cell = cur_cell->next;
 	}
 }
 
+void print_shortest(t_path *list)
+{
+	t_path *tmp;
+
+	tmp = list;
+	printf("ADSPOASDJASOPDJ\n");
+	while (tmp)
+	{
+		printf("SHORT ROUTE: %s\n", tmp->cell->name);
+		tmp = tmp->next;
+	}
+}
+
+t_path		*init_path(void)
+{
+	t_path	*tmp;
+
+	if(!(tmp = (t_path*)malloc(sizeof(t_path))))
+		exit(1);
+	tmp->next = NULL;
+	return (tmp);
+}
+
+t_path	*path_addlast(t_path *alst, t_cell *cell)
+{
+	t_path	*tmp;
+
+	tmp = NULL;
+	if (alst == NULL)
+	{
+		alst = init_path();
+		alst->cell = cell;
+		alst->next = NULL;
+	}
+	else
+	{
+		tmp = alst;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = init_path();
+		tmp->next->cell = cell;
+		tmp->next->next = NULL;
+	}
+	return (alst);
+}
+
+t_path		*revert_path(t_path *path)
+{
+	t_path *prev;
+	t_path *curr;
+	t_path *next;
+
+	curr = path;
+	prev = NULL;
+	next = path;
+
+	while (curr != NULL)
+	{
+		next = next->next;
+		curr->next = prev;
+		prev = curr;
+		curr = next;
+	}
+	return (prev);
+}
+
+void	return_neib(t_map *map)
+{
+	t_path *tmp;
+
+	tmp = map->shortest_path;
+	while (tmp->next)
+	{
+		neib_addlast(tmp->cell->next_neib, tmp->next->cell->index);
+		revert_weights(map, tmp->next->cell->next_neib, tmp->cell->name);
+		tmp = tmp->next;
+	}
+}
+
+void	delete_path(t_map *map)
+{
+	t_path *tmp;
+
+	tmp = map->delete_path;
+	while(tmp)
+	{
+		tmp->cell->next_neib = del_neib(map, tmp->cell->next_neib, tmp->next->cell->name);
+		tmp->next->cell->next_neib = del_neib(map, tmp->next->cell->next_neib, tmp->cell->name);
+		tmp = tmp->next->next;
+	}
+}
+
+t_finpaths		*init_finpaths(void)
+{
+	t_finpaths	*tmp;
+
+	if(!(tmp = (t_finpaths*)malloc(sizeof(t_finpaths))))
+		exit(1);
+	tmp->next = NULL;
+	return (tmp);
+}
+
+t_finpaths	*paths_addlast(t_finpaths *list, t_path *new_path)
+{
+	t_finpaths	*tmp;
+
+	tmp = NULL;
+	if (list == NULL)
+	{
+		list = init_finpaths();
+		list->path = new_path;
+		list->next = NULL;
+	}
+	else
+	{
+		tmp = list;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = init_finpaths();
+		tmp = tmp->next;
+		tmp->path = new_path;
+	}
+	return (list);
+}
+
 //Bhandari Disjoint Path Finding
 
-void		bhandari_algo(t_map *map)
+void		save_paths(t_map *map)
+{
+	t_cell *cur;
+	t_cell *prev;
+	t_path *thispath;
+
+	thispath = NULL;
+	cur = map->arr_cell[map->end];
+	while (cur != map->arr_cell[map->start])
+	{
+		prev = cur->prev;
+		printf("NAMEMEMEMEE: %s\n", cur->name);
+		prev = prev;
+		thispath = path_addlast(thispath, cur);
+		prev->next_neib = del_neib(map, prev->next_neib, cur->name);
+		cur->next_neib = del_neib(map, cur->next_neib, prev->name);
+		cur = cur->prev;
+	}
+	thispath = path_addlast(thispath, cur);
+	thispath = revert_path(thispath);
+	map->paths = paths_addlast(map->paths, thispath);
+}
+
+void		bellman_ford_weights(t_map *map)
 {
 	t_cell *cur;
 	t_cell *prev;
@@ -183,10 +350,27 @@ void		bhandari_algo(t_map *map)
 	while (cur != map->arr_cell[map->start])
 	{
 		prev = cur->prev;
-		del_neib(map, prev->next_neib, cur->name);
+		map->shortest_path = path_addlast(map->shortest_path, cur);
+		prev->next_neib = del_neib(map, prev->next_neib, cur->name);
 		revert_weights(map, cur->next_neib, prev->name);
 		cur = cur->prev;
 	}
-	reload_map(map);
-	shortest_path(map);
+	map->shortest_path = path_addlast(map->shortest_path, cur);
+	map->shortest_path = revert_path(map->shortest_path);
+}
+
+void		bhandari_algo(t_map *map)
+{
+	shortest_path(map); // find shortest path
+	bellman_ford_weights(map); // revert weights of sp
+	update_map(map); // update new map
+	shortest_path(map); // find sp again
+	return_neib(map); // revert weights and route back to normal
+	delete_path(map); // delete intersected paths
+	update_map(map); // update map once again
+	shortest_path(map); // our final paths;
+	save_paths(map); // save it + delete the route
+	update_map(map);
+	//print_shortest(map->shortest_path);
+	//print_shortest(map->delete_path);	
 }

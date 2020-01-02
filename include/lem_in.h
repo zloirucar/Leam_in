@@ -28,12 +28,25 @@ typedef	struct			s_cell
 	char				*name;
 	struct	s_cell		*next;
 	struct	s_cell		*prev;
+	int					index;		// index in arr_cell
 	int					distance;
 	int					is_visited;
 	int					y;
 	int					x;
 	t_neib				*next_neib;
 }						t_cell;
+
+typedef struct			s_path
+{
+	t_cell				*cell;
+	struct	s_path		*next;
+}						t_path;
+
+typedef struct			s_finpaths
+{
+	t_path				*path;	
+	struct s_finpaths	*next;
+}						t_finpaths;
 
 typedef	struct			s_map
 {
@@ -44,9 +57,9 @@ typedef	struct			s_map
 	int					check_link;
 	int					check_start;
 	int					check_end;
-	
-	t_cell				*shortest_path;
-	t_cell				**paths;
+	t_finpaths			*paths;
+	t_path				*shortest_path;
+	t_path				*delete_path;
 	t_cell				**arr_cell;		// all nodes
 	int					start;			// start node index
 	int					end;			// end node index
@@ -54,7 +67,7 @@ typedef	struct			s_map
 
 /* cell operations*/
 t_cell					*init_cell();
-void					set_cell(t_cell *cell, char *line);
+void					set_cell(t_cell *cell, char *line, int index);
 void					arr_cellcpy(t_cell **dest, t_cell **src, int size);
 void					inc_arr_cell(t_cell ***arr_cell, int* size);
 void					parse_start_end(t_map *map, char *line);
@@ -71,12 +84,21 @@ void					parse_count(t_map *map, char *line);
 void					clear_2D_arr(char **arr);
 int						check_char(char* line, char c);
 /* solver */
-void					shortest_path(t_map *map);
+int						shortest_path(t_map *map);
 t_cell					*tcell_dup(t_cell *cur);
-void					del_neib(t_map *map, t_neib *list,	char* name);
+t_neib					*del_neib(t_map *map, t_neib *list,	char* name);
 void					bhandari_algo(t_map *map);
 void					revert_weights(t_map *map, t_neib *list, char *find_name);
 int						get_weight(t_map *map, t_neib *list, char *find_name);
+
+/* paths */
+t_path					*init_path(void);
+t_path					*path_addlast(t_path *alst, t_cell *cell);
+void					print_shortest(t_path *list);
+t_path					*revert_path(t_path *path);
+void					save_paths(t_map *map);
+t_finpaths				*paths_addlast(t_finpaths *list, t_path *new_path);
+t_finpaths				*init_finpaths(void);
 
 #endif
 
