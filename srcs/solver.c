@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/28 21:19:08 by skrabby           #+#    #+#             */
-/*   Updated: 2020/01/02 18:33:41 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/02 19:53:18 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -359,7 +359,7 @@ void		bellman_ford_weights(t_map *map)
 	map->shortest_path = revert_path(map->shortest_path);
 }
 
-void		bhandari_algo(t_map *map)
+void	gitbhandari_algo(t_map *map)
 {
 	shortest_path(map); // find shortest path
 	bellman_ford_weights(map); // revert weights of sp

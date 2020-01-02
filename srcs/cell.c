@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 20:13:48 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/02 18:32:27 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/02 19:44:31 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	set_cell(t_cell *cell, char *line, int index)
 	cell->index = index;
 	while (arr[i])
 	{
-//		free(arr[i]);
+		free(arr[i]);
 		i++;
 	}
-//	free (arr[i]);
-//	free(arr);
+	free (arr[i]);
+	free(arr);
 }
 
 t_cell	*init_cell()
@@ -43,6 +43,7 @@ t_cell	*init_cell()
 
 	if(!(cell = (t_cell *)malloc(sizeof(t_cell))))
 		exit(1);
+	cell->next_neib = NULL;
 	return (cell);
 }
 
@@ -54,6 +55,7 @@ void	arr_cellcpy(t_cell **dest, t_cell **src, int size)
 		dest[size]->name = src[size]->name;
 		dest[size]->y = src[size]->y;
 		dest[size]->x = src[size]->x;
+		//(*dest[size]).next_neib = (*src[size]).next_neib;
 		//dest[size]->index = src[size]->index;
 	//	ft_printf("ADDRESS DEST : %p, ADDRES SRC: %p\n", dest[size]->neib, src[size]->neib);
 /*		while (i < dest[size]->size_neib)
@@ -61,7 +63,8 @@ void	arr_cellcpy(t_cell **dest, t_cell **src, int size)
 			ft_printf("NAME dest %s NAME SRC %s\n", dest[size]->neib[i]->name, src[size]->neib[i]->name);
 			i++;
 		}*/
-		//free (src[size]);
+		free (src[size]);
+		free (src[size]->next_neib);
 		size--;
 	}
 }
@@ -74,11 +77,11 @@ void	inc_arr_cell(t_cell ***arr_cell, int* size)
 		exit (1);
 	arr_cellcpy(buff, *arr_cell, *size - 1);
 	//if (*size - 1 >= 0)
-	//	free (*arr_cell);
+		free (*arr_cell);
 	if(!(*arr_cell = (t_cell **)malloc(sizeof(t_cell *) * (*size + 1))))
 		exit (1);
 	arr_cellcpy(*arr_cell, buff, *size - 1);
-	if (*size - 1 >= 0)
+	//if (*size - 1 >= 0)
 		free (buff);
 	(*size)++;
 }
