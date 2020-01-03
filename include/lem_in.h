@@ -14,7 +14,7 @@
 # define LEAM_IN_H
 
 #include "libft.h"
-#include "stdio.h"
+#include <stdio.h>
 
 typedef	struct 			s_neib
 {
@@ -26,14 +26,14 @@ typedef	struct 			s_neib
 typedef	struct			s_cell
 {
 	char				*name;
-	struct	s_cell		*next;
-	struct	s_cell		*prev;
+	struct	s_cell		*next;		// this pointer is responsible for saving nodes in a check-priority hierarchy list (checklist) as we explore the map
+	struct	s_cell		*prev;		// this pointer is crucial in implementing dijkstra algo, saving the shortest path
 	int					index;		// index in arr_cell
 	int					distance;
 	int					is_visited;
 	int					y;
 	int					x;
-	t_neib				*next_neib;
+	t_neib				*next_neib; // the list of nodes' neighbors, i. e. other nodes, which our node is connect to 
 }						t_cell;
 
 typedef struct			s_path
@@ -58,9 +58,9 @@ typedef	struct			s_map
 	int					check_start;
 	int					check_end;
 	int					check_count;
-	t_finpaths			*paths;
-	t_path				*shortest_path;
-	t_path				*delete_path;
+	t_finpaths			*rev_paths; // the storage of all paths that made it to finish and have been reverted, so we can later revert it back
+	t_finpaths			*paths; // our final solution paths
+	t_path				*delete_path; // the storage of nodes, the paths of which we are going to delete (by 2 nodes at once) 
 	t_cell				**arr_cell;		// all nodes
 	int					start;			// start node index
 	int					end;			// end node index
@@ -90,7 +90,7 @@ int						shortest_path(t_map *map);
 t_cell					*tcell_dup(t_cell *cur);
 t_neib					*del_neib(t_map *map, t_neib *list,	char* name);
 void					bhandari_algo(t_map *map);
-void					revert_weights(t_map *map, t_neib *list, char *find_name);
+int						revert_weights(t_map *map, t_neib *list, char *find_name);
 int						get_weight(t_map *map, t_neib *list, char *find_name);
 
 /* paths */

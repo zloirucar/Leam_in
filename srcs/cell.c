@@ -56,7 +56,7 @@ void	arr_cellcpy(t_cell **dest, t_cell **src, int size)
 		dest[size]->y = src[size]->y;
 		dest[size]->x = src[size]->x;
 		//(*dest[size]).next_neib = (*src[size]).next_neib;
-		//dest[size]->index = src[size]->index;
+		dest[size]->index = src[size]->index;
 	//	ft_printf("ADDRESS DEST : %p, ADDRES SRC: %p\n", dest[size]->neib, src[size]->neib);
 /*		while (i < dest[size]->size_neib)
 		{

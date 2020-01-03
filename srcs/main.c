@@ -34,10 +34,10 @@ static void	visual_struct(t_map *map)
 	while (i < map->size_arr)
 	{
 		tmp = map->arr_cell[i]->next_neib;
-		printf("ARRNAME: %s\n", map->arr_cell[i]->name);
+		printf("[NODE]: %s\n", map->arr_cell[i]->name);
 		while (tmp)
 		{
-			ft_printf("NAME: %s\n", map->arr_cell[tmp->index]->name); 
+			ft_printf("NEIB: %s\n", map->arr_cell[tmp->index]->name); 
 			//map->arr_cell[tmp->index]->name
 			tmp = tmp->next;
 		}
@@ -51,8 +51,10 @@ int	main(void)
 
 	map = init_map();
 	parse_map(map);
-//	bhandari_algo(map);
-//	print_shortest(map->paths->path);
+	bhandari_algo(map);
+	print_shortest(map->rev_paths->path);
+	print_shortest(map->rev_paths->next->path);
+	print_shortest(map->delete_path);
 	visual_struct(map);
 	return (0);
 }

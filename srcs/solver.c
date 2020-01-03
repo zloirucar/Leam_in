@@ -30,13 +30,13 @@ int	visit_nodes_neighbours(t_map *map, t_cell *this_node)
 			{
 				map->arr_cell[tmp->index]->distance = this_node->distance + weight;
 				map->arr_cell[tmp->index]->prev = this_node;
-				if (weight == -1)
-				{
-					printf("DELETE ROUTE: %s, %s\n", this_node->name, map->arr_cell[tmp->index]->name);
+	//			if (weight == -1)
+	//			{
+				//	printf("DELETE ROUTE: %s, %s\n", this_node->name, map->arr_cell[tmp->index]->name);
 				//	del_neib(map, this_node->next_neib, map->arr_cell[tmp->index]->name);
-					map->delete_path = path_addlast(map->delete_path, this_node);
-					map->delete_path = path_addlast(map->delete_path, map->arr_cell[tmp->index]);
-				}
+	//				map->delete_path = path_addlast(map->delete_path, this_node);
+	//				map->delete_path = path_addlast(map->delete_path, map->arr_cell[tmp->index]);
+	//			}
 			}
 		}
 		if (map->arr_cell[tmp->index] == map->arr_cell[map->end])
@@ -125,17 +125,13 @@ int		shortest_path(t_map *map)
 	t_cell *checklist;
 	t_neib *tmp;
 
-	checklist = NULL;
+	checklist = map->arr_cell[map->start];
 	cur = map->arr_cell[map->start];
 	prev = cur;
 	cur->is_visited = 1;
 	cur->distance = 0;
-	while (cur != map->arr_cell[map->end])
+	while (cur != map->arr_cell[map->end] && checklist)
 	{
-		if (checklist == NULL)
-			checklist = map->arr_cell[map->start];
-		else 
-			checklist = checklist->next;
 		prev = checklist;
 		printf("(PREV) NAME: %s\n", prev->name);
 		tmp = prev->next_neib;
@@ -154,6 +150,7 @@ int		shortest_path(t_map *map)
 			}
 			tmp = tmp->next;
 		}
+		checklist = checklist->next;
 	}
 	return (0);
 }
@@ -168,26 +165,8 @@ void		update_map(t_map *map)
 		map->arr_cell[i]->distance = 0;
 		map->arr_cell[i]->is_visited = 0;
 		map->arr_cell[i]->prev = NULL;
+		map->arr_cell[i]->next = NULL;
 		i++;
-	}
-}
-
-void	revert_weights(t_map *map, t_neib *list, char *find_name)
-{
-	t_neib *cur_cell;
-
-	if (list == NULL)
-		return;
-	cur_cell = list;
-	while (cur_cell)
-	{
-
-		if (ft_strstr(map->arr_cell[cur_cell->index]->name, find_name))
-		{
-			cur_cell->weight *= -1;
-			printf("CHECK WEIGHT:  NAME:%s WEIGHT: %d\n", map->arr_cell[cur_cell->index]->name, cur_cell->weight);
-		}
-		cur_cell = cur_cell->next;
 	}
 }
 
@@ -195,6 +174,8 @@ void print_shortest(t_path *list)
 {
 	t_path *tmp;
 
+	if (!list)
+		return ;
 	tmp = list;
 	printf("ADSPOASDJASOPDJ\n");
 	while (tmp)
@@ -259,13 +240,19 @@ t_path		*revert_path(t_path *path)
 
 void	return_neib(t_map *map)
 {
-	t_path *tmp;
+	t_finpaths *tmp;
 
-	tmp = map->shortest_path;
-	while (tmp->next)
+	tmp = map->rev_paths;
+	while (tmp)
 	{
-		neib_addlast(tmp->cell->next_neib, tmp->next->cell->index);
-		revert_weights(map, tmp->next->cell->next_neib, tmp->cell->name);
+		while (tmp->path->next)
+		{
+			printf("RETURN CELL NAME: %s\n", tmp->path->cell->name);
+			printf("RETURN CELL NEIB: %s\n", tmp->path->next->cell->name);
+			tmp->path->cell->next_neib = neib_addlast(tmp->path->cell->next_neib, tmp->path->next->cell->index);
+			revert_weights(map, tmp->path->next->cell->next_neib, tmp->path->cell->name);
+			tmp->path = tmp->path->next;
+		}
 		tmp = tmp->next;
 	}
 }
@@ -341,26 +328,61 @@ void		save_paths(t_map *map)
 	map->paths = paths_addlast(map->paths, thispath);
 }
 
+int			revert_weights(t_map *map, t_neib *list, char *find_name)
+{
+	t_neib *cur_cell;
+
+	cur_cell = list;
+	while (cur_cell)
+	{
+		if (ft_strstr(map->arr_cell[cur_cell->index]->name, find_name))
+		{
+			cur_cell->weight *= -1;
+			printf("CHECK WEIGHT:  NAME:%s WEIGHT: %d\n", map->arr_cell[cur_cell->index]->name, cur_cell->weight);
+			return (1);
+		}
+		cur_cell = cur_cell->next;
+	}
+	return (0);
+}
+
 void		bellman_ford_weights(t_map *map)
 {
 	t_cell *cur;
 	t_cell *prev;
+	t_path *thispath;
 
+	thispath = NULL;
 	cur = map->arr_cell[map->end];
 	while (cur != map->arr_cell[map->start])
 	{
 		prev = cur->prev;
-		map->shortest_path = path_addlast(map->shortest_path, cur);
+		thispath = path_addlast(thispath, cur);
 		prev->next_neib = del_neib(map, prev->next_neib, cur->name);
-		revert_weights(map, cur->next_neib, prev->name);
+		if (!(revert_weights(map, cur->next_neib, prev->name)))
+		{
+			map->delete_path = path_addlast(map->delete_path, cur);
+			map->delete_path = path_addlast(map->delete_path, prev);
+		}
 		cur = cur->prev;
 	}
-	map->shortest_path = path_addlast(map->shortest_path, cur);
-	map->shortest_path = revert_path(map->shortest_path);
+	thispath = path_addlast(thispath, cur);
+	thispath = revert_path(thispath);
+	map->rev_paths = paths_addlast(map->rev_paths, thispath);
 }
 
-void	gitbhandari_algo(t_map *map)
+void	bhandari_algo(t_map *map)
 {
+	while (shortest_path(map))
+	{
+		bellman_ford_weights(map);
+		update_map(map);
+	}
+	return_neib(map);
+	delete_path(map);
+	update_map(map);
+	shortest_path(map); // pustim opyat' v cikl , nado F-D otsech' eshe i perfect 
+	/*
 	shortest_path(map); // find shortest path
 	bellman_ford_weights(map); // revert weights of sp
 	update_map(map); // update new map
@@ -370,7 +392,7 @@ void	gitbhandari_algo(t_map *map)
 	update_map(map); // update map once again
 	shortest_path(map); // our final paths;
 	save_paths(map); // save it + delete the route
-	update_map(map);
+	update_map(map);*/
 	//print_shortest(map->shortest_path);
 	//print_shortest(map->delete_path);	
 }

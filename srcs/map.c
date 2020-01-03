@@ -55,7 +55,7 @@ t_map *init_map()
 		exit(1);
 	map->arr_cell = NULL;
 	map->delete_path = NULL;
-	map->shortest_path = NULL;
+	map->rev_paths = NULL;
 	map->paths = NULL;
 	map->end = 0;
 	map->start = 0;
