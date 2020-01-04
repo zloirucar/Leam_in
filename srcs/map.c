@@ -51,12 +51,13 @@ t_map *init_map()
 {
 	t_map *map;
 
-	if (!(map = (t_map *)malloc(sizeof(t_map))))
+	if (!(map = (t_map *)malloc(sizeof(t_map) * 100)))
 		exit(1);
 	map->arr_cell = NULL;
 	map->delete_path = NULL;
 	map->rev_paths = NULL;
 	map->paths = NULL;
+	map->edges = NULL;
 	map->end = 0;
 	map->start = 0;
 	map->size_arr = 0;

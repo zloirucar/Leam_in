@@ -260,13 +260,21 @@ void	return_neib(t_map *map)
 void	delete_path(t_map *map)
 {
 	t_path *tmp;
+	t_edge *unused;
 
 	tmp = map->delete_path;
+	unused = map->edges;
 	while(tmp)
 	{
 		tmp->cell->next_neib = del_neib(map, tmp->cell->next_neib, tmp->next->cell->name);
 		tmp->next->cell->next_neib = del_neib(map, tmp->next->cell->next_neib, tmp->cell->name);
 		tmp = tmp->next->next;
+	}
+	while (unused)
+	{
+		unused->first_node->next_neib = del_neib(map, unused->first_node->next_neib, unused->second_node->name);
+		unused->second_node->next_neib = del_neib(map, unused->second_node->next_neib, unused->first_node->name);
+		unused = unused->next;
 	}
 }
 
@@ -316,8 +324,6 @@ void		save_paths(t_map *map)
 	while (cur != map->arr_cell[map->start])
 	{
 		prev = cur->prev;
-		printf("NAMEMEMEMEE: %s\n", cur->name);
-		//prev = prev;
 		thispath = path_addlast(thispath, cur);
 		prev->next_neib = del_neib(map, prev->next_neib, cur->name);
 		cur->next_neib = del_neib(map, cur->next_neib, prev->name);
@@ -364,6 +370,7 @@ void		bellman_ford_weights(t_map *map)
 			map->delete_path = path_addlast(map->delete_path, cur);
 			map->delete_path = path_addlast(map->delete_path, prev);
 		}
+		map->edges = remove_used_edge(map, cur->name, prev->name);
 		cur = cur->prev;
 	}
 	thispath = path_addlast(thispath, cur);
@@ -381,7 +388,11 @@ void	bhandari_algo(t_map *map)
 	return_neib(map);
 	delete_path(map);
 	update_map(map);
-	shortest_path(map); // pustim opyat' v cikl , nado F-D otsech' eshe i perfect 
+	while (shortest_path(map))
+	{
+		save_paths(map);
+		update_map(map);
+	}
 	/*
 	shortest_path(map); // find shortest path
 	bellman_ford_weights(map); // revert weights of sp

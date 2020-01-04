@@ -23,6 +23,7 @@ typedef	struct 			s_neib
 	struct	s_neib		*next;
 }						t_neib;
 
+
 typedef	struct			s_cell
 {
 	char				*name;
@@ -35,6 +36,14 @@ typedef	struct			s_cell
 	int					x;
 	t_neib				*next_neib; // the list of nodes' neighbors, i. e. other nodes, which our node is connect to 
 }						t_cell;
+
+typedef struct			s_edge
+{
+	t_cell				*first_node;
+	t_cell				*second_node;	
+	int					used;
+	struct s_edge		*next;
+}						t_edge;
 
 typedef struct			s_path
 {
@@ -62,6 +71,7 @@ typedef	struct			s_map
 	t_finpaths			*paths; // our final solution paths
 	t_path				*delete_path; // the storage of nodes, the paths of which we are going to delete (by 2 nodes at once) 
 	t_cell				**arr_cell;		// all nodes
+	t_edge				*edges;
 	int					start;			// start node index
 	int					end;			// end node index
 }						t_map;
@@ -101,6 +111,11 @@ t_path					*revert_path(t_path *path);
 void					save_paths(t_map *map);
 t_finpaths				*paths_addlast(t_finpaths *list, t_path *new_path);
 t_finpaths				*init_finpaths(void);
+
+/* edges */
+t_edge					*edge_addlast(t_edge *list, t_cell *fnode, t_cell *snode);
+t_edge					*init_edge(void);
+t_edge					*remove_used_edge(t_map *map, char *fnode_name, char *snode_name);
 
 #endif
 

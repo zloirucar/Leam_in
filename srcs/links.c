@@ -46,6 +46,7 @@ static int check_names(t_map *map, char *name1, char *name2)
 	}
 	if (check1 >= 0 && check2 >= 0 && check1 != check2)
 	{
+		map->edges = edge_addlast(map->edges, map->arr_cell[check1], map->arr_cell[check2]);
 		map->arr_cell[check1]->next_neib = neib_addlast(map->arr_cell[check1]->next_neib, check2);
 		map->arr_cell[check2]->next_neib = neib_addlast(map->arr_cell[check2]->next_neib, check1);
 		return (1);
