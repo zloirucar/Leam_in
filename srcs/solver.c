@@ -192,6 +192,7 @@ t_path		*init_path(void)
 	if(!(tmp = (t_path*)malloc(sizeof(t_path))))
 		exit(1);
 	tmp->next = NULL;
+	tmp->prev = NULL;
 	return (tmp);
 }
 
@@ -204,7 +205,6 @@ t_path	*path_addlast(t_path *alst, t_cell *cell)
 	{
 		alst = init_path();
 		alst->cell = cell;
-		alst->next = NULL;
 	}
 	else
 	{
@@ -213,7 +213,7 @@ t_path	*path_addlast(t_path *alst, t_cell *cell)
 			tmp = tmp->next;
 		tmp->next = init_path();
 		tmp->next->cell = cell;
-		tmp->next->next = NULL;
+		//tmp->next->prev = tmp;
 	}
 	return (alst);
 }
@@ -234,6 +234,7 @@ t_path		*revert_path(t_path *path)
 		curr->next = prev;
 		prev = curr;
 		curr = next;
+		prev->prev = curr;
 	}
 	return (prev);
 }
@@ -297,7 +298,6 @@ t_finpaths	*paths_addlast(t_finpaths *list, t_path *new_path)
 	{
 		list = init_finpaths();
 		list->path = new_path;
-		list->next = NULL;
 	}
 	else
 	{

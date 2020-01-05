@@ -34,6 +34,7 @@ typedef	struct			s_cell
 	int					is_visited;
 	int					y;
 	int					x;
+	int					ant;		// the index of an ant wchich is located in the cell (if start/end cell then the count of ants)
 	t_neib				*next_neib; // the list of nodes' neighbors, i. e. other nodes, which our node is connect to 
 }						t_cell;
 
@@ -49,6 +50,7 @@ typedef struct			s_path
 {
 	t_cell				*cell;
 	struct	s_path		*next;
+	struct	s_path		*prev; // for ant_cross
 }						t_path;
 
 typedef struct			s_finpaths
@@ -60,7 +62,8 @@ typedef struct			s_finpaths
 typedef	struct			s_map
 {
 	int					size_arr;
-	int					count;
+	int					count;		// quantity of ants
+	int					antsleft;	// quantity of ants left
 	int					count_cells;			
 	int					check_cell;
 	int					check_link;
@@ -72,6 +75,7 @@ typedef	struct			s_map
 	t_path				*delete_path; // the storage of nodes, the paths of which we are going to delete (by 2 nodes at once) 
 	t_cell				**arr_cell;		// all nodes
 	t_edge				*edges;
+	int					crossed;		// bool of whether all ants have crossed the road 
 	int					start;			// start node index
 	int					end;			// end node index
 }						t_map;

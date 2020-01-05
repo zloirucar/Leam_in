@@ -24,6 +24,7 @@ void	set_cell(t_cell *cell, char *line, int index)
 	cell->x = ft_atoi(arr[2]);
 	cell->is_visited = 0;
 	cell->distance = 0;
+	cell->ant = 0;
 	cell->prev = NULL;
 	cell->next = NULL;
 	cell->next_neib = NULL;
@@ -57,6 +58,7 @@ void	arr_cellcpy(t_cell **dest, t_cell **src, int size)
 		dest[size]->x = src[size]->x;
 		//(*dest[size]).next_neib = (*src[size]).next_neib;
 		dest[size]->index = src[size]->index;
+		dest[size]->ant = src[size]->ant;
 	//	ft_printf("ADDRESS DEST : %p, ADDRES SRC: %p\n", dest[size]->neib, src[size]->neib);
 /*		while (i < dest[size]->size_neib)
 		{

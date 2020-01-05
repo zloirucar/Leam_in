@@ -58,6 +58,7 @@ t_map *init_map()
 	map->rev_paths = NULL;
 	map->paths = NULL;
 	map->edges = NULL;
+	map->crossed = 0;
 	map->end = 0;
 	map->start = 0;
 	map->size_arr = 0;
@@ -85,6 +86,7 @@ int		parse_count(t_map *map, char *line)
 			i++;
 		}
 		map->count = ft_atoi(line);
+		map->antsleft = map->count;
 		//free(line);
 		map->check_count = 1;
 		return (0);
