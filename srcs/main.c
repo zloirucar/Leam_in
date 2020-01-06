@@ -162,15 +162,15 @@ void	move_ant(t_map *map, t_finpaths *path, int ant_index)
 		cur = cur->prev;
 		prev = prev->prev;
 	}
-	printf("ANT FARM:\n");
 	while (begin)
 	{
-		printf("%s:%d ", begin->cell->name, begin->cell->ant);
+		//printf("%s:%d ", begin->cell->name, begin->cell->ant);
+		if (begin->cell != map->arr_cell[map->start] && (begin->cell->ant != 0))
+			printf("L%d-%s ", begin->cell->ant, begin->cell->name);
 		begin = begin->next;
 	}
 	if (map->antsleft > 0)
 		map->antsleft--;
-	printf("\n");
 }
 
 void	ant_cross(t_map *map, int ants)
@@ -195,6 +195,7 @@ void	ant_cross(t_map *map, int ants)
 				move_ant(map, cur, 0);
 			cur = cur->next;
 		}
+		printf("\n");
 		cur = begin;
 	}
 	printf("END: %d\n", map->arr_cell[map->end]->ant);
