@@ -6,7 +6,7 @@
 #    By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/05 11:23:44 by skrabby           #+#    #+#              #
-#    Updated: 2019/12/30 19:52:44 by oelaina          ###   ########.fr        #
+#    Updated: 2020/01/06 18:28:02 by oelaina          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,14 @@ SRCS = main \
 	   tools \
 	   links \
 	   solver \
-	   neib_list
+	   neib_list \
+	   ant \
+	   edge \
+	   nodes \
+	   path \
+	   finpath \
+	   bhandari \
+	   dijkstra
 
 HEADER = 	-I./include \
 			-I./lib/libft/

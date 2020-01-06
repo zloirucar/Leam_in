@@ -1,46 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   solver.c                                           :+:      :+:    :+:   */
+/*   finpath.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/28 21:19:08 by skrabby           #+#    #+#             */
-/*   Updated: 2020/01/06 18:29:29 by oelaina          ###   ########.fr       */
+/*   Created: 2020/01/06 18:07:26 by oelaina           #+#    #+#             */
+/*   Updated: 2020/01/06 18:07:35 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_cell *checklist_addlast(t_cell *checklist, t_cell *new)
+t_finpaths *init_finpaths(void)
 {
-	t_cell *tmp;
+	t_finpaths *tmp;
 
-	tmp = checklist;
-	if (tmp == NULL)
+	if (!(tmp = (t_finpaths *)malloc(sizeof(t_finpaths))))
+		exit(1);
+	tmp->next = NULL;
+	return (tmp);
+}
+
+t_finpaths *paths_addlast(t_finpaths *list, t_path *new_path)
+{
+	t_finpaths *tmp;
+
+	tmp = NULL;
+	if (list == NULL)
 	{
-		tmp = new;
-		tmp->next = NULL;
+		list = init_finpaths();
+		list->path = new_path;
 	}
 	else
 	{
+		tmp = list;
 		while (tmp->next)
 			tmp = tmp->next;
-		tmp->next = new;
-		tmp->next->next = NULL;
+		tmp->next = init_finpaths();
+		tmp = tmp->next;
+		tmp->path = new_path;
 	}
-	return (checklist);
-}
-
-void printshort(t_map *map)
-{
-	t_cell *tmp;
-
-	tmp = map->arr_cell[map->end];
-	printf("ROUTE: %s  DISTANCE %d\n", tmp->name, tmp->distance);
-	while (tmp != map->arr_cell[map->start])
-	{
-		tmp = tmp->prev;
-		printf("ROUTE: %s  DISTANCE %d\n", tmp->name, tmp->distance);
-	}
+	return (list);
 }

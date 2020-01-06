@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:09:22 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/02 18:58:22 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/06 18:29:30 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,14 @@ void					add_to_arr(t_map *map, char *line);
 void					parse_links(t_map *map, char *line);
 t_neib					*init_neib(void);
 t_neib					*neib_addlast(t_neib *alst, int index);
+void					return_neib(t_map *map);
+/*checklist*/
+t_cell					*checklist_addlast(t_cell *checklist, t_cell *new);
 /*map operations */
 t_map					*init_map();
 void					parse_map(t_map *map);
 int						parse_count(t_map *map, char *line);
+void					update_map(t_map *map);
 /* tools */
 void					clear_2D_arr(char **arr);
 int						check_char(char* line, char c);
@@ -106,7 +110,6 @@ t_neib					*del_neib(t_map *map, t_neib *list,	char* name);
 void					bhandari_algo(t_map *map);
 int						revert_weights(t_map *map, t_neib *list, char *find_name);
 int						get_weight(t_map *map, t_neib *list, char *find_name);
-
 /* paths */
 t_path					*init_path(void);
 t_path					*path_addlast(t_path *alst, t_cell *cell);
@@ -115,11 +118,25 @@ t_path					*revert_path(t_path *path);
 void					save_paths(t_map *map);
 t_finpaths				*paths_addlast(t_finpaths *list, t_path *new_path);
 t_finpaths				*init_finpaths(void);
+void					delete_path(t_map *map);
 
 /* edges */
 t_edge					*edge_addlast(t_edge *list, t_cell *fnode, t_cell *snode);
 t_edge					*init_edge(void);
 t_edge					*remove_used_edge(t_map *map, char *fnode_name, char *snode_name);
+
+/*nodes*/
+int						visit_nodes_neighbours(t_map *map, t_cell *this_node);
+int						get_weight(t_map *map, t_neib *list, char *find_name);
+int						visit_node(t_map *map, t_cell *prev_node, t_cell *new_node);
+/* ants */
+void					move_ant(t_map *map, t_finpaths *path, int ant_index);
+void					ant_cross(t_map *map, int ants);
+/*Bhandari */
+void					bhandari_algo(t_map *map);
+/*print */
+void					printshort(t_map *map);
+void					print_shortest(t_path *list);
 
 #endif
 
