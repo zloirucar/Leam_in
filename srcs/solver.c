@@ -77,7 +77,9 @@ int		visit_node(t_map *map, t_cell *prev_node, t_cell *new_node)
 		new_node->distance = prev_node->distance + weight;
 	}	
 	new_node->is_visited = 1;
-	if (visit_nodes_neighbours(map, new_node))
+	if (new_node == map->arr_cell[map->end])
+		return (1);
+	else if (visit_nodes_neighbours(map, new_node))
 		return (1);
 	else
 		return (0);

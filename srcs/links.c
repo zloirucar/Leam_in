@@ -40,7 +40,7 @@ static int check_names(t_map *map, char *name1, char *name2)
 			check1 = i;
 		if (ft_strcmp(map->arr_cell[i]->name, name2) == 0)
 			check2 = i;
-		i++;
+		i++; 
 		if (check1 >= 0 && check2 >= 0)
 			break;
 	}
