@@ -6,13 +6,13 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 20:17:31 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/02 19:33:40 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/06 19:12:22 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void parse_start_end(t_map *map, char *line)
+void	parse_start_end(t_map *map, char *line)
 {
 	char *loc_line;
 
@@ -36,10 +36,10 @@ void parse_start_end(t_map *map, char *line)
 	}
 }
 
-void add_to_arr(t_map *map, char *line)
+void	add_to_arr(t_map *map, char *line)
 {
 	if (ft_strnstr(line, "#", 1))
-		return;
+		return ;
 	else
 		inc_arr_cell(&(map->arr_cell), &(map->size_arr));
 	map->arr_cell[map->size_arr - 1] = init_cell();
@@ -47,7 +47,7 @@ void add_to_arr(t_map *map, char *line)
 	map->check_cell = 1;
 }
 
-t_map *init_map()
+t_map	*init_map(void)
 {
 	t_map *map;
 
@@ -69,60 +69,4 @@ t_map *init_map()
 	map->count_cells = 0;
 	map->check_count = 0;
 	return (map);
-}
-
-int		parse_count(t_map *map, char *line)
-{
-	int i;
-
-	i = 0;
-	if (map->check_count == 0)
-	{
-		//get_next_line(0, &line);
-		while (line[i] != '\0')
-		{
-			if (ft_isdigit(line[i]) == 0)
-				error_msg();
-			i++;
-		}
-		map->count = ft_atoi(line);
-		map->antsleft = map->count;
-		//free(line);
-		map->check_count = 1;
-		return (0);
-	}
-	return (1);
-}
-
-void parse_map(t_map *map)
-{
-	char *line;
-
-	line = NULL;
-	while (get_next_line(0, &line))
-	{
-		if (ft_strncmp(line, "#", 1) == 0 
-		&& ft_strcmp (line, "##start") != 0
-		&& ft_strcmp (line, "##end") != 0)
-		{
-			free(line);
-			continue;
-		}
-		if (ft_strncmp (line, "L", 1) == 0)
-			error_msg();
-		if (parse_count(map, line) == 0)
-		{
-			free (line);
-			continue;
-		}
-		if (check_char(line, '-') == 1)
-			parse_links(map, line);
-		else
-		{
-			parse_start_end(map, line);
-			add_to_arr(map, line);
-			map->count_cells++;
-		}
-		free(line);
-	}
 }

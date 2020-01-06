@@ -6,7 +6,7 @@
 #    By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/05 11:23:44 by skrabby           #+#    #+#              #
-#    Updated: 2020/01/06 18:28:02 by oelaina          ###   ########.fr        #
+#    Updated: 2020/01/06 19:13:49 by oelaina          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ FLAGS = -Wall -Wextra -Werror
 SRCS = main \
 	   cell \
 	   map	\
+	   parse \
 	   tools \
 	   links \
 	   solver \

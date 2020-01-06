@@ -6,13 +6,13 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 11:08:20 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/02 18:39:07 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/06 19:26:55 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	clear_2D_arr(char **arr)
+void	clear_2d_arr(char **arr)
 {
 	int i;
 
@@ -22,11 +22,11 @@ void	clear_2D_arr(char **arr)
 		free(arr[i]);
 		i++;
 	}
-	free (arr[i]);
+	free(arr[i]);
 	free(arr);
 }
 
-int		check_char(char* line, char c)
+int		check_char(char *line, char c)
 {
 	int i;
 
@@ -43,5 +43,5 @@ int		check_char(char* line, char c)
 void	error_msg(void)
 {
 	ft_fprintf(2, "ERROR\n");
-	exit (1);
+	exit(1);
 }

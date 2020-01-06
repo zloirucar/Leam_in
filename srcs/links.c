@@ -6,13 +6,29 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 21:52:12 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/02 19:07:40 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/06 19:24:58 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static int valid_link(char **arr)
+static	int	add_neib(t_map *map, int check1, int check2)
+{
+	if (check1 >= 0 && check2 >= 0 && check1 != check2)
+	{
+		map->edges = edge_addlast(map->edges,
+		map->arr_cell[check1], map->arr_cell[check2]);
+		map->arr_cell[check1]->next_neib =
+		neib_addlast(map->arr_cell[check1]->next_neib, check2);
+		map->arr_cell[check2]->next_neib =
+		neib_addlast(map->arr_cell[check2]->next_neib, check1);
+		return (1);
+	}
+	else
+		return (0);
+}
+
+static	int	valid_link(char **arr)
 {
 	int i;
 
@@ -25,7 +41,7 @@ static int valid_link(char **arr)
 		return (1);
 }
 
-static int check_names(t_map *map, char *name1, char *name2)
+static	int	check_names(t_map *map, char *name1, char *name2)
 {
 	int i;
 	int check1;
@@ -40,37 +56,28 @@ static int check_names(t_map *map, char *name1, char *name2)
 			check1 = i;
 		if (ft_strcmp(map->arr_cell[i]->name, name2) == 0)
 			check2 = i;
-		i++; 
+		i++;
 		if (check1 >= 0 && check2 >= 0)
-			break;
+			break ;
 	}
-	if (check1 >= 0 && check2 >= 0 && check1 != check2)
-	{
-		map->edges = edge_addlast(map->edges, map->arr_cell[check1], map->arr_cell[check2]);
-		map->arr_cell[check1]->next_neib = neib_addlast(map->arr_cell[check1]->next_neib, check2);
-		map->arr_cell[check2]->next_neib = neib_addlast(map->arr_cell[check2]->next_neib, check1);
-		return (1);
-	}
-	else
-		return (0);
+	return (add_neib(map, check1, check2));
 }
 
-static int find_cell(t_map *map, char *line)
+static	int	find_cell(t_map *map, char *line)
 {
 	char **arr;
 
 	arr = ft_strsplit(line, '-');
 	if (valid_link(arr) == 0)
 	{
-		clear_2D_arr(arr);
+		clear_2d_arr(arr);
 		return (0);
 	}
 	else
 	{
-		//ft_printf("LINK %s--%s\n",arr[0], arr[1]);
 		if (check_names(map, arr[0], arr[1]) == 0)
 			error_msg();
-		clear_2D_arr(arr);
+		clear_2d_arr(arr);
 		return (1);
 	}
 }

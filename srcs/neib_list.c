@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   neib_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 19:32:47 by oelaina           #+#    #+#             */
-/*   Updated: 2019/12/30 22:11:44 by skrabby          ###   ########.fr       */
+/*   Updated: 2020/01/06 19:18:22 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_neib		*init_neib(void)
+t_neib			*init_neib(void)
 {
 	t_neib	*tmp;
 
-	if(!(tmp = (t_neib*)malloc(sizeof(t_neib))))
+	if (!(tmp = (t_neib*)malloc(sizeof(t_neib))))
 		exit(1);
 	tmp->weight = 1;
 	tmp->next = NULL;
 	return (tmp);
 }
 
-t_neib	*neib_addlast(t_neib *alst, int index)
+t_neib			*neib_addlast(t_neib *alst, int index)
 {
 	t_neib	*tmp;
 
@@ -46,14 +46,14 @@ t_neib	*neib_addlast(t_neib *alst, int index)
 	return (alst);
 }
 
-t_neib	*del_neib(t_map *map, t_neib *list,	char* find_name)
+t_neib			*del_neib(t_map *map, t_neib *list, char *find_name)
 {
 	t_neib *prev_cell;
 	t_neib *cur_cell;
 	t_neib *begin;
-	
+
 	if (list == NULL)
-		return NULL;
+		return (NULL);
 	begin = list;
 	cur_cell = list;
 	prev_cell = NULL;

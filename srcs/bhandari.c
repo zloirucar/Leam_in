@@ -6,13 +6,13 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 18:21:40 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/06 18:41:23 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/06 18:49:25 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void    save_paths(t_map *map)
+void	save_paths(t_map *map)
 {
 	t_cell *cur;
 	t_cell *prev;
@@ -33,7 +33,7 @@ void    save_paths(t_map *map)
 	map->paths = paths_addlast(map->paths, thispath);
 }
 
-int     revert_weights(t_map *map, t_neib *list, char *find_name)
+int		revert_weights(t_map *map, t_neib *list, char *find_name)
 {
 	t_neib *cur_cell;
 
@@ -43,7 +43,6 @@ int     revert_weights(t_map *map, t_neib *list, char *find_name)
 		if (ft_strstr(map->arr_cell[cur_cell->index]->name, find_name))
 		{
 			cur_cell->weight *= -1;
-			printf("CHECK WEIGHT:  NAME:%s WEIGHT: %d\n", map->arr_cell[cur_cell->index]->name, cur_cell->weight);
 			return (1);
 		}
 		cur_cell = cur_cell->next;
@@ -51,7 +50,7 @@ int     revert_weights(t_map *map, t_neib *list, char *find_name)
 	return (0);
 }
 
-void bellman_ford_weights(t_map *map)
+void	bellman_ford_weights(t_map *map)
 {
 	t_cell *cur;
 	t_cell *prev;
@@ -77,7 +76,7 @@ void bellman_ford_weights(t_map *map)
 	map->rev_paths = paths_addlast(map->rev_paths, thispath);
 }
 
-void bhandari_algo(t_map *map)
+void	bhandari_algo(t_map *map)
 {
 	while (shortest_path(map))
 	{
@@ -92,17 +91,4 @@ void bhandari_algo(t_map *map)
 		save_paths(map);
 		update_map(map);
 	}
-	/*
-	shortest_path(map); // find shortest path
-	bellman_ford_weights(map); // revert weights of sp
-	update_map(map); // update new map
-	shortest_path(map); // find sp again
-	return_neib(map); // revert weights and route back to normal
-	delete_path(map); // delete intersected paths
-	update_map(map); // update map once again
-	shortest_path(map); // our final paths;
-	save_paths(map); // save it + delete the route
-	update_map(map);*/
-	//print_shortest(map->shortest_path);
-	//print_shortest(map->delete_path);
 }

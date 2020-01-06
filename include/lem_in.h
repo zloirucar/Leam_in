@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:09:22 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/06 18:29:30 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/06 19:24:17 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void					parse_map(t_map *map);
 int						parse_count(t_map *map, char *line);
 void					update_map(t_map *map);
 /* tools */
-void					clear_2D_arr(char **arr);
+void					clear_2d_arr(char **arr);
 int						check_char(char* line, char c);
 void					error_msg(void);
 /* solver */

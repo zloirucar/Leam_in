@@ -6,13 +6,13 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 18:07:26 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/06 18:07:35 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/06 19:01:34 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_finpaths *init_finpaths(void)
+t_finpaths	*init_finpaths(void)
 {
 	t_finpaths *tmp;
 
@@ -22,7 +22,7 @@ t_finpaths *init_finpaths(void)
 	return (tmp);
 }
 
-t_finpaths *paths_addlast(t_finpaths *list, t_path *new_path)
+t_finpaths	*paths_addlast(t_finpaths *list, t_path *new_path)
 {
 	t_finpaths *tmp;
 

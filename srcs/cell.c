@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 20:13:48 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/02 19:44:31 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/06 18:57:16 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,15 @@ void	set_cell(t_cell *cell, char *line, int index)
 		free(arr[i]);
 		i++;
 	}
-	free (arr[i]);
+	free(arr[i]);
 	free(arr);
 }
 
-t_cell	*init_cell()
+t_cell	*init_cell(void)
 {
-	t_cell	*cell;
+	t_cell *cell;
 
-	if(!(cell = (t_cell *)malloc(sizeof(t_cell))))
+	if (!(cell = (t_cell *)malloc(sizeof(t_cell))))
 		exit(1);
 	cell->next_neib = NULL;
 	return (cell);
@@ -56,7 +56,6 @@ void	arr_cellcpy(t_cell **dest, t_cell **src, int size)
 		dest[size]->name = src[size]->name;
 		dest[size]->y = src[size]->y;
 		dest[size]->x = src[size]->x;
-		//(*dest[size]).next_neib = (*src[size]).next_neib;
 		dest[size]->index = src[size]->index;
 		dest[size]->ant = src[size]->ant;
 		dest[size]->is_visited = src[size]->is_visited;
@@ -64,31 +63,23 @@ void	arr_cellcpy(t_cell **dest, t_cell **src, int size)
 		dest[size]->prev = NULL;
 		dest[size]->next = NULL;
 		dest[size]->next_neib = NULL;
-	//	ft_printf("ADDRESS DEST : %p, ADDRES SRC: %p\n", dest[size]->neib, src[size]->neib);
-/*		while (i < dest[size]->size_neib)
-		{
-			ft_printf("NAME dest %s NAME SRC %s\n", dest[size]->neib[i]->name, src[size]->neib[i]->name);
-			i++;
-		}*/
-		free (src[size]);
-		free (src[size]->next_neib);
+		free(src[size]);
+		free(src[size]->next_neib);
 		size--;
 	}
 }
 
-void	inc_arr_cell(t_cell ***arr_cell, int* size)
+void	inc_arr_cell(t_cell ***arr_cell, int *size)
 {
-	t_cell	**buff;
+	t_cell **buff;
 
 	if (!(buff = (t_cell **)malloc(sizeof(t_cell *) * (*size))))
-		exit (1);
+		exit(1);
 	arr_cellcpy(buff, *arr_cell, *size - 1);
-	//if (*size - 1 >= 0)
-		free (*arr_cell);
-	if(!(*arr_cell = (t_cell **)malloc(sizeof(t_cell *) * (*size + 1))))
-		exit (1);
+	free(*arr_cell);
+	if (!(*arr_cell = (t_cell **)malloc(sizeof(t_cell *) * (*size + 1))))
+		exit(1);
 	arr_cellcpy(*arr_cell, buff, *size - 1);
-	//if (*size - 1 >= 0)
-		free (buff);
+	free(buff);
 	(*size)++;
 }
