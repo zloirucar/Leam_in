@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:09:22 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/06 19:24:17 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/07 17:50:44 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef	struct			s_map
 	int					check_start;
 	int					check_end;
 	int					check_count;
+	int					ant_index;
 	t_finpaths			*rev_paths; // the storage of all paths that made it to finish and have been reverted, so we can later revert it back
 	t_finpaths			*paths; // our final solution paths
 	t_path				*delete_path; // the storage of nodes, the paths of which we are going to delete (by 2 nodes at once) 
@@ -130,7 +131,7 @@ int						visit_nodes_neighbours(t_map *map, t_cell *this_node);
 int						get_weight(t_map *map, t_neib *list, char *find_name);
 int						visit_node(t_map *map, t_cell *prev_node, t_cell *new_node);
 /* ants */
-void					move_ant(t_map *map, t_finpaths *path, int ant_index);
+void					move_ant(t_map *map, t_finpaths *path, int ant_index, int *newline);
 void					ant_cross(t_map *map, int ants);
 /*Bhandari */
 void					bhandari_algo(t_map *map);
