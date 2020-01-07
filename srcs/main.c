@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:13:09 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/07 20:20:56 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/07 21:59:47 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,10 @@ int	main(void)
 	//print_shortest(map->rev_paths->path);
 	//print_shortest(map->rev_paths->next->path);
 	//print_shortest(map->delete_path);
-	ant_cross(map, map->count);
+	if (map->paths)
+		ant_cross(map, map->count);
+	else
+		error_msg();
 	//visual_struct(map);
 	return (0);
 }
