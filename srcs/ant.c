@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 17:46:31 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/07 19:32:16 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/07 19:52:07 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ t_map **map, int **newline, int *prev_end_ant)
 			&& (*end)->cell->ant == (*prev_end_ant)))
 			{
 				if (!**newline)
-					printf(" ");
+					ft_printf(" ");
 				else
 					**newline = 0;
-				printf("L%d-%s", (*end)->cell->ant, (*end)->cell->name);
+				ft_printf("L%d-%s", (*end)->cell->ant, (*end)->cell->name);
 			}
 		}
 		(*end) = (*end)->prev;
@@ -111,7 +111,7 @@ int ants)
 				move_ant(map, cur, 0, &(map->newline));
 			cur = cur->next;
 		}
-		printf("\n");
+		ft_printf("\n");
 		cur = begin;
 		map->newline = 1;
 	}

@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 20:17:31 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/07 18:07:12 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/07 19:56:55 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	parse_start_end(t_map *map, char *line)
 		get_next_line(0, &loc_line);
 		map->start = map->count_cells;
 		add_to_arr(map, loc_line);
+		ft_printf("%s\n", loc_line);
 		free(loc_line);
 		map->check_start = 1;
 	}
@@ -31,6 +32,7 @@ void	parse_start_end(t_map *map, char *line)
 		get_next_line(0, &loc_line);
 		map->end = map->count_cells;
 		add_to_arr(map, loc_line);
+		ft_printf("%s\n", loc_line);
 		free(loc_line);
 		map->check_end = 1;
 	}

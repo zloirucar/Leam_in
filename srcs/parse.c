@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 19:14:11 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/06 19:15:15 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/07 20:00:11 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ int				parse_count(t_map *map, char *line)
 	return (1);
 }
 
+static	void	printf_and_free(char *line)
+{
+	ft_printf("%s\n", line);
+	free(line);
+}
+
 void			parse_map(t_map *map)
 {
 	char *line;
@@ -51,20 +57,20 @@ void			parse_map(t_map *map)
 		&& ft_strcmp(line, "##start") != 0
 		&& ft_strcmp(line, "##end") != 0)
 		{
-			free(line);
+			printf_and_free(line);
 			continue;
 		}
 		if (ft_strncmp(line, "L", 1) == 0)
 			error_msg();
 		if (parse_count(map, line) == 0)
 		{
-			free(line);
+			printf_and_free(line);
 			continue;
 		}
 		if (check_char(line, '-') == 1)
 			parse_links(map, line);
 		else
 			add_cell(map, line);
-		free(line);
+		printf_and_free(line);
 	}
 }

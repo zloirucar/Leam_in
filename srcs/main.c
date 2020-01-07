@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:13:09 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/07 19:47:47 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/07 19:57:41 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	main(void)
 
 	map = init_map();
 	parse_map(map);
+	ft_printf("\n");
 	bhandari_algo(map);
 	//print_shortest(map->rev_paths->path);
 	//print_shortest(map->rev_paths->next->path);
