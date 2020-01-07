@@ -6,13 +6,22 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 17:48:51 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/06 19:01:15 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/07 19:44:13 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_edge		*remove_used_edge(t_map *map, char *fnode_name, char *snode_name)
+static	void	set_param(t_edge **begin,
+t_edge **cur_cell, t_edge **prev_cell, t_map **map)
+{
+	*begin = (*map)->edges;
+	*cur_cell = (*map)->edges;
+	*prev_cell = NULL;
+}
+
+t_edge			*remove_used_edge(t_map *map,
+char *fnode_name, char *snode_name)
 {
 	t_edge *prev_cell;
 	t_edge *cur_cell;
@@ -20,9 +29,7 @@ t_edge		*remove_used_edge(t_map *map, char *fnode_name, char *snode_name)
 
 	if (map->edges == NULL)
 		return (NULL);
-	begin = map->edges;
-	cur_cell = map->edges;
-	prev_cell = NULL;
+	set_param(&begin, &cur_cell, &prev_cell, &map);
 	while (cur_cell)
 	{
 		if ((ft_strstr(cur_cell->first_node->name, fnode_name) &&
@@ -43,7 +50,7 @@ t_edge		*remove_used_edge(t_map *map, char *fnode_name, char *snode_name)
 	return (begin);
 }
 
-t_edge		*init_edge(void)
+t_edge			*init_edge(void)
 {
 	t_edge	*tmp;
 
@@ -54,7 +61,7 @@ t_edge		*init_edge(void)
 	return (tmp);
 }
 
-t_edge		*edge_addlast(t_edge *list, t_cell *fnode, t_cell *snode)
+t_edge			*edge_addlast(t_edge *list, t_cell *fnode, t_cell *snode)
 {
 	t_edge	*tmp;
 

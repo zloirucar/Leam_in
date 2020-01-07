@@ -6,13 +6,14 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 18:13:43 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/07 19:10:33 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/07 19:25:34 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static	void	set_param(t_cell **checklist, t_cell **prev, t_cell **cur, t_map **map)
+static	void	set_param(t_cell **checklist,
+t_cell **prev, t_cell **cur, t_map **map)
 {
 	(*checklist) = (*map)->arr_cell[(*map)->start];
 	(*cur) = (*map)->arr_cell[(*map)->start];
@@ -21,7 +22,7 @@ static	void	set_param(t_cell **checklist, t_cell **prev, t_cell **cur, t_map **m
 	(*cur)->distance = 0;
 }
 
-int		shortest_path(t_map *map)
+int				shortest_path(t_map *map)
 {
 	t_cell *cur;
 	t_cell *prev;
@@ -49,7 +50,7 @@ int		shortest_path(t_map *map)
 	return (0);
 }
 
-void	update_map(t_map *map)
+void			update_map(t_map *map)
 {
 	int i;
 
@@ -64,7 +65,7 @@ void	update_map(t_map *map)
 	}
 }
 
-void	print_shortest(t_path *list)
+void			print_shortest(t_path *list)
 {
 	t_path *tmp;
 
@@ -75,7 +76,7 @@ void	print_shortest(t_path *list)
 		tmp = tmp->next;
 }
 
-void	return_neib(t_map *map)
+void			return_neib(t_map *map)
 {
 	t_finpaths *tmp;
 

@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:09:22 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/07 18:35:46 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/07 19:46:08 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define LEAM_IN_H
 
 #include "libft.h"
-#include <stdio.h>
 
 typedef	struct 			s_neib
 {
@@ -68,6 +67,7 @@ typedef	struct			s_map
 	int					check_cell;
 	int					check_link;
 	int					check_start;
+	int					newline;
 	int					check_end;
 	int					check_count;
 	int					ant_index;

@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 19:32:47 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/06 19:18:22 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/07 19:45:58 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ t_neib			*del_neib(t_map *map, t_neib *list, char *find_name)
 	{
 		if (ft_strstr(map->arr_cell[cur_cell->index]->name, find_name))
 		{
-			printf("YESBLYAT, %s\n", map->arr_cell[cur_cell->index]->name);
 			if (prev_cell)
 				prev_cell->next = cur_cell->next;
 			else
