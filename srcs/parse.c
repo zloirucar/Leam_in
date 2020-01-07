@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 19:14:11 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/07 20:00:11 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/07 20:07:52 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,5 @@ void			parse_map(t_map *map)
 			add_cell(map, line);
 		printf_and_free(line);
 	}
+	free (line);
 }
