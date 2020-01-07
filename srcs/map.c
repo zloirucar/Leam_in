@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 20:17:31 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/06 19:12:22 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/07 18:07:12 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_map	*init_map(void)
 {
 	t_map *map;
 
-	if (!(map = (t_map *)malloc(sizeof(t_map) * 100)))
+	if (!(map = (t_map *)malloc(sizeof(t_map))))
 		exit(1);
 	map->arr_cell = NULL;
 	map->delete_path = NULL;
