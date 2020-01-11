@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:09:22 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/07 20:02:40 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/11 20:14:16 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef struct			s_edge
 typedef struct			s_path
 {
 	t_cell				*cell;
+	int					coord_x;
+	int					coord_y;
 	struct	s_path		*next;
 	struct	s_path		*prev; // for ant_cross
 }						t_path;

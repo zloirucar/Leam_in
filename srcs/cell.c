@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cell.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 20:13:48 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/06 18:57:16 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/11 21:14:46 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	set_cell(t_cell *cell, char *line, int index)
 	i = 0;
 	arr = ft_strsplit(line, ' ');
 	cell->name = ft_strdup(arr[0]);
-	cell->y = ft_atoi(arr[1]);
-	cell->x = ft_atoi(arr[2]);
+	cell->x = ft_atoi(arr[1]);
+	cell->y = ft_atoi(arr[2]);
 	cell->is_visited = 0;
 	cell->distance = 0;
 	cell->ant = 0;

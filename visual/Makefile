@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+         #
+#    By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/10 21:48:52 by oelaina           #+#    #+#              #
-#    Updated: 2020/01/10 21:59:51 by oelaina          ###   ########.fr        #
+#    Updated: 2020/01/11 19:36:05 by skrabby          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = visual
 
-LIB = -lft -L../lib
+LIB = -lft -L../lib -L./visualizer/minilibx/ -lmlx -framework OpenGL -framework AppKit
 
 SRCS_DIR = ./srcs/
 
@@ -38,7 +38,8 @@ SRCS = cell \
 
 HEADER = 	-I./include \
 			-I../lib/libft/ \
-			-I../include
+			-I../include \
+			-I./visualizer/minilibx
 
 OBJ =	$(addprefix ../obj/, $(addsuffix .o, $(SRCS)))
 OBJ2 =	$(addprefix obj/, $(addsuffix .o, $(SRCS_VIS)))
