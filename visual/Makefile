@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+         #
+#    By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/10 21:48:52 by oelaina           #+#    #+#              #
-#    Updated: 2020/01/11 19:36:05 by skrabby          ###   ########.fr        #
+#    Updated: 2020/01/12 18:57:10 by oelaina          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,10 @@ SRCS_DIR = ./srcs/
 FLAGS = -Wall -Wextra -Werror
 
 SRCS_VIS = main \
-		   parser 
+		   parser \
+		   draw \
+		   print_rooms \
+		   tools 
 
 SRCS = cell \
 	   map	\
