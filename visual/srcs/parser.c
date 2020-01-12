@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 21:33:31 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/11 23:27:13 by skrabby          ###   ########.fr       */
+/*   Updated: 2020/01/12 20:37:11 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,11 @@ void			parser(t_map *map)
 			printf_and_free(line);
 			continue;
 		}
-		if (ft_strncmp(line, "L", 1) == 0)
-			error_msg();
+		if (ft_strncmp(line, "\n", 1) == 0)
+		{
+			free (line);
+			return ;
+		}
 		if (parse_count(map, line) == 0)
 		{
 			printf_and_free(line);

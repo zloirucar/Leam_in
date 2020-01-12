@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 18:49:56 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/12 19:57:11 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/12 19:58:30 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void    draw_rooms(t_map *map, t_vis *v, int padding_x, int padding_y)
             draw_square(coordx, coordy, 36, v);
             change_color(255, 100, 255, v);
             count++;
-            continue;
+            continue ;
         }
         if(count == map->end)
         {
@@ -95,7 +95,7 @@ void    draw_rooms(t_map *map, t_vis *v, int padding_x, int padding_y)
             draw_square(coordx, coordy, 36, v);
             change_color(255, 100, 255, v);
             count++;
-            continue;
+            continue ;
         }
         draw_square(coordx, coordy, 36, v);
         count++;

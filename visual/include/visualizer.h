@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 20:27:58 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/12 19:29:02 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/12 20:39:52 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,13 @@ typedef struct		s_drawmap
 	int				padding_y;
 }					t_drawmap;
 
+typedef	struct		s_graf
+{
+	int				start;
+	int				end;
+}					t_graf;
+
+
 void		change_color(int r, int g, int b, t_vis *v);
 void			parser(t_map *map);
 void		draw_rectangle(int start_x, int start_y, t_vis *v);
@@ -60,6 +67,6 @@ void		draw_background(t_vis *v);
 void		drawline(int x0, int y0, int x1, int y1, t_vis *v);
 void    	print_rooms(t_map *map, t_vis *v);
 void 		draw_edges(t_edge *edges, int padding_x, int padding_y, t_vis *v);
-
+void		parse_L(void);
 
 #endif
