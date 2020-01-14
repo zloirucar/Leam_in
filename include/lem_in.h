@@ -22,7 +22,6 @@ typedef	struct 			s_neib
 	struct	s_neib		*next;
 }						t_neib;
 
-
 typedef	struct			s_cell
 {
 	char				*name;

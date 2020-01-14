@@ -19,6 +19,16 @@
 # include "mlx.h"
 # include "lem_in.h"
 
+typedef struct			s_ant
+{
+	int					index; // ant's index
+	int					visu_x; // x coordinate on visualizer
+	int					visu_y; // y coordinate on visualizer
+	float				carry_x;
+	float				carry_y; // for smooth visu
+	int					color[3]; // rgb color of ant;					
+}						t_ant;
+
 typedef struct		s_vis
 {
 	int				height;
@@ -33,31 +43,23 @@ typedef struct		s_vis
 	int				red;
 	int				green;
 	int				blue;
+	int				padding_x;
+	int				padding_y;
 	int				len;
 	int				h;
 	int				map_created;
 	int				first_parse;
     t_map           *map;
+	t_ant			**ants;
+	int				start_room_ants;
+	int				end_room_ants;
 }					t_vis;
-
-typedef struct		s_drawmap
-{
-	int				y;
-	int				x;
-	int				tmpx;
-	int				tmpy;
-	int				sqlen;
-	int				gap;
-	int				padding_x;
-	int				padding_y;
-}					t_drawmap;
 
 typedef	struct		s_graf
 {
 	int				start;
 	int				end;
 }					t_graf;
-
 
 void		change_color(int r, int g, int b, t_vis *v);
 void			parser(t_map *map);
@@ -68,5 +70,5 @@ void		drawline(int x0, int y0, int x1, int y1, t_vis *v);
 void    	print_rooms(t_map *map, t_vis *v);
 void 		draw_edges(t_edge *edges, int padding_x, int padding_y, t_vis *v);
 void		parse_L(void);
-
+t_ant		**create_ants(t_map *map, t_vis *v);
 #endif

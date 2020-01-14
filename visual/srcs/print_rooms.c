@@ -83,7 +83,7 @@ void    draw_rooms(t_map *map, t_vis *v, int padding_x, int padding_y)
         coordy = map->arr_cell[count]->y * 46 + padding_y;
         if(count == map->start)
         {
-            change_color(0, 0, 0, v);
+            change_color(22, 255, 255, v);
             draw_square(coordx, coordy, 36, v);
             change_color(255, 100, 255, v);
             count++;
@@ -102,25 +102,148 @@ void    draw_rooms(t_map *map, t_vis *v, int padding_x, int padding_y)
     }
 }
 
+int	get_room_index(t_map *map, char *room_name)
+{
+	int i;
+
+	i = 0;
+	while (i < map->size_arr)
+	{
+		if (ft_strstr(map->arr_cell[i]->name, room_name))
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+int	visumove_ant(t_vis *v, t_map *map, int ant_index, char *room_name)
+{
+	int x0;
+	int x1;
+	int y0;
+	int y1;
+	int diffx;
+	int diffy;
+	int sign_x;
+	int sign_y;
+	int room_index;
+	float add_x;
+	float add_y;
+
+	room_index = get_room_index(map, room_name);
+	x0 = v->ants[ant_index]->visu_x;
+	x1 = map->arr_cell[room_index]->x * 46 + v->padding_x + 9;
+	y0 = v->ants[ant_index]->visu_y;
+	y1 = map->arr_cell[room_index]->y * 46 + v->padding_y + 9;
+	if (x0 == map->arr_cell[map->start]->x * 46 + v->padding_x + 9
+	&& y0 == map->arr_cell[map->start]->y * 46 + v->padding_y + 9)
+		v->start_room_ants -= 1;
+	if (x1 >= x0)
+	{
+		sign_x = 1;
+		diffx = x1 - x0;
+	}
+	else
+	{
+		sign_x = -1;
+		diffx = x0 - x1;
+	}
+	if (y1 >= y0)
+	{
+		sign_y = 1;
+		diffy = y1 - y0;
+	}
+	else
+	{
+		sign_y = -1;
+		diffy = y0 - y1;
+	}
+	if (diffx >= diffy)
+	{
+		add_x = 1;
+		add_y = (float)diffy / (float)diffx;
+	}
+	else
+	{
+		add_y = 1;
+		add_x = (float)diffx / (float)diffy;
+	}
+	if (x0 != x1 || y0 != y1)
+	{
+		//ft_printf("add_x: %f add_y: %f carry_x: %f carry_y: %f\n", add_x, add_y, carry_x, carry_y);
+		v->ants[ant_index]->carry_x += add_x;
+		v->ants[ant_index]->carry_y += add_y;
+		if (v->ants[ant_index]->carry_x >= 1)
+		{
+			v->ants[ant_index]->visu_x += 1 * sign_x;
+			v->ants[ant_index]->carry_x -= 1;
+		}
+		if (v->ants[ant_index]->carry_y >= 1)
+		{
+			v->ants[ant_index]->visu_y += 1 * sign_y;
+			v->ants[ant_index]->carry_y -= 1;
+		}
+		if (v->ants[ant_index]->visu_x == map->arr_cell[map->end]->x * 46 + v->padding_x + 9
+		&& v->ants[ant_index]->visu_y == map->arr_cell[map->end]->y * 46 + v->padding_y + 9)
+			v->end_room_ants += 1;
+		return (0);
+	}
+	v->ants[ant_index]->carry_x = 0;
+	v->ants[ant_index]->carry_y = 0;
+	return (1);
+}
+
+#include <stdlib.h>
+#include <time.h>
+
+t_ant	**create_ants(t_map *map, t_vis *v)
+{
+	t_ant **ants;
+	int i;
+
+	i = 0;
+	srand(time(NULL));
+	if (!(ants = (t_ant**)malloc(sizeof(t_ant*) * map->count + 100)))
+		exit (1);
+	while (i < map->count)
+	{
+		if (!(ants[i] = (t_ant*)malloc(sizeof(t_ant) + 100)))
+			exit (1);
+		ants[i]->visu_x = map->arr_cell[map->start]->x * 46 + v->padding_x + 9;
+    	ants[i]->visu_y = map->arr_cell[map->start]->y * 46 + v->padding_y + 9;
+		ants[i]->index = i;
+		ants[i]->carry_x = 0;
+		ants[i]->carry_y = 0;
+		ants[i]->color[0] = (rand() % (255 - 50 + 1)) + 50;
+		ants[i]->color[1] = (rand() % (255 - 50 + 1)) + 50;
+		ants[i]->color[2] = (rand() % (255 - 50 + 1)) + 50;
+		i++;
+	}
+	return (ants);
+}
+
 void    print_rooms(t_map *map, t_vis *v)
 {
-    int padding_x;
-    int padding_y;
     t_edge *edges;
+	int i;
 
-    padding_x = 300;
-    padding_y = 75;
+	i = 0;
     edges = map->edges;
     change_color(255, 255, 255, v);
     // edges
-    draw_edges(edges, padding_x, padding_y, v);
+    draw_edges(edges, v->padding_x, v->padding_y, v);
     change_color(255, 100, 255, v);
     //rooms
-    draw_rooms(map, v, padding_x, padding_y);
+    draw_rooms(map, v, v->padding_x, v->padding_y);
     //ants
-    change_color (100, 255, 255, v);
-    draw_square(map->arr_cell[map->start]->x * 46 + padding_x + 9,
-    map->arr_cell[map->start]->y * 46 + padding_y + 9, 18, v);
+	visumove_ant(v, map, 0, "3");
+	visumove_ant(v, map, 1, "2");
+	while (i < map->count)
+	{
+		change_color(v->ants[i]->color[0], v->ants[i]->color[1], v->ants[i]->color[2], v);
+		draw_square(v->ants[i]->visu_x, v->ants[i]->visu_y, 18, v);
+		i++;
+	}
     /*some code*/
 
     /*
