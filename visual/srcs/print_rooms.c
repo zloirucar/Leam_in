@@ -83,17 +83,17 @@ void    draw_rooms(t_map *map, t_vis *v, int padding_x, int padding_y)
         coordy = map->arr_cell[count]->y * 46 + padding_y;
         if(count == map->start)
         {
-            change_color(22, 255, 255, v);
+            change_color(200, 90, 170, v);
             draw_square(coordx, coordy, 36, v);
-            change_color(255, 100, 255, v);
+            change_color(40, 180, 180, v);
             count++;
             continue ;
         }
         if(count == map->end)
         {
-            change_color(255, 255, 255, v);
+            change_color(50, 200, 130, v);
             draw_square(coordx, coordy, 36, v);
-            change_color(255, 100, 255, v);
+            change_color(40, 180, 180, v);
             count++;
             continue ;
         }
@@ -160,28 +160,38 @@ int	visumove_ant(t_vis *v, t_map *map, int ant_index, char *room_name)
 	}
 	if (diffx >= diffy)
 	{
-		add_x = 1;
-		add_y = (float)diffy / (float)diffx;
+		add_x = v->visu_speed;
+		add_y = ((float)diffy / (float)diffx) * v->visu_speed;
 	}
 	else
 	{
-		add_y = 1;
-		add_x = (float)diffx / (float)diffy;
+		add_y = v->visu_speed;
+		add_x = ((float)diffx / (float)diffy) * v->visu_speed;
 	}
+	//ft_printf("x:%d y:%d x1:%d y1:%d sign:%d\n", x0, y0, x1, y1, sign_x);
 	if (x0 != x1 || y0 != y1)
 	{
-		//ft_printf("add_x: %f add_y: %f carry_x: %f carry_y: %f\n", add_x, add_y, carry_x, carry_y);
 		v->ants[ant_index]->carry_x += add_x;
 		v->ants[ant_index]->carry_y += add_y;
-		if (v->ants[ant_index]->carry_x >= 1)
+		if (v->ants[ant_index]->carry_x >= v->visu_speed)
 		{
-			v->ants[ant_index]->visu_x += 1 * sign_x;
-			v->ants[ant_index]->carry_x -= 1;
+			v->ants[ant_index]->visu_x += v->visu_speed * sign_x;
+			v->ants[ant_index]->carry_x -= v->visu_speed;
 		}
-		if (v->ants[ant_index]->carry_y >= 1)
+		if (v->ants[ant_index]->carry_y >= v->visu_speed)
 		{
-			v->ants[ant_index]->visu_y += 1 * sign_y;
-			v->ants[ant_index]->carry_y -= 1;
+			v->ants[ant_index]->visu_y += v->visu_speed * sign_y;
+			v->ants[ant_index]->carry_y -= v->visu_speed;
+		}
+		if ((sign_x == 1 && v->ants[ant_index]->visu_x > x1) || (sign_x == -1 && v->ants[ant_index]->visu_x < x1))
+		{
+			v->ants[ant_index]->visu_x = x1;
+			v->ants[ant_index]->visu_y = y1;
+		}
+		else if ((sign_y == 1 && v->ants[ant_index]->visu_y > y1) || (sign_y == -1 && v->ants[ant_index]->visu_y < y1))
+		{
+			v->ants[ant_index]->visu_x = x1;
+			v->ants[ant_index]->visu_y = y1;
 		}
 		if (v->ants[ant_index]->visu_x == map->arr_cell[map->end]->x * 46 + v->padding_x + 9
 		&& v->ants[ant_index]->visu_y == map->arr_cell[map->end]->y * 46 + v->padding_y + 9)
@@ -214,9 +224,9 @@ t_ant	**create_ants(t_map *map, t_vis *v)
 		ants[i]->index = i;
 		ants[i]->carry_x = 0;
 		ants[i]->carry_y = 0;
-		ants[i]->color[0] = (rand() % (255 - 50 + 1)) + 50;
-		ants[i]->color[1] = (rand() % (255 - 50 + 1)) + 50;
-		ants[i]->color[2] = (rand() % (255 - 50 + 1)) + 50;
+		ants[i]->color[0] = (rand() % (200 - 150 + 1)) + 150;
+		ants[i]->color[1] = (rand() % (200 - 25 + 1)) + 25;
+		ants[i]->color[2] = (rand() % (200 - 25 + 1)) + 25;
 		i++;
 	}
 	return (ants);
@@ -225,19 +235,34 @@ t_ant	**create_ants(t_map *map, t_vis *v)
 void    print_rooms(t_map *map, t_vis *v)
 {
     t_edge *edges;
+	t_pair *tmp;
 	int i;
+	int countpair;
+	int countdone;
 
 	i = 0;
+	countpair = 0;
+	countdone = 0;
+	tmp = v->solmove->pairlst;
     edges = map->edges;
     change_color(255, 255, 255, v);
     // edges
     draw_edges(edges, v->padding_x, v->padding_y, v);
-    change_color(255, 100, 255, v);
+    change_color(40, 180, 180, v);
     //rooms
     draw_rooms(map, v, v->padding_x, v->padding_y);
     //ants
-	visumove_ant(v, map, 0, "3");
-	visumove_ant(v, map, 1, "2");
+	while(tmp)
+	{
+		if (visumove_ant(v, map, tmp->ant_i - 1, tmp->room_name))
+			tmp->isdone = 1;
+		if (tmp->isdone)
+			countdone++;
+		countpair++;
+		tmp = tmp->next;
+	}
+	if (countpair == countdone && v->solmove->next)
+		v->solmove = v->solmove->next;
 	while (i < map->count)
 	{
 		change_color(v->ants[i]->color[0], v->ants[i]->color[1], v->ants[i]->color[2], v);

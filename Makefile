@@ -35,8 +35,8 @@ SRCS = main \
 	   dijkstra
 
 HEADER = 	-I./include \
-			-I./lib/libft/
-
+			-I./lib/libft/ \
+			
 OBJ =	$(addprefix obj/, $(addsuffix .o, $(SRCS)))
 
 all: $(NAME)

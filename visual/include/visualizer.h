@@ -12,8 +12,10 @@
 
 #ifndef VISUALIZER_H
 # define VISUALIZER_H
-# define HEIGHT 1290
-# define WIDTH 1740
+# define HEIGHT 900
+# define WIDTH 1450
+# define ESC 53
+# define SPACE 49
 # define WINDOW_NAME "Lem-in Visualizer"
 
 # include "mlx.h"
@@ -28,6 +30,20 @@ typedef struct			s_ant
 	float				carry_y; // for smooth visu
 	int					color[3]; // rgb color of ant;					
 }						t_ant;
+
+typedef struct			s_pair
+{
+	int					ant_i;
+	char				*room_name;
+	int					isdone;
+	struct s_pair		*next;
+}						t_pair;
+
+typedef struct			s_solmove
+{
+	t_pair				*pairlst;
+	struct s_solmove	*next;
+}						t_solmove;
 
 typedef struct		s_vis
 {
@@ -51,8 +67,15 @@ typedef struct		s_vis
 	int				first_parse;
     t_map           *map;
 	t_ant			**ants;
+	t_solmove		*solmove;
 	int				start_room_ants;
 	int				end_room_ants;
+	int				visu_speed;
+	int				trim_x0;
+	int				trim_x1;
+	int				trim_y0;
+	int				trim_y1;
+	int				pause;
 }					t_vis;
 
 typedef	struct		s_graf

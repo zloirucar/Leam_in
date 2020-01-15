@@ -26,17 +26,21 @@ t_path **prev, t_path **cur, t_map **map)
 {
 	while ((*prev))
 	{
-		if ((*cur)->next == NULL)
-		{
-			if ((*prev)->cell->ant != 0)
-				(*cur)->cell->ant += 1;
-			if ((*cur)->cell->ant == (*map)->count)
-				(*map)->crossed = 1;
-		}
-		else if ((*prev) == (*begin))
+		if ((*prev) == (*begin))
 			(*cur)->cell->ant = (*map)->ant_index;
 		else
+		{
+			if ((*prev)->cell->ant != 0)
+			{
+				if ((*cur)->next == NULL)
+				{
+					(*map)->count_end_ant += 1;
+					if ((*map)->count_end_ant == (*map)->count)
+						(*map)->crossed = 1;
+				}
+			}
 			(*cur)->cell->ant = (*prev)->cell->ant;
+		}
 		(*cur) = (*cur)->prev;
 		(*prev) = (*prev)->prev;
 	}
@@ -63,8 +67,8 @@ t_map **map, int **newline, int *prev_end_ant)
 		(*end) = (*end)->prev;
 	}
 	(*prev_end_ant) = (*map)->arr_cell[(*map)->end]->ant;
-	if ((*map)->antsleft > 0)
-		(*map)->antsleft--;
+	//if ((*map)->antsleft > 0)
+	//	(*map)->antsleft--;
 }
 
 void			move_ant(t_map *map,
@@ -77,9 +81,10 @@ t_finpaths *path, int ant_index, int *newline)
 	static int	prev_end_ant;
 
 	begin = path->path;
+	begin = path->path;
 	cur = begin;
 	prev = begin;
-	begin->cell->ant = map->antsleft;
+	//begin->cell->ant = map->antsleft;
 	end = NULL;
 	set_last_cells(&cur, &end, &prev);
 	map->ant_index = ant_index;

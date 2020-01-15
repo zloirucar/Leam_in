@@ -75,7 +75,7 @@ void		draw_background(t_vis *v)
 
 	i = 0;
 	count = 0;
-	change_color(10, 20, 0, v);
+	change_color(1, 5, 10, v);
 	while (i < (HEIGHT * WIDTH * 4))
 	{
 		(v->ret)[i] = v->blue;
@@ -83,13 +83,13 @@ void		draw_background(t_vis *v)
 		(v->ret)[i + 2] = v->red;
 		(v->ret)[i + 3] = 0;
 		i += 4;
-		if (count < 22000)
+		if (count < 30000)
 			count++;
-		else if (count == 22000 && v->blue <= 255)
+		else if (count == 30000 && v->blue <= 255 && v->green <= 255)
 		{
 			count = 0;
 			v->blue++;
-            v->red++;
+            v->green++;
 		}
 	}
 }
