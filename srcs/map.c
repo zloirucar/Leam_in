@@ -20,6 +20,7 @@ void	parse_start_end(t_map *map, char *line)
 		error_msg();
 	if (ft_strcmp(line, "##start") == 0)
 	{
+		ft_printf("%s\n", line);
 		get_next_line(0, &loc_line);
 		map->start = map->count_cells;
 		add_to_arr(map, loc_line);
@@ -29,6 +30,7 @@ void	parse_start_end(t_map *map, char *line)
 	}
 	else if (ft_strcmp(line, "##end") == 0)
 	{
+		ft_printf("%s\n", line);
 		get_next_line(0, &loc_line);
 		map->end = map->count_cells;
 		add_to_arr(map, loc_line);
@@ -60,6 +62,7 @@ t_map	*init_map(void)
 	map->rev_paths = NULL;
 	map->paths = NULL;
 	map->edges = NULL;
+	map->solution = NULL;
 	map->crossed = 0;
 	map->end = 0;
 	map->start = 0;

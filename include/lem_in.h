@@ -59,6 +59,12 @@ typedef struct			s_finpaths
 	struct s_finpaths	*next;
 }						t_finpaths;
 
+typedef struct			s_solution
+{
+	char				*one_turn; 
+	struct s_solution	*next;
+}						t_solution;
+
 typedef	struct			s_map
 {
 	int					size_arr;
@@ -76,7 +82,8 @@ typedef	struct			s_map
 	t_finpaths			*paths; // our final solution paths
 	t_path				*delete_path; // the storage of nodes, the paths of which we are going to delete (by 2 nodes at once) 
 	t_cell				**arr_cell;		// all nodes
-	t_edge				*edges;
+	t_edge				*edges;			// store of all edges to determine unused ones
+	t_solution			*solution;		// parse solutions for visualzier
 	int					crossed;		// bool of whether all ants have crossed the road 
 	int					start;			// start node index
 	int					end;			// end node index
