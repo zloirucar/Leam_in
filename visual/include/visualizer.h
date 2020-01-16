@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 20:27:58 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/16 13:19:58 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/16 13:35:47 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,18 @@ typedef	struct			s_draw
 	int					y2;
 	t_vis				*vis;	
 }						t_draw;
+
+typedef	struct			s_drawline
+{
+	float 				fx0;
+    float 				y_begin;
+    float 				y_target;
+    float 				add_x;
+    float 				add_y;
+    float 				y_diff;
+    int					y_sign;
+}						t_drawline;
+
 
 void					change_color(int r, int g, int b, t_vis *v);
 void					init_draw(t_draw **draw, t_vis *vis);
