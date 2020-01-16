@@ -6,7 +6,7 @@
 #    By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/10 21:48:52 by oelaina           #+#    #+#              #
-#    Updated: 2020/01/12 20:40:52 by oelaina          ###   ########.fr        #
+#    Updated: 2020/01/16 12:45:21 by oelaina          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRCS_VIS = main \
 		   parser \
 		   draw \
 		   print_rooms \
-		   tools 
+		   tools \
+		   draw_line
 
 SRCS = cell \
 	   map	\

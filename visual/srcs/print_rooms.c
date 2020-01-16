@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 18:49:56 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/12 19:58:30 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/16 13:19:39 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,49 +14,37 @@
 
 static  int    set_param(t_edge **edges, int padding_x, int padding_y, t_vis *v)
 {
-    int x1;
-    int x2;
-    int y1;
-    int y2;
     int i;
+	t_draw	*draw;
 
-    x1 = 0;
-    x2 = 0;
-    y1 = 0;
-    y2 = 0;
-    i  = 0;
+	i = 0;
+	init_draw(&draw, v);
     if ((*edges)->first_node->x * 46 + padding_x <
         (*edges)->second_node->x * 46 + padding_x)
         {
-            x1 = (*edges)->first_node->x * 46 + padding_x + 18;
-            x2 = (*edges)->second_node->x * 46 + padding_x + 18;
-            y1 = (*edges)->first_node->y * 46 + padding_y + 18;
-            y2 = (*edges)->second_node->y * 46 + padding_y + 18;
+            draw->x1 = (*edges)->first_node->x * 46 + padding_x + 18;
+            draw->x2 = (*edges)->second_node->x * 46 + padding_x + 18;
+            draw->y1 = (*edges)->first_node->y * 46 + padding_y + 18;
+            draw->y2 = (*edges)->second_node->y * 46 + padding_y + 18;
             i = 1;
         }
     else
          return (i);
-    drawline(x1, y1, x2, y2, v);
+    drawline(draw);
     (*edges) = (*edges)->next;
     return (i);
 }
 
 static  void    set_another_param(t_edge **edges, int padding_x, int padding_y, t_vis *v)
 {
-    int x1;
-    int x2;
-    int y1;
-    int y2;
+    t_draw	*draw;
 
-    x1 = 0;
-    x2 = 0;
-    y1 = 0;
-    y2 = 0;
-    x2 = (*edges)->first_node->x * 46 + padding_x + 18;
-    x1 = (*edges)->second_node->x * 46 + padding_x + 18;
-    y2 = (*edges)->first_node->y * 46 + padding_y + 18;
-    y1 = (*edges)->second_node->y * 46 + padding_y + 18;
-    drawline(x1, y1, x2, y2, v);
+	init_draw(&draw, v);
+    draw->x2 = (*edges)->first_node->x * 46 + padding_x + 18;
+    draw->x1 = (*edges)->second_node->x * 46 + padding_x + 18;
+    draw->y2 = (*edges)->first_node->y * 46 + padding_y + 18;
+    draw->y1 = (*edges)->second_node->y * 46 + padding_y + 18;
+    drawline(draw);
     (*edges) = (*edges)->next;
 }
 

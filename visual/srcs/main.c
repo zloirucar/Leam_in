@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 20:29:36 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/16 12:35:33 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/16 12:38:43 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,8 +287,7 @@ int     main(void)
 {
     t_map *map;
     t_vis *v;
-   // t_graf *gr;
-	t_ant **ants;
+   	t_ant **ants;
 
     map = init_map();
     parser(map);

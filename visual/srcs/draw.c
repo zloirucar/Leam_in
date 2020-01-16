@@ -6,11 +6,22 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 18:48:10 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/12 18:49:01 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/16 13:16:31 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
+
+void	init_draw(t_draw **draw, t_vis *vis)
+{
+	if (!(*draw = (t_draw*)malloc(sizeof(t_draw))))
+		exit(1);
+	(*draw)->vis = vis;
+	(*draw)->x1 = 0;
+	(*draw)->x2 = 0;
+	(*draw)->y1 = 0;
+	(*draw)->y2 = 0;
+}
 
 void		draw_rectangle(int start_x, int start_y, t_vis *v)
 {
@@ -96,77 +107,3 @@ void		draw_background(t_vis *v)
 
 // x0 has to be < x1
 
-void drawline(int x0, int y0, int x1, int y1, t_vis *v)
-{
-    float fx0;
-    float y_begin;
-    float y_target;
-    float add_x;
-    float add_y;
-    float y_diff;
-    int y_sign;
-
-    fx0 = (float)x0;
-    add_x = (float)(x1 - x0);
-    if (y1 >= y0)
-    {
-        y_diff = (float)(y1 - y0);
-        y_sign = 1;
-    }
-    else
-    {
-        y_diff = (float)(y0 - y1);
-        y_sign = -1;
-    }
-    if ((int)add_x < (int)y_diff)
-    {
-        add_x = add_x / y_diff;
-        add_y = 1;
-    }
-    else
-    {
-        add_y = y_diff / add_x;
-        add_x = 1;
-    }
-    y_begin = (float)y0;
-    y_target = (float)y1;
-    add_y *= y_sign;
-    while ((int)fx0 < x1 || ((int)y_begin < (int)y_target && y_sign == 1) ||
-    ((int)y_begin > (int)y_target && y_sign == -1))
-    {
-        fx0 += add_x;
-        y_begin += add_y;
-        draw_square((int)fx0, (int)y_begin, 2, v);
-    }
-    
-    /*
-	while(x<x1)
-	{
-		if(p>=0)
-		{
-			draw_square(x, y, 2, v);
-			y=y+1;
-			p=p+2*dy-2*dx;
-		}
-		else
-		{
-			draw_square(x, y, 2, v);
-			p=p+2*dy;
-		}
-		x=x+1;
-	}
-    while (y < y1)
-    {
-        if(p>=0)
-		{
-			draw_square(x, y, 2, v);
-			p=p+2*dx-2*dy;
-		}
-		else
-		{
-			draw_square(x, y, 2, v);
-			p=p+2*dx;
-		}
-		y=y+1;
-    }*/
-}
