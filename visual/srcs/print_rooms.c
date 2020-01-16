@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 18:49:56 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/16 13:19:39 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/16 13:29:21 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,12 @@ static  int    set_param(t_edge **edges, int padding_x, int padding_y, t_vis *v)
             i = 1;
         }
     else
-         return (i);
+	{
+		free(draw);
+        return (i);
+	}
     drawline(draw);
+	free(draw);
     (*edges) = (*edges)->next;
     return (i);
 }

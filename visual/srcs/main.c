@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 20:29:36 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/16 12:38:43 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/16 13:26:15 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 void    draw_start_end(t_vis *v, t_map *map, int count)
 {
     if (count == map->start)
-    {
         change_color(0, 0, 0, v);
-
-    }
 }
 
 void		draw_ant_index(t_vis *v)
@@ -177,18 +174,6 @@ void	split_solution(t_map *map, t_vis *v)
 		tmp = tmp->next;
 		i = 0;
 	}
-	/*
-	while (v->solmove)
-	{
-		while (v->solmove->pairlst)
-		{
-			ft_printf("%d : %s | ", v->solmove->pairlst->ant_i, v->solmove->pairlst->room_name);
-			v->solmove->pairlst = v->solmove->pairlst->next;
-		}
-		ft_printf("\n");
-		v->solmove = v->solmove->next;
-	}
-	*/
 }
 
 int ft_loop(t_vis *v)
