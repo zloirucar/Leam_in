@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 11:08:20 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/07 19:45:19 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/16 12:35:44 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ int		check_char(char *line, char c)
 
 void	error_msg(void)
 {
-	ft_fprintf(2, "ERROR\n");
+	ft_fprintf(1, "ERROR\n");
 	exit(1);
 }

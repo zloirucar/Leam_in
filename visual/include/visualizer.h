@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 20:27:58 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/12 20:39:52 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/16 12:29:18 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,8 @@ typedef struct		s_vis
 	int				pause;
 }					t_vis;
 
-typedef	struct		s_graf
-{
-	int				start;
-	int				end;
-}					t_graf;
-
 void		change_color(int r, int g, int b, t_vis *v);
-void			parser(t_map *map);
+void		parser(t_map *map);
 void		draw_rectangle(int start_x, int start_y, t_vis *v);
 void		draw_square(int start_x, int start_y, int size, t_vis *v);
 void		draw_background(t_vis *v);
@@ -94,4 +88,8 @@ void    	print_rooms(t_map *map, t_vis *v);
 void 		draw_edges(t_edge *edges, int padding_x, int padding_y, t_vis *v);
 void		parse_L(void);
 t_ant		**create_ants(t_map *map, t_vis *v);
+t_solution	*solution_addlast(t_solution *list, char *new_str);
+void		parse_solution(t_map *map, char *line);
+t_solution	*init_solution(void);
+void		check_error(void);
 #endif

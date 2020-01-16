@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 20:29:36 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/12 20:41:15 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/16 12:35:33 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,7 +291,7 @@ int     main(void)
 	t_ant **ants;
 
     map = init_map();
-    parse_map(map);
+    parser(map);
     v = set_var(map);
     v->map = map;
 	v->mlx = mlx_init();

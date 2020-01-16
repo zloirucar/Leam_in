@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 19:14:11 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/07 20:07:52 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/16 12:12:52 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,50 +45,6 @@ static	void	printf_and_free(char *line)
 	free(line);
 }
 
-t_solution	*init_solution(void)
-{
-	t_solution *tmp;
-
-	if (!(tmp = (t_solution *)malloc(sizeof(t_solution))))
-		exit(1);
-	tmp->next = NULL;
-	return (tmp);
-}
-
-t_solution	*solution_addlast(t_solution *list, char *new_str)
-{
-	t_solution *tmp;
-	char *new_turn;
-
-	new_turn = ft_strdup(new_str);
-	tmp = NULL;
-	if (list == NULL)
-	{
-		list = init_solution();
-		list->one_turn = new_turn;
-	}
-	else
-	{
-		tmp = list;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = init_solution();
-		tmp = tmp->next;
-		tmp->one_turn = new_turn;
-	}
-	return (list);
-}
-
-void			parse_solution(t_map *map, char *line)
-{
-	free(line);
-	while (get_next_line(0, &line))
-	{
-		map->solution = solution_addlast(map->solution, line);
-		free(line);
-	}
-}
-
 void			parse_map(t_map *map)
 {
 	char *line;
@@ -103,11 +59,8 @@ void			parse_map(t_map *map)
 			printf_and_free(line);
 			continue;
 		}
-		if (!line[0])
-		{
-			parse_solution(map, line);
-			return;
-		}
+		if (ft_strncmp(line, "L", 1) == 0)
+			error_msg();
 		if (parse_count(map, line) == 0)
 		{
 			printf_and_free(line);
