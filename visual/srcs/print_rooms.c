@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 18:49:56 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/16 13:29:21 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/16 13:30:36 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static  void    set_another_param(t_edge **edges, int padding_x, int padding_y, 
     draw->y2 = (*edges)->first_node->y * 46 + padding_y + 18;
     draw->y1 = (*edges)->second_node->y * 46 + padding_y + 18;
     drawline(draw);
+	free(draw);
     (*edges) = (*edges)->next;
 }
 
