@@ -109,85 +109,106 @@ int	get_room_index(t_map *map, char *room_name)
 	return (-1);
 }
 
+t_antmove	*init_antmove(t_vis *v, t_map *map,
+							int ant_index, char *room_name)
+{
+	t_antmove *am;
+
+	if (!(am = (t_antmove *)malloc(sizeof(t_antmove))))
+		exit (1);
+	am->room_index = get_room_index(map, room_name);
+	am->x0 = v->ants[ant_index]->visu_x;
+	am->x1 = map->arr_cell[am->room_index]->x * 46 + v->padding_x + 9;
+	am->y0 = v->ants[ant_index]->visu_y;
+	am->y1 = map->arr_cell[am->room_index]->y * 46 + v->padding_y + 9;
+	if (am->x0 == map->arr_cell[map->start]->x * 46 + v->padding_x + 9
+	&& am->y0 == map->arr_cell[map->start]->y * 46 + v->padding_y + 9)
+		v->start_room_ants -= 1;
+	return (am);
+}
+void	set_diff_sign(t_antmove *am)
+{
+	if (am->x1 >= am->x0)
+	{
+		am->sign_x = 1;
+		am->diffx = am->x1 - am->x0;
+	}
+	else
+	{
+		am->sign_x = -1;
+		am->diffx = am->x0 - am->x1;
+	}
+	if (am->y1 >= am->y0)
+	{
+		am->sign_y = 1;
+		am->diffy = am->y1 - am->y0;
+	}
+	else
+	{
+		am->sign_y = -1;
+		am->diffy = am->y0 - am->y1;
+	}
+}
+
+void	set_amspeed(t_vis *v, t_antmove *am)
+{
+	if (am->diffx >= am->diffy)
+	{
+		am->add_x = v->visu_speed;
+		am->add_y = ((float)am->diffy /
+		(float)am->diffx) * v->visu_speed;
+	}
+	else
+	{
+		am->add_y = v->visu_speed;
+		am->add_x = ((float)am->diffx /
+		(float)am->diffy) * v->visu_speed;
+	}
+}
+
+void	mv_ants(t_vis *v, t_antmove *am, int a_i)
+{
+	v->ants[a_i]->carry_x += am->add_x;
+	v->ants[a_i]->carry_y += am->add_y;
+	if (v->ants[a_i]->carry_x >= v->visu_speed)
+	{
+		v->ants[a_i]->visu_x += v->visu_speed * am->sign_x;
+		v->ants[a_i]->carry_x -= v->visu_speed;
+	}
+	if (v->ants[a_i]->carry_y >= v->visu_speed)
+	{
+		v->ants[a_i]->visu_y += v->visu_speed * am->sign_y;
+		v->ants[a_i]->carry_y -= v->visu_speed;
+	}
+	if ((am->sign_x == 1 && v->ants[a_i]->visu_x > am->x1) ||
+	(am->sign_x == -1 && v->ants[a_i]->visu_x < am->x1))
+	{
+		v->ants[a_i]->visu_x = am->x1;
+		v->ants[a_i]->visu_y = am->y1;
+	}
+	else if ((am->sign_y == 1 && v->ants[a_i]->visu_y > am->y1)
+	|| (am->sign_y == -1 && v->ants[a_i]->visu_y < am->y1))
+	{
+		v->ants[a_i]->visu_x = am->x1;
+		v->ants[a_i]->visu_y = am->y1;
+	}
+}
+
 int	visumove_ant(t_vis *v, t_map *map, int ant_index, char *room_name)
 {
-	int x0;
-	int x1;
-	int y0;
-	int y1;
-	int diffx;
-	int diffy;
-	int sign_x;
-	int sign_y;
-	int room_index;
-	float add_x;
-	float add_y;
+	t_antmove *am;
 
-	room_index = get_room_index(map, room_name);
-	x0 = v->ants[ant_index]->visu_x;
-	x1 = map->arr_cell[room_index]->x * 46 + v->padding_x + 9;
-	y0 = v->ants[ant_index]->visu_y;
-	y1 = map->arr_cell[room_index]->y * 46 + v->padding_y + 9;
-	if (x0 == map->arr_cell[map->start]->x * 46 + v->padding_x + 9
-	&& y0 == map->arr_cell[map->start]->y * 46 + v->padding_y + 9)
-		v->start_room_ants -= 1;
-	if (x1 >= x0)
+	am = init_antmove(v, map, ant_index, room_name);
+	set_diff_sign(am);
+	set_amspeed(v, am);
+	
+	if (am->x0 != am->x1 || am->y0 != am->y1)
 	{
-		sign_x = 1;
-		diffx = x1 - x0;
-	}
-	else
-	{
-		sign_x = -1;
-		diffx = x0 - x1;
-	}
-	if (y1 >= y0)
-	{
-		sign_y = 1;
-		diffy = y1 - y0;
-	}
-	else
-	{
-		sign_y = -1;
-		diffy = y0 - y1;
-	}
-	if (diffx >= diffy)
-	{
-		add_x = v->visu_speed;
-		add_y = ((float)diffy / (float)diffx) * v->visu_speed;
-	}
-	else
-	{
-		add_y = v->visu_speed;
-		add_x = ((float)diffx / (float)diffy) * v->visu_speed;
-	}
-	//ft_printf("x:%d y:%d x1:%d y1:%d sign:%d\n", x0, y0, x1, y1, sign_x);
-	if (x0 != x1 || y0 != y1)
-	{
-		v->ants[ant_index]->carry_x += add_x;
-		v->ants[ant_index]->carry_y += add_y;
-		if (v->ants[ant_index]->carry_x >= v->visu_speed)
-		{
-			v->ants[ant_index]->visu_x += v->visu_speed * sign_x;
-			v->ants[ant_index]->carry_x -= v->visu_speed;
-		}
-		if (v->ants[ant_index]->carry_y >= v->visu_speed)
-		{
-			v->ants[ant_index]->visu_y += v->visu_speed * sign_y;
-			v->ants[ant_index]->carry_y -= v->visu_speed;
-		}
-		if ((sign_x == 1 && v->ants[ant_index]->visu_x > x1) || (sign_x == -1 && v->ants[ant_index]->visu_x < x1))
-		{
-			v->ants[ant_index]->visu_x = x1;
-			v->ants[ant_index]->visu_y = y1;
-		}
-		else if ((sign_y == 1 && v->ants[ant_index]->visu_y > y1) || (sign_y == -1 && v->ants[ant_index]->visu_y < y1))
-		{
-			v->ants[ant_index]->visu_x = x1;
-			v->ants[ant_index]->visu_y = y1;
-		}
-		if (v->ants[ant_index]->visu_x == map->arr_cell[map->end]->x * 46 + v->padding_x + 9
-		&& v->ants[ant_index]->visu_y == map->arr_cell[map->end]->y * 46 + v->padding_y + 9)
+		mv_ants(v, am, ant_index);
+		if (v->ants[ant_index]->visu_x ==
+		map->arr_cell[map->end]->x * 46 + v->padding_x + 9
+		&& v->ants[ant_index]->visu_y ==
+		map->arr_cell[map->end]->y * 46 + v->padding_y + 9)
 			v->end_room_ants += 1;
 		return (0);
 	}
@@ -262,16 +283,4 @@ void    print_rooms(t_map *map, t_vis *v)
 		draw_square(v->ants[i]->visu_x, v->ants[i]->visu_y, 18, v);
 		i++;
 	}
-    /*some code*/
-
-    /*
-    drawline(714, 305, 1036, 305, v);
-    drawline(346, 305, 714, 305, v);
-    drawline(1036, 213, 1358, 213, v);
-    drawline(1036, 213, 1036, 305, v);
-    drawline(714, 213, 1036, 397, v);
-    drawline(714, 213, 1036, 213, v);
-    drawline(1036, 305, 1036, 397, v);
-    ft_printf("\n\n");*/
-    //drawline(346, 305, 714, 213, v);
 }

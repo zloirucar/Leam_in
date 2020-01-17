@@ -87,6 +87,21 @@ typedef	struct			s_draw
 	t_vis				*vis;	
 }						t_draw;
 
+typedef struct			s_antmove
+{
+	int					x0;
+	int					x1;
+	int					y0;
+	int					y1;
+	int					diffx;
+	int					diffy;
+	int					sign_x;
+	int					sign_y;
+	int					room_index;
+	float				add_x;
+	float				add_y;
+}						t_antmove;
+
 typedef	struct			s_drawline
 {
 	float 				fx0;
