@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 20:27:58 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/16 13:35:47 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/17 14:30:37 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 # include "mlx.h"
 # include "lem_in.h"
+# include  <time.h>
 
 typedef struct			s_ant
 {
@@ -113,9 +114,31 @@ typedef	struct			s_drawline
     int					y_sign;
 }						t_drawline;
 
+typedef	struct			s_printrooms
+{
+	int					i;
+	int					countpair;
+	int					countdone;
+}						t_printrooms;
+
+
+/* draw window comp */
+void					draw_start_end(t_vis *v, t_map *map, int count);
+void					draw_ant_index(t_vis *v);
+void					draw_room_name(t_vis *v);
+void					draw_end_start(t_vis *v);
+/* solmove_pair */
+t_pair					*init_pair(void);
+t_pair					*pair_addlast(t_pair *list, int ant_i, char *room_name);
+t_solmove				*init_solmove(void);
+t_solmove				*solmove_addlast(t_solmove *list, t_pair *new);
+/*solution */
+void					get_pair(char **split, t_pair **pair, int *i);
+void					split_solution(t_map *map, t_vis *v);
 
 void					change_color(int r, int g, int b, t_vis *v);
 void					init_draw(t_draw **draw, t_vis *vis);
+t_vis					*set_var(t_map *map);
 void					parser(t_map *map);
 void					draw_rectangle(int start_x, int start_y, t_vis *v);
 void					draw_square(int start_x, int start_y, int size, t_vis *v);
@@ -129,4 +152,15 @@ t_solution				*solution_addlast(t_solution *list, char *new_str);
 void					parse_solution(t_map *map, char *line);
 t_solution				*init_solution(void);
 void					check_error(void);
+/*ants_move_tools*/
+void					set_amspeed(t_vis *v, t_antmove *am);
+void					set_diff_sign(t_antmove *am);
+int						get_room_index(t_map *map, char *room_name);
+/* ant_move*/
+t_antmove				*init_antmove(t_vis *v, t_map *map,
+							int ant_index, char *room_name);
+void					mv_ants(t_vis *v, t_antmove *am, int a_i);
+int						visumove_ant(t_vis *v, t_map *map, int ant_index, char *room_name);
+/*print rooms*/
+void					init_printrooms(t_printrooms **p);
 #endif

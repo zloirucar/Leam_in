@@ -6,7 +6,7 @@
 #    By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/10 21:48:52 by oelaina           #+#    #+#              #
-#    Updated: 2020/01/16 12:45:21 by oelaina          ###   ########.fr        #
+#    Updated: 2020/01/17 14:15:33 by oelaina          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,14 @@ SRCS_VIS = main \
 		   draw \
 		   print_rooms \
 		   tools \
-		   draw_line
-
+		   draw_line \
+		   ants_move \
+		   ants_move_tools \
+		   print_rooms_tools \
+		   draw_window_comp \
+		   solmove_pair \
+		   solution
+		   
 SRCS = cell \
 	   map	\
 	   parse \
