@@ -6,13 +6,13 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 18:48:10 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/16 13:16:31 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/17 15:03:23 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
 
-void	init_draw(t_draw **draw, t_vis *vis)
+void		init_draw(t_draw **draw, t_vis *vis)
 {
 	if (!(*draw = (t_draw*)malloc(sizeof(t_draw))))
 		exit(1);
@@ -100,10 +100,7 @@ void		draw_background(t_vis *v)
 		{
 			count = 0;
 			v->blue++;
-            v->green++;
+			v->green++;
 		}
 	}
 }
-
-// x0 has to be < x1
-

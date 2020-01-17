@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 18:55:14 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/17 14:30:14 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/17 15:02:04 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ void		change_color(int r, int g, int b, t_vis *v)
 
 void		init_printrooms(t_printrooms **p)
 {
-	if(!(*p = (t_printrooms*)malloc(sizeof(t_printrooms))))
+	if (!(*p = (t_printrooms*)malloc(sizeof(t_printrooms))))
 		exit(1);
 	(*p)->countdone = 0;
 	(*p)->i = 0;
 	(*p)->countpair = 0;
 }
 
-t_vis	*set_var(t_map *map)
+t_vis		*set_var(t_map *map)
 {
 	t_vis *v;
 

@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 19:14:11 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/16 12:12:52 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/17 14:48:00 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,17 @@ static	void	printf_and_free(char *line)
 	free(line);
 }
 
+static	void	check_links(t_map *map, char *line)
+{
+	if (check_char(line, '-') == 1)
+		parse_links(map, line);
+	else
+		add_cell(map, line);
+	if (!(ft_strstr(line, "##start") ||
+		ft_strstr(line, "##end")))
+		printf_and_free(line);
+}
+
 void			parse_map(t_map *map)
 {
 	char *line;
@@ -66,13 +77,7 @@ void			parse_map(t_map *map)
 			printf_and_free(line);
 			continue;
 		}
-		if (check_char(line, '-') == 1)
-			parse_links(map, line);
-		else
-			add_cell(map, line);
-		if (!(ft_strstr(line, "##start") ||
-		ft_strstr(line, "##end")))
-			printf_and_free(line);
+		check_links(map, line);
 	}
-	free (line);
+	free(line);
 }

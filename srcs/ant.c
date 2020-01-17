@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 17:46:31 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/07 19:52:07 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/17 14:48:27 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ t_map **map, int **newline, int *prev_end_ant)
 		(*end) = (*end)->prev;
 	}
 	(*prev_end_ant) = (*map)->arr_cell[(*map)->end]->ant;
-	//if ((*map)->antsleft > 0)
-	//	(*map)->antsleft--;
 }
 
 void			move_ant(t_map *map,
@@ -84,7 +82,6 @@ t_finpaths *path, int ant_index, int *newline)
 	begin = path->path;
 	cur = begin;
 	prev = begin;
-	//begin->cell->ant = map->antsleft;
 	end = NULL;
 	set_last_cells(&cur, &end, &prev);
 	map->ant_index = ant_index;
