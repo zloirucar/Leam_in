@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 11:08:20 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/17 18:35:54 by skrabby          ###   ########.fr       */
+/*   Updated: 2020/01/18 21:57:10 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void		ft_printpair(int d, char *s)
+void	ft_printpair(int d, char *s)
 {
 	ft_putchar('L');
 	ft_putnbr(d);
@@ -52,4 +52,21 @@ void	error_msg(void)
 {
 	ft_fprintf(1, "ERROR\n");
 	exit(1);
+}
+
+void	check_valid(char **loc_line, char *line)
+{
+	ft_printf("%s\n", line);
+	while (get_next_line(0, loc_line))
+	{
+		if (*loc_line[0] == '#')
+		{
+			free(*loc_line);
+			continue ;
+		}
+		if (*loc_line[0] == 'L')
+			error_msg();
+		else
+			break ;
+	}
 }

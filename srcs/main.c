@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:13:09 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/17 18:35:01 by skrabby          ###   ########.fr       */
+/*   Updated: 2020/01/18 22:10:58 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	main(void)
 
 	map = init_map();
 	parse_map(map);
+	if (map->check_link == 0)
+		error_msg();
 	ft_putchar('\n');
 	map->start = search_cell(map, map->start_str);
 	map->end = search_cell(map, map->end_str);

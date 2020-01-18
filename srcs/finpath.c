@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 18:07:26 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/06 19:01:34 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/18 22:12:27 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,16 @@ t_finpaths	*paths_addlast(t_finpaths *list, t_path *new_path)
 		tmp->path = new_path;
 	}
 	return (list);
+}
+
+void		check_name_list(t_cell **tmp, char *name)
+{
+	while ((*tmp)->next)
+	{
+		if (ft_strcmp((*tmp)->name, name) == 0)
+			error_msg();
+		(*tmp) = (*tmp)->next;
+	}
+	if (ft_strcmp((*tmp)->name, name) == 0)
+		error_msg();
 }

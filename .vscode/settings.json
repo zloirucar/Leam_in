@@ -1,7 +1,0 @@
-{
-	"files.associations": {
-		"lem_in.h": "c",
-		"cstdio": "c",
-		"libft.h": "c"
-	}
-}

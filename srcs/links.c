@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   links.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 21:52:12 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/17 17:53:01 by skrabby          ###   ########.fr       */
+/*   Updated: 2020/01/18 18:33:09 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static	int	add_neib(t_map *map, int check1, int check2)
+static	int		add_neib(t_map *map, int check1, int check2)
 {
 	if (check1 >= 0 && check2 >= 0 && check1 != check2)
 	{
@@ -28,7 +28,7 @@ static	int	add_neib(t_map *map, int check1, int check2)
 		return (0);
 }
 
-static	int	valid_link(char **arr)
+static	int		valid_link(char **arr)
 {
 	int i;
 
@@ -41,11 +41,11 @@ static	int	valid_link(char **arr)
 		return (1);
 }
 
-static	int	check_names(t_map *map, char *name1, char *name2)
+static	int		check_names(t_map *map, char *name1, char *name2)
 {
-	int i;
-	unsigned long check1;
-	unsigned long check2;
+	int				i;
+	unsigned long	check1;
+	unsigned long	check2;
 
 	i = 0;
 	check1 = search_cell(map, name1);
@@ -53,7 +53,7 @@ static	int	check_names(t_map *map, char *name1, char *name2)
 	return (add_neib(map, check1, check2));
 }
 
-static	int	find_cell(t_map *map, char *line)
+static	int		find_cell(t_map *map, char *line)
 {
 	char **arr;
 
@@ -72,7 +72,7 @@ static	int	find_cell(t_map *map, char *line)
 	}
 }
 
-void		parse_links(t_map *map, char *line)
+void			parse_links(t_map *map, char *line)
 {
 	if (!map->check_hashtb)
 	{

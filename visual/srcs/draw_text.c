@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_window_comp.c                                 :+:      :+:    :+:   */
+/*   draw_text.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 13:52:33 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/17 19:12:53 by skrabby          ###   ########.fr       */
+/*   Updated: 2020/01/18 18:38:14 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
-
 
 void	draw_ant_index(t_vis *v)
 {
@@ -33,9 +32,9 @@ void	draw_ant_index(t_vis *v)
 
 void	draw_room_name(t_vis *v)
 {
-	int coordx;
-	int coordy;
-	t_cell *tmp;
+	int		coordx;
+	int		coordy;
+	t_cell	*tmp;
 
 	tmp = v->map->cells;
 	while (tmp)

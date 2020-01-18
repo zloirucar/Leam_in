@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 19:14:11 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/17 18:37:43 by skrabby          ###   ########.fr       */
+/*   Updated: 2020/01/18 21:34:46 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static	void	add_cell(t_map *map, char *line)
 	if (ft_strnstr(line, "#", 1))
 		return ;
 	map->cells = cell_addlast(map, line);
-	//add_to_arr(map, line);
 }
 
 int				parse_count(t_map *map, char *line)
@@ -35,6 +34,8 @@ int				parse_count(t_map *map, char *line)
 			i++;
 		}
 		map->count = ft_atoi(line);
+		if (map->count <= 0)
+			error_msg();
 		map->check_count = 1;
 		return (0);
 	}

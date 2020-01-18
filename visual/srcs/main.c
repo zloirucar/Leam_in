@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 20:29:36 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/17 19:10:22 by skrabby          ###   ########.fr       */
+/*   Updated: 2020/01/18 18:38:29 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	get_coord(int *coordx, int *coordy, t_vis *v)
 
 void	calculate_padding(t_map *map, t_vis *v)
 {
-	int coordx;
-	int coordy;
-	t_cell *tmp;
+	int		coordx;
+	int		coordy;
+	t_cell	*tmp;
 
 	tmp = map->cells;
 	while (tmp)

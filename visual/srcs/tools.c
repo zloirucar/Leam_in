@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 18:55:14 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/17 15:02:04 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/18 21:55:48 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_vis		*set_var(t_map *map)
 	v->padding_y = 0;
 	v->start_room_ants = map->count;
 	v->end_room_ants = 0;
-	v->visu_speed = 15;
+	v->visu_speed = 3;
 	v->pause = 0;
 	v->trim_x0 = WIDTH;
 	v->trim_x1 = 0;

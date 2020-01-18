@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+         #
+#    By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/10 21:48:52 by oelaina           #+#    #+#              #
-#    Updated: 2020/01/17 19:13:17 by skrabby          ###   ########.fr        #
+#    Updated: 2020/01/18 19:07:35 by oelaina          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,6 @@ SRCS = cell \
 	   nodes \
 	   path \
 	   finpath \
-	   bhandari \
 	   dijkstra \
 	   hashtable
 

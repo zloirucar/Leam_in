@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+         #
+#    By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/05 11:23:44 by skrabby           #+#    #+#              #
-#    Updated: 2020/01/17 14:00:29 by skrabby          ###   ########.fr        #
+#    Updated: 2020/01/18 22:57:32 by oelaina          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = lem_in
+NAME = lem-in
 
 LIB = -lft -L./lib
 
@@ -20,9 +20,9 @@ FLAGS = -Wall -Wextra -Werror
 
 SRCS = main \
 	   cell \
+	   tools \
 	   map	\
 	   parse \
-	   tools \
 	   links \
 	   solver \
 	   neib_list \
@@ -31,7 +31,6 @@ SRCS = main \
 	   nodes \
 	   path \
 	   finpath \
-	   bhandari \
 	   dijkstra \
 	   hashtable
 
@@ -50,8 +49,10 @@ $(NAME): obj $(OBJ)
 	@make -C lib
 	@tput setaf 7; tput bold; echo "Compiling LEM_IN"
 	@gcc $(FLAGS) $(OBJ) $(HEADER) -o $(NAME) $(LIB)
-	#@make -C visual
 	@tput setaf 2; tput bold; echo "DONE LEM_IN"
+
+visual: obj $(OBJ)
+	@make -C visual
 
 obj:
 	@mkdir obj

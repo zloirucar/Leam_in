@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_rooms.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 18:49:56 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/17 18:55:43 by skrabby          ###   ########.fr       */
+/*   Updated: 2020/01/18 18:39:17 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	return_color(int coordx, int coordy, t_vis *vis, t_cell **tmp)
 
 void	draw_rooms(t_map *map, t_vis *v, int padding_x, int padding_y)
 {
-	int coordx;
-	int coordy;
-	t_cell *tmp;
+	int		coordx;
+	int		coordy;
+	t_cell	*tmp;
 
 	tmp = map->cells;
 	while (tmp)
@@ -60,8 +60,10 @@ t_ant	**create_ants(t_map *map, t_vis *v)
 	{
 		if (!(ants[i] = (t_ant *)malloc(sizeof(t_ant) + 100)))
 			exit(1);
-		ants[i]->visu_x = map->arr_cell[map->start]->cell->x * 46 + v->padding_x + 9;
-		ants[i]->visu_y = map->arr_cell[map->start]->cell->y * 46 + v->padding_y + 9;
+		ants[i]->visu_x =
+		map->arr_cell[map->start]->cell->x * 46 + v->padding_x + 9;
+		ants[i]->visu_y =
+		map->arr_cell[map->start]->cell->y * 46 + v->padding_y + 9;
 		ants[i]->index = i;
 		ants[i]->carry_x = 0;
 		ants[i]->carry_y = 0;
