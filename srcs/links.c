@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   links.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 21:52:12 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/06 19:24:58 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/17 17:53:01 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ static	int	add_neib(t_map *map, int check1, int check2)
 	if (check1 >= 0 && check2 >= 0 && check1 != check2)
 	{
 		map->edges = edge_addlast(map->edges,
-		map->arr_cell[check1], map->arr_cell[check2]);
-		map->arr_cell[check1]->next_neib =
-		neib_addlast(map->arr_cell[check1]->next_neib, check2);
-		map->arr_cell[check2]->next_neib =
-		neib_addlast(map->arr_cell[check2]->next_neib, check1);
+		map->arr_cell[check1]->cell, map->arr_cell[check2]->cell);
+		map->arr_cell[check1]->cell->next_neib =
+		neib_addlast(map->arr_cell[check1]->cell->next_neib, check2);
+		map->arr_cell[check2]->cell->next_neib =
+		neib_addlast(map->arr_cell[check2]->cell->next_neib, check1);
 		return (1);
 	}
 	else
@@ -44,22 +44,12 @@ static	int	valid_link(char **arr)
 static	int	check_names(t_map *map, char *name1, char *name2)
 {
 	int i;
-	int check1;
-	int check2;
+	unsigned long check1;
+	unsigned long check2;
 
 	i = 0;
-	check1 = -1;
-	check2 = -1;
-	while (i < map->size_arr)
-	{
-		if (ft_strcmp(map->arr_cell[i]->name, name1) == 0)
-			check1 = i;
-		if (ft_strcmp(map->arr_cell[i]->name, name2) == 0)
-			check2 = i;
-		i++;
-		if (check1 >= 0 && check2 >= 0)
-			break ;
-	}
+	check1 = search_cell(map, name1);
+	check2 = search_cell(map, name2);
 	return (add_neib(map, check1, check2));
 }
 
@@ -84,6 +74,11 @@ static	int	find_cell(t_map *map, char *line)
 
 void		parse_links(t_map *map, char *line)
 {
+	if (!map->check_hashtb)
+	{
+		create_hashtable(map);
+		map->check_hashtb = 1;
+	}
 	if (map->check_start == 1 && map->check_end == 1)
 	{
 		if (find_cell(map, line) == 0)

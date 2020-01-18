@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+         #
+#    By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/10 21:48:52 by oelaina           #+#    #+#              #
-#    Updated: 2020/01/17 16:35:24 by oelaina          ###   ########.fr        #
+#    Updated: 2020/01/17 19:13:17 by skrabby          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +27,9 @@ SRCS_VIS = main \
 		   ants_move \
 		   ants_move_tools \
 		   print_rooms_tools \
-		   draw_window_comp \
+		   draw_text \
 		   solmove_pair \
-		   solution
+		   solution \
 		   
 SRCS = cell \
 	   map	\
@@ -44,12 +44,13 @@ SRCS = cell \
 	   path \
 	   finpath \
 	   bhandari \
-	   dijkstra
+	   dijkstra \
+	   hashtable
 
 HEADER = 	-I./include \
 			-I../lib/libft/ \
 			-I../include \
-			-I./visualizer/minilibx
+			-I./srcs/minilibx
 
 OBJ =	$(addprefix ../obj/, $(addsuffix .o, $(SRCS)))
 OBJ2 =	$(addprefix obj/, $(addsuffix .o, $(SRCS_VIS)))

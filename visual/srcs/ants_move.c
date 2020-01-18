@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ants_move.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 12:29:08 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/17 12:39:40 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/17 19:00:00 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ t_antmove	*init_antmove(t_vis *v, t_map *map,
 
 	if (!(am = (t_antmove *)malloc(sizeof(t_antmove))))
 		exit(1);
-	am->room_index = get_room_index(map, room_name);
+	am->room_index = search_cell(map, room_name);
 	am->x0 = v->ants[ant_index]->visu_x;
-	am->x1 = map->arr_cell[am->room_index]->x * 46 + v->padding_x + 9;
+	am->x1 = map->arr_cell[am->room_index]->cell->x * 46 + v->padding_x + 9;
 	am->y0 = v->ants[ant_index]->visu_y;
-	am->y1 = map->arr_cell[am->room_index]->y * 46 + v->padding_y + 9;
-	if (am->x0 == map->arr_cell[map->start]->x * 46 + v->padding_x + 9
-	&& am->y0 == map->arr_cell[map->start]->y * 46 + v->padding_y + 9)
+	am->y1 = map->arr_cell[am->room_index]->cell->y * 46 + v->padding_y + 9;
+	if (am->x0 == map->arr_cell[map->start]->cell->x * 46 + v->padding_x + 9
+	&& am->y0 == map->arr_cell[map->start]->cell->y * 46 + v->padding_y + 9)
 		v->start_room_ants -= 1;
 	return (am);
 }
@@ -69,9 +69,9 @@ int			visumove_ant(t_vis *v, t_map *map, int ant_index, char *room_name)
 	{
 		mv_ants(v, am, ant_index);
 		if (v->ants[ant_index]->visu_x ==
-		map->arr_cell[map->end]->x * 46 + v->padding_x + 9
+		map->arr_cell[map->end]->cell->x * 46 + v->padding_x + 9
 		&& v->ants[ant_index]->visu_y ==
-		map->arr_cell[map->end]->y * 46 + v->padding_y + 9)
+		map->arr_cell[map->end]->cell->y * 46 + v->padding_y + 9)
 			v->end_room_ants += 1;
 		return (0);
 	}

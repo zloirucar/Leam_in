@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 21:33:31 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/17 14:42:14 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/17 18:47:04 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 static	void	add_cell(t_map *map, char *line)
 {
 	parse_start_end(map, line);
-	add_to_arr(map, line);
-	map->count_cells++;
+	if (ft_strnstr(line, "#", 1))
+		return ;
+	map->cells = cell_addlast(map, line);
 }
 
 static	void	printf_and_free(char *line)

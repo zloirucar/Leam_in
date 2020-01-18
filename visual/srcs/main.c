@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 20:29:36 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/17 14:36:03 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/17 19:10:22 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ void	calculate_padding(t_map *map, t_vis *v)
 {
 	int coordx;
 	int coordy;
-	int count;
+	t_cell *tmp;
 
-	count = 0;
-	while (count < map->size_arr)
+	tmp = map->cells;
+	while (tmp)
 	{
-		coordx = map->arr_cell[count]->x * 46 + v->padding_x;
-		coordy = map->arr_cell[count]->y * 46 + v->padding_y;
+		coordx = tmp->x * 46 + v->padding_x;
+		coordy = tmp->y * 46 + v->padding_y;
 		if (coordx > 1400 || coordy > 750)
 		{
 			ft_printf("Usage(Visualizer): \
@@ -64,7 +64,7 @@ void	calculate_padding(t_map *map, t_vis *v)
 			exit(1);
 		}
 		get_coord(&coordx, &coordy, v);
-		count++;
+		tmp = tmp->next;
 	}
 	v->padding_x = (WIDTH / 2) - ((v->trim_x1 - v->trim_x0) / 2) - v->trim_x0;
 	v->padding_y = (HEIGHT / 2) - ((v->trim_y1 - v->trim_y0) / 2) - v->trim_y0;
@@ -95,6 +95,8 @@ int		main(void)
 
 	map = init_map();
 	parser(map);
+	map->start = search_cell(map, map->start_str);
+	map->end = search_cell(map, map->end_str);
 	v = set_var(map);
 	v->map = map;
 	v->mlx = mlx_init();

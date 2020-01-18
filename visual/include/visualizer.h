@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   visualizer.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 20:27:58 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/17 15:07:45 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/17 19:00:54 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct			s_antmove
 	int					diffy;
 	int					sign_x;
 	int					sign_y;
-	int					room_index;
+	unsigned long		room_index;
 	float				add_x;
 	float				add_y;
 }						t_antmove;
@@ -154,7 +154,6 @@ void					check_error(void);
 
 void					set_amspeed(t_vis *v, t_antmove *am);
 void					set_diff_sign(t_antmove *am);
-int						get_room_index(t_map *map, char *room_name);
 
 t_antmove				*init_antmove(t_vis *v, t_map *map,
 							int ant_index, char *room_name);

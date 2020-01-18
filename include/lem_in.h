@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:09:22 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/17 15:00:25 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/17 18:41:27 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ typedef	struct			s_cell
 {
 	char				*name;
 	struct s_cell		*next;
+	struct s_cell		*sp_next;
 	struct s_cell		*prev;
-	int					index;
+	unsigned long		index;
 	int					distance;
 	int					is_visited;
 	int					y;
@@ -65,6 +66,12 @@ typedef struct			s_solution
 	struct s_solution	*next;
 }						t_solution;
 
+typedef struct			s_hashtable
+{
+	t_cell				*cell;
+	char				*key;
+}						t_hashtable;
+
 typedef	struct			s_map
 {
 	int					size_arr;
@@ -74,6 +81,7 @@ typedef	struct			s_map
 	int					check_cell;
 	int					check_link;
 	int					check_start;
+	int					check_hashtb;
 	int					newline;
 	int					check_end;
 	int					check_count;
@@ -81,16 +89,20 @@ typedef	struct			s_map
 	t_finpaths			*rev_paths;
 	t_finpaths			*paths;
 	t_path				*delete_path;
-	t_cell				**arr_cell;
+	//t_cell				**arr_cell;
+	t_cell				*cells;
+	t_hashtable			**arr_cell;
 	t_edge				*edges;
 	t_solution			*solution;
 	int					crossed;
-	int					start;
-	int					end;
+	char				*start_str;
+	char				*end_str;
+	unsigned long		start;
+	unsigned long		end;
 }						t_map;
 
 t_cell					*init_cell();
-void					set_cell(t_cell *cell, char *line, int index);
+void					set_cell(t_cell *cell, char *line);
 void					arr_cellcpy(t_cell **dest, t_cell **src, int size);
 void					inc_arr_cell(t_cell ***arr_cell, int *size);
 void					parse_start_end(t_map *map, char *line);
@@ -122,7 +134,7 @@ int						get_weight(t_map *map, t_neib *list, char *find_name);
 
 t_path					*init_path(void);
 t_path					*path_addlast(t_path *alst, t_cell *cell);
-void					print_shortest(t_path *list);
+
 t_path					*revert_path(t_path *path);
 void					save_paths(t_map *map);
 t_finpaths				*paths_addlast(t_finpaths *list, t_path *new_path);
@@ -146,7 +158,10 @@ void					ant_cross(t_map *map, int ants);
 
 void					bhandari_algo(t_map *map);
 
-void					printshort(t_map *map);
-void					print_shortest(t_path *list);
+unsigned long			get_hash(char *str, int rooms);
+void					create_hashtable(t_map *map);
+unsigned long			search_cell(t_map *map, char *name);
+t_cell					*cell_addlast(t_map *map, char *line);
+void					ft_printpair(int d, char *s);
 
 #endif

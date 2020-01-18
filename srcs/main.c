@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:13:09 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/17 15:39:34 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/17 18:35:01 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ int	main(void)
 
 	map = init_map();
 	parse_map(map);
-	ft_printf("\n");
+	ft_putchar('\n');
+	map->start = search_cell(map, map->start_str);
+	map->end = search_cell(map, map->end_str);
 	bhandari_algo(map);
 	if (map->paths)
 		ant_cross(map, map->count);

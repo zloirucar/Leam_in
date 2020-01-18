@@ -6,13 +6,13 @@
 /*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 20:13:48 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/11 21:14:46 by skrabby          ###   ########.fr       */
+/*   Updated: 2020/01/17 18:14:46 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	set_cell(t_cell *cell, char *line, int index)
+void	set_cell(t_cell *cell, char *line)
 {
 	char	**arr;
 	int		i;
@@ -27,8 +27,8 @@ void	set_cell(t_cell *cell, char *line, int index)
 	cell->ant = 0;
 	cell->prev = NULL;
 	cell->next = NULL;
+	cell->sp_next = NULL;
 	cell->next_neib = NULL;
-	cell->index = index;
 	while (arr[i])
 	{
 		free(arr[i]);
@@ -45,9 +45,10 @@ t_cell	*init_cell(void)
 	if (!(cell = (t_cell *)malloc(sizeof(t_cell))))
 		exit(1);
 	cell->next_neib = NULL;
+	cell->next = NULL;
 	return (cell);
 }
-
+/*
 void	arr_cellcpy(t_cell **dest, t_cell **src, int size)
 {
 	while (size >= 0)
@@ -82,4 +83,4 @@ void	inc_arr_cell(t_cell ***arr_cell, int *size)
 	arr_cellcpy(*arr_cell, buff, *size - 1);
 	free(buff);
 	(*size)++;
-}
+}*/

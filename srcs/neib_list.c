@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   neib_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 19:32:47 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/07 19:45:58 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/17 17:29:14 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_neib			*del_neib(t_map *map, t_neib *list, char *find_name)
 	prev_cell = NULL;
 	while (cur_cell)
 	{
-		if (ft_strstr(map->arr_cell[cur_cell->index]->name, find_name))
+		if (!ft_strcmp(map->arr_cell[cur_cell->index]->cell->name, find_name))
 		{
 			if (prev_cell)
 				prev_cell->next = cur_cell->next;

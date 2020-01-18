@@ -3,28 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ants_move_tools.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 12:34:55 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/17 12:39:52 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/17 19:00:24 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
-
-int		get_room_index(t_map *map, char *room_name)
-{
-	int i;
-
-	i = 0;
-	while (i < map->size_arr)
-	{
-		if (ft_strstr(map->arr_cell[i]->name, room_name))
-			return (i);
-		i++;
-	}
-	return (-1);
-}
 
 void	set_diff_sign(t_antmove *am)
 {

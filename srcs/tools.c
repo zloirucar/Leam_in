@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 11:08:20 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/16 12:35:44 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/17 18:35:54 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+void		ft_printpair(int d, char *s)
+{
+	ft_putchar('L');
+	ft_putnbr(d);
+	ft_putchar('-');
+	ft_putstr(s);
+}
 
 void	clear_2d_arr(char **arr)
 {

@@ -3,47 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   print_rooms.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 18:49:56 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/17 13:33:54 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/17 18:55:43 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
 
-void	return_color(int coordx, int coordy, t_vis *vis, int *count)
+void	return_color(int coordx, int coordy, t_vis *vis, t_cell **tmp)
 {
 	draw_square(coordx, coordy, 36, vis);
 	change_color(40, 180, 180, vis);
-	(*count)++;
+	(*tmp) = (*tmp)->next;
 }
 
 void	draw_rooms(t_map *map, t_vis *v, int padding_x, int padding_y)
 {
-	int count;
 	int coordx;
 	int coordy;
+	t_cell *tmp;
 
-	count = 0;
-	while (count < map->size_arr)
+	tmp = map->cells;
+	while (tmp)
 	{
-		coordx = map->arr_cell[count]->x * 46 + padding_x;
-		coordy = map->arr_cell[count]->y * 46 + padding_y;
-		if (count == map->start)
+		coordx = tmp->x * 46 + padding_x;
+		coordy = tmp->y * 46 + padding_y;
+		if (tmp->index == map->start)
 		{
 			change_color(200, 90, 170, v);
-			return_color(coordx, coordy, v, &count);
+			return_color(coordx, coordy, v, &tmp);
 			continue;
 		}
-		if (count == map->end)
+		if (tmp->index == map->end)
 		{
 			change_color(50, 200, 130, v);
-			return_color(coordx, coordy, v, &count);
+			return_color(coordx, coordy, v, &tmp);
 			continue;
 		}
 		draw_square(coordx, coordy, 36, v);
-		count++;
+		tmp = tmp->next;
 	}
 }
 
@@ -60,8 +60,8 @@ t_ant	**create_ants(t_map *map, t_vis *v)
 	{
 		if (!(ants[i] = (t_ant *)malloc(sizeof(t_ant) + 100)))
 			exit(1);
-		ants[i]->visu_x = map->arr_cell[map->start]->x * 46 + v->padding_x + 9;
-		ants[i]->visu_y = map->arr_cell[map->start]->y * 46 + v->padding_y + 9;
+		ants[i]->visu_x = map->arr_cell[map->start]->cell->x * 46 + v->padding_x + 9;
+		ants[i]->visu_y = map->arr_cell[map->start]->cell->y * 46 + v->padding_y + 9;
 		ants[i]->index = i;
 		ants[i]->carry_x = 0;
 		ants[i]->carry_y = 0;

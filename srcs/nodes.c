@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nodes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 17:59:02 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/06 19:20:44 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/17 17:32:51 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ int		visit_nodes_neighbours(t_map *map, t_cell *this_node)
 	while (tmp)
 	{
 		weight = get_weight(map, this_node->next_neib,
-		map->arr_cell[tmp->index]->name);
-		if (!map->arr_cell[tmp->index]->is_visited)
+		map->arr_cell[tmp->index]->cell->name);
+		if (!map->arr_cell[tmp->index]->cell->is_visited)
 		{
 			if ((this_node->distance + weight
-			< map->arr_cell[tmp->index]->distance)
-			|| map->arr_cell[tmp->index]->distance == 0)
+			< map->arr_cell[tmp->index]->cell->distance)
+			|| map->arr_cell[tmp->index]->cell->distance == 0)
 			{
-				map->arr_cell[tmp->index]->distance =
+				map->arr_cell[tmp->index]->cell->distance =
 				this_node->distance + weight;
-				map->arr_cell[tmp->index]->prev = this_node;
+				map->arr_cell[tmp->index]->cell->prev = this_node;
 			}
 		}
 		if (map->arr_cell[tmp->index] == map->arr_cell[map->end])
@@ -49,7 +49,7 @@ int		get_weight(t_map *map, t_neib *list, char *find_name)
 	cur_cell = list;
 	while (cur_cell)
 	{
-		if (ft_strstr(map->arr_cell[cur_cell->index]->name, find_name))
+		if (!ft_strcmp(map->arr_cell[cur_cell->index]->cell->name, find_name))
 			return (cur_cell->weight);
 		cur_cell = cur_cell->next;
 	}
@@ -68,7 +68,7 @@ int		visit_node(t_map *map, t_cell *prev_node, t_cell *new_node)
 		new_node->distance = prev_node->distance + weight;
 	}
 	new_node->is_visited = 1;
-	if (new_node == map->arr_cell[map->end])
+	if (new_node == map->arr_cell[map->end]->cell)
 		return (1);
 	else if (visit_nodes_neighbours(map, new_node))
 		return (1);

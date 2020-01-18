@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bhandari.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 18:21:40 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/07 21:57:35 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/17 17:59:50 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	save_paths(t_map *map)
 	t_path *thispath;
 
 	thispath = NULL;
-	cur = map->arr_cell[map->end];
-	while (cur != map->arr_cell[map->start])
+	cur = map->arr_cell[map->end]->cell;
+	while (cur != map->arr_cell[map->start]->cell)
 	{
 		prev = cur->prev;
 		thispath = path_addlast(thispath, cur);
@@ -40,7 +40,7 @@ int		revert_weights(t_map *map, t_neib *list, char *find_name)
 	cur_cell = list;
 	while (cur_cell)
 	{
-		if (ft_strstr(map->arr_cell[cur_cell->index]->name, find_name))
+		if (!ft_strcmp(map->arr_cell[cur_cell->index]->cell->name, find_name))
 		{
 			cur_cell->weight *= -1;
 			return (1);
@@ -57,8 +57,8 @@ void	bellman_ford_weights(t_map *map)
 	t_path *thispath;
 
 	thispath = NULL;
-	cur = map->arr_cell[map->end];
-	while (cur != map->arr_cell[map->start])
+	cur = map->arr_cell[map->end]->cell;
+	while (cur != map->arr_cell[map->start]->cell)
 	{
 		prev = cur->prev;
 		thispath = path_addlast(thispath, cur);

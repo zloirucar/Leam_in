@@ -3,20 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   draw_window_comp.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 13:52:33 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/17 13:56:59 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/17 19:12:53 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
 
-void	draw_start_end(t_vis *v, t_map *map, int count)
-{
-	if (count == map->start)
-		change_color(0, 0, 0, v);
-}
 
 void	draw_ant_index(t_vis *v)
 {
@@ -27,9 +22,9 @@ void	draw_ant_index(t_vis *v)
 	{
 		if (i < v->map->count - v->start_room_ants &&
 			(v->ants[i]->visu_x !=
-			v->map->arr_cell[v->map->end]->x * 46 + v->padding_x + 9
+			v->map->arr_cell[v->map->end]->cell->x * 46 + v->padding_x + 9
 			|| v->ants[i]->visu_y !=
-			v->map->arr_cell[v->map->end]->y * 46 + v->padding_y + 9))
+			v->map->arr_cell[v->map->end]->cell->y * 46 + v->padding_y + 9))
 			mlx_string_put(v->mlx, v->win, v->ants[i]->visu_x + 18,
 			v->ants[i]->visu_y + 18, 0x0FFFFFF, ft_itoa(v->ants[i]->index));
 		i++;
@@ -38,18 +33,18 @@ void	draw_ant_index(t_vis *v)
 
 void	draw_room_name(t_vis *v)
 {
-	int count;
 	int coordx;
 	int coordy;
+	t_cell *tmp;
 
-	count = 0;
-	while (count < v->map->size_arr)
+	tmp = v->map->cells;
+	while (tmp)
 	{
-		coordx = v->map->arr_cell[count]->x * 46 + v->padding_x;
-		coordy = v->map->arr_cell[count]->y * 46 + v->padding_y - 5;
+		coordx = tmp->x * 46 + v->padding_x;
+		coordy = tmp->y * 46 + v->padding_y - 5;
 		mlx_string_put(v->mlx, v->win, coordx,
-		coordy, 0x0FFFFFF, v->map->arr_cell[count]->name);
-		count++;
+		coordy, 0x0FFFFFF, tmp->name);
+		tmp = tmp->next;
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ant.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 17:46:31 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/17 14:48:27 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/01/17 18:35:48 by skrabby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,22 @@ t_map **map, int **newline, int *prev_end_ant)
 {
 	while ((*end))
 	{
-		if ((*end)->cell != (*map)->arr_cell[(*map)->start]
+		if ((*end)->cell != (*map)->arr_cell[(*map)->start]->cell
 		&& (*end)->cell->ant != 0)
 		{
-			if (!((*end)->cell == (*map)->arr_cell[(*map)->end]
+			if (!((*end)->cell == (*map)->arr_cell[(*map)->end]->cell
 			&& (*end)->cell->ant == (*prev_end_ant)))
 			{
 				if (!**newline)
-					ft_printf(" ");
+					ft_putchar(' ');
 				else
 					**newline = 0;
-				ft_printf("L%d-%s", (*end)->cell->ant, (*end)->cell->name);
+				ft_printpair((*end)->cell->ant, (*end)->cell->name);
 			}
 		}
 		(*end) = (*end)->prev;
 	}
-	(*prev_end_ant) = (*map)->arr_cell[(*map)->end]->ant;
+	(*prev_end_ant) = (*map)->arr_cell[(*map)->end]->cell->ant;
 }
 
 void			move_ant(t_map *map,
@@ -113,7 +113,7 @@ int ants)
 				move_ant(map, cur, 0, &(map->newline));
 			cur = cur->next;
 		}
-		ft_printf("\n");
+		ft_putchar('\n');
 		cur = begin;
 		map->newline = 1;
 	}
