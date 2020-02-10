@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 20:29:36 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/18 18:38:29 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/02/10 19:14:13 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,6 @@ int		main(void)
 	mlx_loop_hook(v->mlx, ft_loop, v);
 	mlx_loop(v->mlx);
 	ft_printf("\n");
+	clear_all(map);
 	return (1);
 }

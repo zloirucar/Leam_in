@@ -6,7 +6,7 @@
 #    By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/10 21:48:52 by oelaina           #+#    #+#              #
-#    Updated: 2020/01/18 19:07:35 by oelaina          ###   ########.fr        #
+#    Updated: 2020/02/10 19:15:08 by oelaina          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,10 @@ SRCS = cell \
 	   path \
 	   finpath \
 	   dijkstra \
-	   hashtable
+	   hashtable \
+	   clear \
+	   clear_map \
+	   optimal_path
 
 HEADER = 	-I./include \
 			-I../lib/libft/ \
