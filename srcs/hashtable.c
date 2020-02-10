@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 13:52:52 by skrabby           #+#    #+#             */
-/*   Updated: 2020/01/18 21:29:35 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/02/10 18:00:54 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void				create_hashtable(t_map *map)
 	if (!(map->arr_cell = (t_hashtable **)
 	malloc(sizeof(t_hashtable *) * map->size_arr * 100)))
 		exit(1);
+	map->size_hash = map->size_arr * 100;
 	while (i < map->size_arr * 100)
 	{
 		map->arr_cell[i] = NULL;

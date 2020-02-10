@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dijkstra.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 18:13:43 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/17 18:15:26 by skrabby          ###   ########.fr       */
+/*   Updated: 2020/02/10 18:45:09 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,32 +65,23 @@ void			update_map(t_map *map)
 	}
 }
 
-void			print_shortest(t_path *list)
-{
-	t_path *tmp;
-
-	if (!list)
-		return ;
-	tmp = list;
-	while (tmp)
-		tmp = tmp->next;
-}
-
 void			return_neib(t_map *map)
 {
-	t_finpaths *tmp;
+	t_finpaths	*tmp;
+	t_path		*path;
 
 	tmp = map->rev_paths;
 	while (tmp)
 	{
-		while (tmp->path->next)
+		path = tmp->path;
+		while (path->next)
 		{
-			tmp->path->cell->next_neib =
-			neib_addlast(tmp->path->cell->next_neib,
-			tmp->path->next->cell->index);
-			revert_weights(map, tmp->path->next->cell->next_neib,
-			tmp->path->cell->name);
-			tmp->path = tmp->path->next;
+			path->cell->next_neib =
+			neib_addlast(path->cell->next_neib,
+			path->next->cell->index);
+			revert_weights(map, path->next->cell->next_neib,
+			path->cell->name);
+			path = path->next;
 		}
 		tmp = tmp->next;
 	}

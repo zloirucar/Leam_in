@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 09:19:44 by skrabby           #+#    #+#             */
-/*   Updated: 2019/11/06 20:00:09 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/02/10 18:07:25 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_strdup(const char *str)
 	length = ft_strlen(str);
 	temp = (char*)malloc(sizeof(char) * (length + 1));
 	if (!temp)
-		exit(0);
+		exit(1);
 	while (str[i] != '\0')
 	{
 		temp[i] = str[i];

@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:09:22 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/18 22:49:39 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/02/10 18:42:08 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ typedef	struct			s_neib
 **
 ** index - index in arr_cell
 **
-** ant - the index of an ant wchich
-** is located in the cell (if start/end cell then the count of ants)
+** ant - the index of an ant which
+** is located in the cell (if start/end cell, then the count of ants)
 **
 ** next_neib - the list of nodes' neighbors,
-** i. e. other nodes, which our node is connect to
+** i. e. other nodes, which our node is connected to
 */
 typedef	struct			s_cell
 {
@@ -141,11 +141,11 @@ typedef	struct			s_map
 	t_hashtable			**arr_cell;
 	t_edge				*edges;
 	t_solution			*solution;
-	int					crossed;
 	char				*start_str;
 	char				*end_str;
 	unsigned long		start;
 	unsigned long		end;
+	int					size_hash;
 }						t_map;
 /*
 ** cell operations
@@ -205,6 +205,7 @@ void					save_paths(t_map *map);
 t_finpaths				*paths_addlast(t_finpaths *list, t_path *new_path);
 t_finpaths				*init_finpaths(void);
 void					delete_path(t_map *map);
+int						count_path(t_path *lst);
 /*
 ** edges
 */
@@ -223,9 +224,10 @@ int						visit_node(t_map *map, t_cell *prev_node,
 /*
 **ants
 */
+int						optimal_paths(t_finpaths *paths, int ants);
 void					move_ant(t_map *map, t_finpaths *path,
 						int ant_index, int *newline);
-void					ant_cross(t_map *map, int ants);
+void					ant_cross(t_map *map, int ants, int opsize);
 /*
 **bhandari
 */
@@ -235,5 +237,15 @@ void					bhandari_algo(t_map *map);
 */
 unsigned long			get_hash(char *str, int rooms);
 void					ft_printpair(int d, char *s);
-
+/*
+** clear
+*/
+void					clear_all(t_map *map);
+void					clear_hashtable(t_hashtable **hash, int hash_size);
+void					clear_edges(t_edge **edge);
+void					clear_solution(t_solution **solution);
+void					clear_cell(t_cell **cell);
+void					clear_path(t_path **path);
+void					clear_finpath(t_finpaths **paths);
+void					clear_list_finpath(t_finpaths **paths);
 #endif

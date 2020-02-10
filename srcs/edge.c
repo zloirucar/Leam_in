@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
+#include "stdio.h"
 
 static	void	set_param(t_edge **begin,
 t_edge **cur_cell, t_edge **prev_cell, t_map **map)
@@ -32,10 +33,10 @@ char *fnode_name, char *snode_name)
 	set_param(&begin, &cur_cell, &prev_cell, &map);
 	while (cur_cell)
 	{
-		if ((ft_strstr(cur_cell->first_node->name, fnode_name) &&
-		(ft_strstr(cur_cell->second_node->name, snode_name))) ||
-		((ft_strstr(cur_cell->first_node->name, snode_name) &&
-		(ft_strstr(cur_cell->second_node->name, fnode_name)))))
+		if ((!ft_strcmp(cur_cell->first_node->name, fnode_name) &&
+		(!ft_strcmp(cur_cell->second_node->name, snode_name))) ||
+		((!ft_strcmp(cur_cell->first_node->name, snode_name) &&
+		(!ft_strcmp(cur_cell->second_node->name, fnode_name)))))
 		{
 			if (prev_cell)
 				prev_cell->next = cur_cell->next;

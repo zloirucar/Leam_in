@@ -43,11 +43,9 @@ static	int		valid_link(char **arr)
 
 static	int		check_names(t_map *map, char *name1, char *name2)
 {
-	int				i;
 	unsigned long	check1;
 	unsigned long	check2;
 
-	i = 0;
 	check1 = search_cell(map, name1);
 	check2 = search_cell(map, name2);
 	return (add_neib(map, check1, check2));

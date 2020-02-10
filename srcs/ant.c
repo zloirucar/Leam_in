@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ant.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrabby <skrabby@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 17:46:31 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/17 18:35:48 by skrabby          ###   ########.fr       */
+/*   Updated: 2020/02/10 18:47:37 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,7 @@ t_path **prev, t_path **cur, t_map **map)
 			if ((*prev)->cell->ant != 0)
 			{
 				if ((*cur)->next == NULL)
-				{
 					(*map)->count_end_ant += 1;
-					if ((*map)->count_end_ant == (*map)->count)
-						(*map)->crossed = 1;
-				}
 			}
 			(*cur)->cell->ant = (*prev)->cell->ant;
 		}
@@ -90,21 +86,24 @@ t_finpaths *path, int ant_index, int *newline)
 }
 
 void			ant_cross(t_map *map,
-int ants)
+int ants, int opsize)
 {
 	int			count;
-	t_finpaths	*begin;
+	int			i;
+	int			maxop;
 	t_finpaths	*cur;
 
 	map->newline = 1;
-	begin = map->paths;
-	cur = begin;
+	cur = map->paths;
 	count = 1;
-	while (count <= ants || !map->crossed)
+	maxop = opsize;
+	while (map->count_end_ant != map->count)
 	{
-		while (cur)
+		i = 0;
+		opsize = optimal_paths(map->paths, ants - count + 1);
+		while (cur && i < maxop)
 		{
-			if (count <= ants)
+			if (i < opsize)
 			{
 				move_ant(map, cur, count, &(map->newline));
 				count++;
@@ -112,9 +111,10 @@ int ants)
 			else
 				move_ant(map, cur, 0, &(map->newline));
 			cur = cur->next;
+			i++;
 		}
 		ft_putchar('\n');
-		cur = begin;
+		cur = map->paths;
 		map->newline = 1;
 	}
 }

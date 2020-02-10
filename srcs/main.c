@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:13:09 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/18 22:10:58 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/02/10 18:44:44 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ int	main(void)
 	map->end = search_cell(map, map->end_str);
 	bhandari_algo(map);
 	if (map->paths)
-		ant_cross(map, map->count);
+		ant_cross(map, map->count, optimal_paths(map->paths, map->count));
 	else
 		error_msg();
+	clear_all(map);
 	return (0);
 }

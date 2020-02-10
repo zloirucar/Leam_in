@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 20:17:31 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/18 22:06:09 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/02/10 18:44:32 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ t_map	*init_map(void)
 	map->edges = NULL;
 	map->solution = NULL;
 	map->cells = NULL;
-	map->crossed = 0;
 	map->count_end_ant = 0;
 	map->end = 0;
 	map->start = 0;

@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 20:13:48 by oelaina           #+#    #+#             */
-/*   Updated: 2020/01/18 19:54:29 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/02/10 18:40:56 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ t_cell			*init_cell(void)
 		exit(1);
 	cell->next_neib = NULL;
 	cell->next = NULL;
+	cell->name = NULL;
 	return (cell);
 }
