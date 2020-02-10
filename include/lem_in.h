@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:09:22 by oelaina           #+#    #+#             */
-/*   Updated: 2020/02/10 18:42:08 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/02/10 19:10:16 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,6 +228,7 @@ int						optimal_paths(t_finpaths *paths, int ants);
 void					move_ant(t_map *map, t_finpaths *path,
 						int ant_index, int *newline);
 void					ant_cross(t_map *map, int ants, int opsize);
+void					ant_cycle(t_map *map, int opsize, int maxop, int *count);
 /*
 **bhandari
 */

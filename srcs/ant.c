@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 17:46:31 by oelaina           #+#    #+#             */
-/*   Updated: 2020/02/10 18:47:37 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/02/10 19:11:29 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,18 +101,7 @@ int ants, int opsize)
 	{
 		i = 0;
 		opsize = optimal_paths(map->paths, ants - count + 1);
-		while (cur && i < maxop)
-		{
-			if (i < opsize)
-			{
-				move_ant(map, cur, count, &(map->newline));
-				count++;
-			}
-			else
-				move_ant(map, cur, 0, &(map->newline));
-			cur = cur->next;
-			i++;
-		}
+		ant_cycle(map, opsize, maxop, &count);
 		ft_putchar('\n');
 		cur = map->paths;
 		map->newline = 1;

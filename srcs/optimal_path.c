@@ -6,11 +6,32 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 04:44:52 by skrabby           #+#    #+#             */
-/*   Updated: 2020/02/10 18:44:19 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/02/10 19:11:52 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+void	ant_cycle(t_map *map, int opsize, int maxop, int *count)
+{
+	int			i;
+	t_finpaths	*cur;
+
+	i = 0;
+	cur = map->paths;
+	while (cur && i < maxop)
+	{
+		if (i < opsize)
+		{
+			move_ant(map, cur, *count, &(map->newline));
+			(*count)++;
+		}
+		else
+			move_ant(map, cur, 0, &(map->newline));
+		cur = cur->next;
+		i++;
+	}
+}
 
 int		count_finpaths(t_finpaths *lst)
 {
