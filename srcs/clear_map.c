@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 18:37:23 by oelaina           #+#    #+#             */
-/*   Updated: 2020/02/10 18:45:21 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/02/14 14:43:56 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,13 @@ void	clear_hashtable(t_hashtable **hash, int hash_size)
 	int i;
 
 	i = 0;
-	while (i <= hash_size)
+	while (i < hash_size)
 	{
-		free(hash[i]->key);
-		free(hash[i]);
+		if (hash[i] != NULL)
+		{
+			free(hash[i]->key);
+			free(hash[i]);
+		}
 		i++;
 	}
 	free(hash);
