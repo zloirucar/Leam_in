@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 19:14:11 by oelaina           #+#    #+#             */
-/*   Updated: 2020/02/10 18:49:42 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/02/14 18:43:51 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ int				parse_count(t_map *map, char *line)
 
 static	void	printf_and_free(char *line)
 {
+	if (line[0] == '#')
+	{
+		free(line);
+		return ;
+	}
 	ft_putstr(line);
 	ft_putchar('\n');
 	free(line);

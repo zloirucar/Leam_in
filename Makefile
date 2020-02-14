@@ -6,7 +6,7 @@
 #    By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/05 11:23:44 by skrabby           #+#    #+#              #
-#    Updated: 2020/02/10 18:38:15 by oelaina          ###   ########.fr        #
+#    Updated: 2020/02/14 17:54:06 by oelaina          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ SRCS = main \
 	   hashtable \
 	   optimal_path \
 	   clear \
-	   clear_map
+	   clear_map \
+	   valid_func
 
 HEADER = 	-I./include \
 			-I./lib/libft/ \

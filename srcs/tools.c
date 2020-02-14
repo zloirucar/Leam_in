@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 11:08:20 by oelaina           #+#    #+#             */
-/*   Updated: 2020/02/14 17:17:45 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/02/14 18:42:39 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,27 @@ void	error_msg(void)
 	exit(1);
 }
 
-void	check_valid(char **loc_line, char *line)
+void	check_valid(char **loc_line, char **line)
 {
-	ft_printf("%s\n", line);
-	while (get_next_line(0, loc_line))
+	if (ft_strcmp(*line, "##start") == 0
+	|| ft_strcmp(*line, "##end") == 0)
 	{
-		if (*loc_line[0] == '#')
+		while (get_next_line(0, loc_line))
 		{
-			free(*loc_line);
-			continue ;
+			if (*loc_line[0] == '#'
+			&& ft_strcmp(*loc_line, "##start") != 0
+			&& ft_strcmp(*loc_line, "##end") != 0)
+			{
+				free(*loc_line);
+				continue ;
+			}
+			if (ft_strcmp(*loc_line, "##start") == 0
+			|| ft_strcmp(*loc_line, "##end") == 0)
+				error_msg();
+			if (*loc_line[0] == 'L')
+				error_msg();
+			else
+				break ;
 		}
-		if (*loc_line[0] == 'L')
-			error_msg();
-		else
-			break ;
 	}
 }

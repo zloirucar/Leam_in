@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:09:22 by oelaina           #+#    #+#             */
-/*   Updated: 2020/02/14 17:18:10 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/02/14 18:04:12 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ void					update_map(t_map *map);
 void					clear_2d_arr(char **arr);
 int						check_char(char *line, char c);
 void					error_msg(void);
-void					check_valid(char **loc_line, char *line);
+void					check_valid(char **loc_line, char **line);
 void					valid_arr(char **arr);
 void					check_name_list(t_cell **tmp, char *name);
 /*
