@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 20:13:48 by oelaina           #+#    #+#             */
-/*   Updated: 2020/02/10 18:40:56 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/02/14 15:12:07 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,17 @@ static	void	check_int(char *line, char *line2)
 	}
 }
 
+void			valid_arr(char **arr)
+{
+	int i;
+
+	i = 0;
+	while (arr[i])
+		i++;
+	if (i != 3)
+		error_msg();
+}
+
 void			set_cell(t_cell *cell, char *line)
 {
 	char	**arr;
@@ -39,6 +50,7 @@ void			set_cell(t_cell *cell, char *line)
 
 	i = 0;
 	arr = ft_strsplit(line, ' ');
+	valid_arr(arr);
 	cell->name = ft_strdup(arr[0]);
 	check_int(arr[1], arr[2]);
 	cell->x = ft_atoi(arr[1]);
@@ -53,8 +65,6 @@ void			set_cell(t_cell *cell, char *line)
 	while (arr[i])
 	{
 		free(arr[i]);
-		if (i > 2)
-			error_msg();
 		i++;
 	}
 	free(arr[i]);

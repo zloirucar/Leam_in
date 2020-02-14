@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 19:09:22 by oelaina           #+#    #+#             */
-/*   Updated: 2020/02/10 19:10:16 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/02/14 15:13:42 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,7 @@ void					clear_2d_arr(char **arr);
 int						check_char(char *line, char c);
 void					error_msg(void);
 void					check_valid(char **loc_line, char *line);
+void					valid_arr(char **arr);
 void					check_name_list(t_cell **tmp, char *name);
 /*
 **solver
@@ -228,7 +229,8 @@ int						optimal_paths(t_finpaths *paths, int ants);
 void					move_ant(t_map *map, t_finpaths *path,
 						int ant_index, int *newline);
 void					ant_cross(t_map *map, int ants, int opsize);
-void					ant_cycle(t_map *map, int opsize, int maxop, int *count);
+void					ant_cycle(t_map *map, int opsize,
+						int maxop, int *count);
 /*
 **bhandari
 */
