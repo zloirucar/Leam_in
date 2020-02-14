@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 17:46:31 by oelaina           #+#    #+#             */
-/*   Updated: 2020/02/10 19:11:29 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/02/14 16:31:24 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,19 @@ static	void	set_last_cells(t_path **cur, t_path **end, t_path **prev)
 static	void	ant_drag(t_path **begin,
 t_path **prev, t_path **cur, t_map **map)
 {
+	int len; 
+
+	len = count_path(*begin);
 	while ((*prev))
 	{
 		if ((*prev) == (*begin))
-			(*cur)->cell->ant = (*map)->ant_index;
-		else
 		{
+			(*cur)->cell->ant = (*map)->ant_index;
+			if ((*cur)->next == NULL)
+				(*map)->count_end_ant += 1;
+		}
+		else
+		{	
 			if ((*prev)->cell->ant != 0)
 			{
 				if ((*cur)->next == NULL)
@@ -75,7 +82,6 @@ t_finpaths *path, int ant_index, int *newline)
 	static int	prev_end_ant;
 
 	begin = path->path;
-	begin = path->path;
 	cur = begin;
 	prev = begin;
 	end = NULL;
@@ -89,7 +95,6 @@ void			ant_cross(t_map *map,
 int ants, int opsize)
 {
 	int			count;
-	int			i;
 	int			maxop;
 	t_finpaths	*cur;
 
@@ -99,7 +104,6 @@ int ants, int opsize)
 	maxop = opsize;
 	while (map->count_end_ant != map->count)
 	{
-		i = 0;
 		opsize = optimal_paths(map->paths, ants - count + 1);
 		ant_cycle(map, opsize, maxop, &count);
 		ft_putchar('\n');
