@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/05 11:09:26 by skrabby           #+#    #+#             */
-/*   Updated: 2019/11/27 22:13:00 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/02/14 20:01:41 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,5 @@ void				ft_putstr_null(char *str, int len);
 int					get_next_line(const int fd, char **line);
 int					ft_printf(const char *s, ...);
 int					ft_fprintf(int fd, const char *s, ...);
-
 
 #endif

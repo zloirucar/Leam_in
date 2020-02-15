@@ -6,7 +6,7 @@
 /*   By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 19:14:11 by oelaina           #+#    #+#             */
-/*   Updated: 2020/02/14 18:43:51 by oelaina          ###   ########.fr       */
+/*   Updated: 2020/02/15 14:10:40 by oelaina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void			parse_map(t_map *map)
 	line = NULL;
 	while (get_next_line(0, &line))
 	{
+		if (line == NULL)
+			error_msg();
 		if (ft_strncmp(line, "#", 1) == 0
 		&& ft_strcmp(line, "##start") != 0
 		&& ft_strcmp(line, "##end") != 0)

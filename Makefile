@@ -6,7 +6,7 @@
 #    By: oelaina <oelaina@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/05 11:23:44 by skrabby           #+#    #+#              #
-#    Updated: 2020/02/14 17:54:06 by oelaina          ###   ########.fr        #
+#    Updated: 2020/02/15 14:09:42 by oelaina          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ SRCS = main \
 	   optimal_path \
 	   clear \
 	   clear_map \
-	   valid_func
+
 
 HEADER = 	-I./include \
 			-I./lib/libft/ \
@@ -48,7 +48,7 @@ all: $(NAME)
 obj/%.o: srcs/%.c
 	@gcc $(FLAGS) -c $< $(HEADER) -o $@
 	
-$(NAME): obj $(OBJ)
+$(NAME): obj $(OBJ) include/lem_in.h
 	@tput setaf 7; tput bold; echo "Compiling LIB"
 	@make -C lib
 	@tput setaf 7; tput bold; echo "Compiling LEM_IN"
