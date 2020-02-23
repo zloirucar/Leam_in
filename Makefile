@@ -27,7 +27,6 @@ SRCS = main \
 	   solver \
 	   neib_list \
 	   ant \
-	   edge \
 	   nodes \
 	   path \
 	   finpath \

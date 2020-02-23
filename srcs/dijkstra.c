@@ -50,11 +50,15 @@ int				shortest_path(t_map *map)
 	return (0);
 }
 
-void			update_map(t_map *map)
+void			update_map(t_map *map, t_finpaths *p)
 {
 	t_cell *tmp;
+	t_finpaths *paths;
+	t_path *temp;
 
+	p += 0;
 	tmp = map->cells;
+	paths = p;
 	while (tmp)
 	{
 		tmp->distance = 0;
@@ -62,6 +66,18 @@ void			update_map(t_map *map)
 		tmp->prev = NULL;
 		tmp->sp_next = NULL;
 		tmp = tmp->next;
+	}
+	while (paths)
+	{
+		temp = paths->path;
+		while (temp)
+		{
+			if (temp->cell != map->arr_cell[map->start]->cell
+			&& temp->cell != map->arr_cell[map->end]->cell)
+				temp->cell->is_visited = 1;
+			temp = temp->next;
+		}
+		paths = paths->next;
 	}
 }
 
@@ -84,5 +100,10 @@ void			return_neib(t_map *map)
 			path = path->next;
 		}
 		tmp = tmp->next;
+	}
+	while (map->rev_paths){
+		tmp = map->rev_paths;
+		map->rev_paths = map->rev_paths->next;
+		free(tmp);
 	}
 }

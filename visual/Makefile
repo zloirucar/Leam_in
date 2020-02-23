@@ -39,7 +39,6 @@ SRCS = cell \
 	   solver \
 	   neib_list \
 	   ant \
-	   edge \
 	   nodes \
 	   path \
 	   finpath \

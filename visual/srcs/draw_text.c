@@ -15,18 +15,21 @@
 void	draw_ant_index(t_vis *v)
 {
 	int i;
+	char *tmp;
 
 	i = 0;
 	while (i < v->map->count)
 	{
+		tmp = ft_itoa(v->ants[i]->index);
 		if (i < v->map->count - v->start_room_ants &&
 			(v->ants[i]->visu_x !=
 			v->map->arr_cell[v->map->end]->cell->x * 46 + v->padding_x + 9
 			|| v->ants[i]->visu_y !=
 			v->map->arr_cell[v->map->end]->cell->y * 46 + v->padding_y + 9))
 			mlx_string_put(v->mlx, v->win, v->ants[i]->visu_x + 18,
-			v->ants[i]->visu_y + 18, 0x0FFFFFF, ft_itoa(v->ants[i]->index));
+			v->ants[i]->visu_y + 18, 0x0FFFFFF, tmp);
 		i++;
+		free(tmp);
 	}
 }
 

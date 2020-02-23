@@ -59,17 +59,10 @@ typedef	struct			s_cell
 	t_neib				*next_neib;
 }						t_cell;
 
-typedef struct			s_edge
-{
-	t_cell				*first_node;
-	t_cell				*second_node;
-	int					used;
-	struct s_edge		*next;
-}						t_edge;
-
 /*
 ** prev - for ant_cross
 */
+
 typedef struct			s_path
 {
 	t_cell				*cell;
@@ -139,13 +132,13 @@ typedef	struct			s_map
 	t_path				*delete_path;
 	t_cell				*cells;
 	t_hashtable			**arr_cell;
-	t_edge				*edges;
 	t_solution			*solution;
 	char				*start_str;
 	char				*end_str;
 	unsigned long		start;
 	unsigned long		end;
 	int					size_hash;
+	int					maxop;
 }						t_map;
 /*
 ** cell operations
@@ -176,7 +169,7 @@ t_cell					*checklist_addlast(t_cell *checklist, t_cell *new);
 t_map					*init_map();
 void					parse_map(t_map *map);
 int						parse_count(t_map *map, char *line);
-void					update_map(t_map *map);
+void					update_map(t_map *map, t_finpaths *p);
 /*
 ** tools
 */
@@ -207,14 +200,7 @@ t_finpaths				*paths_addlast(t_finpaths *list, t_path *new_path);
 t_finpaths				*init_finpaths(void);
 void					delete_path(t_map *map);
 int						count_path(t_path *lst);
-/*
-** edges
-*/
-t_edge					*edge_addlast(t_edge *list,
-						t_cell *fnode, t_cell *snode);
-t_edge					*init_edge(void);
-t_edge					*remove_used_edge(t_map *map,
-						char *fnode_name, char *snode_name);
+
 /*
 ** nodes
 */
@@ -231,10 +217,7 @@ void					move_ant(t_map *map, t_finpaths *path,
 void					ant_cross(t_map *map, int ants, int opsize);
 void					ant_cycle(t_map *map, int opsize,
 						int maxop, int *count);
-/*
-**bhandari
-*/
-void					bhandari_algo(t_map *map);
+
 /*
 ** print
 */
@@ -245,7 +228,6 @@ void					ft_printpair(int d, char *s);
 */
 void					clear_all(t_map *map);
 void					clear_hashtable(t_hashtable **hash, int hash_size);
-void					clear_edges(t_edge **edge);
 void					clear_solution(t_solution **solution);
 void					clear_cell(t_cell **cell);
 void					clear_path(t_path **path);

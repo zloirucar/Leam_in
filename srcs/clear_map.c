@@ -19,7 +19,6 @@ void	clear_all(t_map *map)
 	clear_list_finpath(&(map->rev_paths));
 	clear_path(&(map->delete_path));
 	clear_solution(&(map->solution));
-	clear_edges(&(map->edges));
 	clear_hashtable(map->arr_cell, map->size_hash);
 	free(map);
 }
@@ -39,20 +38,6 @@ void	clear_hashtable(t_hashtable **hash, int hash_size)
 		i++;
 	}
 	free(hash);
-}
-
-void	clear_edges(t_edge **edge)
-{
-	t_edge *tmp;
-	t_edge *buf;
-
-	tmp = *edge;
-	while (tmp != NULL)
-	{
-		buf = tmp;
-		tmp = tmp->next;
-		free(buf);
-	}
 }
 
 void	clear_solution(t_solution **solution)

@@ -24,9 +24,6 @@ static	void	set_last_cells(t_path **cur, t_path **end, t_path **prev)
 static	void	ant_drag(t_path **begin,
 t_path **prev, t_path **cur, t_map **map)
 {
-	int len; 
-
-	len = count_path(*begin);
 	while ((*prev))
 	{
 		if ((*prev) == (*begin))
@@ -96,18 +93,16 @@ int ants, int opsize)
 {
 	int			count;
 	int			maxop;
-	t_finpaths	*cur;
 
 	map->newline = 1;
-	cur = map->paths;
 	count = 1;
 	maxop = opsize;
+	map->maxop = maxop;
 	while (map->count_end_ant != map->count)
 	{
 		opsize = optimal_paths(map->paths, ants - count + 1);
 		ant_cycle(map, opsize, maxop, &count);
 		ft_putchar('\n');
-		cur = map->paths;
 		map->newline = 1;
 	}
 }

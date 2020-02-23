@@ -67,10 +67,8 @@ t_path	*revert_path(t_path *path)
 void	delete_path(t_map *map)
 {
 	t_path *tmp;
-	t_edge *unused;
 
 	tmp = map->delete_path;
-	unused = map->edges;
 	while (tmp)
 	{
 		tmp->cell->next_neib =
@@ -79,12 +77,10 @@ void	delete_path(t_map *map)
 		del_neib(map, tmp->next->cell->next_neib, tmp->cell->name);
 		tmp = tmp->next->next;
 	}
-	while (unused)
+	while (map->delete_path)
 	{
-		unused->first_node->next_neib =
-		del_neib(map, unused->first_node->next_neib, unused->second_node->name);
-		unused->second_node->next_neib =
-		del_neib(map, unused->second_node->next_neib, unused->first_node->name);
-		unused = unused->next;
+		tmp = map->delete_path;
+		map->delete_path = map->delete_path->next;
+		free(tmp);
 	}
 }

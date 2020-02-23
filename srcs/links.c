@@ -16,8 +16,6 @@ static	int		add_neib(t_map *map, int check1, int check2)
 {
 	if (check1 >= 0 && check2 >= 0 && check1 != check2)
 	{
-		map->edges = edge_addlast(map->edges,
-		map->arr_cell[check1]->cell, map->arr_cell[check2]->cell);
 		map->arr_cell[check1]->cell->next_neib =
 		neib_addlast(map->arr_cell[check1]->cell->next_neib, check2);
 		map->arr_cell[check2]->cell->next_neib =

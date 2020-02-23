@@ -88,7 +88,6 @@ void	bellman_ford_weights(t_map *map)
 			map->delete_path = path_addlast(map->delete_path, cur);
 			map->delete_path = path_addlast(map->delete_path, prev);
 		}
-		map->edges = remove_used_edge(map, cur->name, prev->name);
 		cur = cur->prev;
 	}
 	thispath = path_addlast(thispath, cur);
@@ -96,19 +95,32 @@ void	bellman_ford_weights(t_map *map)
 	map->rev_paths = paths_addlast(map->rev_paths, thispath);
 }
 
-void	bhandari_algo(t_map *map)
+int		checkcollision(t_map *map)
 {
 	while (shortest_path(map))
 	{
 		bellman_ford_weights(map);
-		update_map(map);
+		update_map(map, NULL);
 	}
 	return_neib(map);
-	delete_path(map);
-	update_map(map);
-	while (shortest_path(map))
+	update_map(map, NULL);
+	return (map->delete_path ? 1 : 0);
+		
+}
+
+void	bhandari_algo(t_map *map)
+{
+	if (checkcollision(map))
 	{
-		save_paths(map);
-		update_map(map);
+		delete_path(map);
+		bhandari_algo(map);
+	}
+	else
+	{
+		while (shortest_path(map))
+		{
+			save_paths(map);
+			update_map(map, map->paths);
+		}
 	}
 }
