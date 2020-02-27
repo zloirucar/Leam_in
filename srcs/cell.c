@@ -55,13 +55,6 @@ void			set_cell(t_cell *cell, char *line)
 	check_int(arr[1], arr[2]);
 	cell->x = ft_atoi(arr[1]);
 	cell->y = ft_atoi(arr[2]);
-	cell->is_visited = 0;
-	cell->distance = 0;
-	cell->ant = 0;
-	cell->prev = NULL;
-	cell->next = NULL;
-	cell->sp_next = NULL;
-	cell->next_neib = NULL;
 	while (arr[i])
 	{
 		free(arr[i]);
@@ -77,8 +70,13 @@ t_cell			*init_cell(void)
 
 	if (!(cell = (t_cell *)malloc(sizeof(t_cell))))
 		exit(1);
-	cell->next_neib = NULL;
-	cell->next = NULL;
 	cell->name = NULL;
+	cell->is_visited = 0;
+	cell->distance = 0;
+	cell->ant = 0;
+	cell->prev = NULL;
+	cell->next = NULL;
+	cell->sp_next = NULL;
+	cell->next_neib = NULL;
 	return (cell);
 }

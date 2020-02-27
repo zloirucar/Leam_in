@@ -53,21 +53,31 @@ void	save_paths(t_map *map)
 	map->paths = paths_addlast(map->paths, thispath);
 }
 
-int		revert_weights(t_map *map, t_neib *list, char *find_name)
+int		revert_weights(t_map *map, t_cell *cur, t_cell *prev)
 {
-	t_neib *cur_cell;
+	t_neib *tmp;
 
-	cur_cell = list;
-	while (cur_cell)
+	tmp = cur->next_neib;
+	while (tmp)
 	{
-		if (!ft_strcmp(map->arr_cell[cur_cell->index]->cell->name, find_name))
+		if (!ft_strcmp(map->arr_cell[tmp->index]->cell->name, prev->name))
 		{
-			cur_cell->weight *= -1;
+			tmp->weight = -1;
 			return (1);
 		}
-		cur_cell = cur_cell->next;
+		tmp = tmp->next;
 	}
-	return (0);
+	tmp = prev->next_neib;
+	while (tmp)
+	{
+		if (!ft_strcmp(map->arr_cell[tmp->index]->cell->name, cur->name))
+		{
+			if (tmp->weight == -1)
+			return (0);
+		}
+		tmp = tmp->next;
+	}
+	return (1);
 }
 
 void	bellman_ford_weights(t_map *map)
@@ -75,6 +85,8 @@ void	bellman_ford_weights(t_map *map)
 	t_cell *cur;
 	t_cell *prev;
 	t_path *thispath;
+	t_cell *tmp;
+	char   *find;
 
 	thispath = NULL;
 	cur = map->arr_cell[map->end]->cell;
@@ -82,12 +94,28 @@ void	bellman_ford_weights(t_map *map)
 	{
 		prev = cur->prev;
 		thispath = path_addlast(thispath, cur);
-		prev->next_neib = del_neib(map, prev->next_neib, cur->name);
-		if (!(revert_weights(map, cur->next_neib, prev->name)))
+		if (!(revert_weights(map, cur, prev)))
 		{
-			map->delete_path = path_addlast(map->delete_path, cur);
-			map->delete_path = path_addlast(map->delete_path, prev);
+			if (ft_strstr(cur->name, "(out)"))
+			{
+				find = ft_strndup(cur->name, ft_strlen(cur->name) - 5);
+				tmp = map->arr_cell[search_cell(map, find)]->cell;
+				free(find);
+			}
+			else
+				tmp = cur; 
+			map->delete_path = path_addlast(map->delete_path, tmp);
+			if (ft_strstr(prev->name, "(out)"))
+			{
+				find = ft_strndup(cur->name, ft_strlen(cur->name) - 5);
+				tmp = map->arr_cell[search_cell(map, find)]->cell;
+				free(find);
+			}
+			else
+				tmp = prev; 
+			map->delete_path = path_addlast(map->delete_path, tmp);
 		}
+		prev->next_neib = del_neib(map, prev->next_neib, cur->name);
 		cur = cur->prev;
 	}
 	thispath = path_addlast(thispath, cur);
@@ -95,32 +123,184 @@ void	bellman_ford_weights(t_map *map)
 	map->rev_paths = paths_addlast(map->rev_paths, thispath);
 }
 
-int		checkcollision(t_map *map)
+t_neib *copyneib(t_map *map, t_cell *cur, t_cell *prev)
 {
-	while (shortest_path(map))
+	t_neib *lst;
+	t_neib *tmp;
+
+	if (!cur->next_neib)
+	return (NULL);
+	lst = NULL;
+	tmp = cur->next_neib;
+	while (tmp)
 	{
-		bellman_ford_weights(map);
-		update_map(map, NULL);
+		if (map->arr_cell[tmp->index]->cell == prev)
+			lst = neib_addlast(lst, cur->index, 0);
+		else
+			lst = neib_addlast(lst, tmp->index, 1);
+		tmp = tmp->next;
 	}
-	return_neib(map);
-	update_map(map, NULL);
-	return (map->delete_path ? 1 : 0);
-		
+	return (lst);
+}
+
+t_cell *celldup(t_map *map, t_cell *cur, char *name, int hash_i)
+{
+	t_cell *dup;
+	if (!(dup = (t_cell *)malloc(sizeof(t_cell))))
+		exit(1);
+    dup->name = name;
+	dup->next = NULL;
+	dup->sp_next = NULL;
+	dup->prev = NULL;
+	dup->index = hash_i;
+	dup->distance = 0;
+	dup->is_visited = 0;
+	dup->ant = 0;
+	dup->next_neib = copyneib(map, cur, cur->prev);
+	return (dup);
+}
+
+void	adaptneib(t_map *map, t_neib *neib, t_cell *org, t_cell *new)
+{
+	t_neib *tmp;
+
+	tmp = neib;
+	if (!tmp)
+		tmp = neib_addlast(tmp, new->index, 0);
+	while (tmp)
+	{
+		if (!ft_strcmp(map->arr_cell[tmp->index]->cell->name, org->name))
+		{
+			tmp->index = new->index;
+			break ;
+		} 
+		tmp = tmp->next;
+	}
+	tmp = org->next_neib;
+	while (tmp)
+	{
+		if (ft_strcmp(map->arr_cell[tmp->index]->cell->name, org->prev->name) != 0)
+			org->next_neib = del_neib(map, org->next_neib, map->arr_cell[tmp->index]->cell->name);
+		tmp = tmp->next;
+	}
+}
+
+t_cell *addnewcell(t_cell *list, t_cell *cell)
+{
+	t_cell *tmp;
+
+	if (!list || !cell)
+		return NULL;
+	tmp = list;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = cell;
+	return (list);
+}
+
+void	duplicate(t_map *map)
+{
+	t_cell			*cur;
+	char			*dup;
+	char			*tmp;
+
+	unsigned long	hash_index;
+	cur = map->arr_cell[map->end]->cell;
+	dup = "(out)";
+	while (cur->prev != map->arr_cell[map->start]->cell)
+	{
+		if (!ft_strstr(cur->prev->name, "(out)"))
+		{
+		tmp = ft_strjoin(cur->prev->name, dup);
+		hash_index = get_hash(tmp, map->size_arr);
+		while (map->arr_cell[hash_index] != NULL)
+		{
+			hash_index++;
+			hash_index %= map->size_arr * 100;
+		}
+		map->arr_cell[hash_index] =
+		create_node(celldup(map, cur->prev, tmp, hash_index), hash_index);
+		adaptneib(map, cur->next_neib, cur->prev, map->arr_cell[hash_index]->cell);
+		map->cells = addnewcell(map->cells, map->arr_cell[hash_index]->cell);
+		}
+		cur = cur->prev;
+	}
+}
+
+void		checkcollision(t_map *map, int kpath)
+{
+	int i;
+
+	i = 0;
+	printf("kpath: %d\n", kpath);
+	t_cell *tmp = map->cells;
+	t_neib *temp;
+	printf("\n");
+	printf("\n");
+	while (tmp)
+	{
+		printf("NAME: %s I:%ld v: %d \n", tmp->name, tmp->index, tmp->is_visited);
+		temp = tmp->next_neib;
+		while (temp)
+		{
+			printf("NEIB:%s I:%ld v: %d w: %d", map->arr_cell[temp->index]->cell->name, map->arr_cell[temp->index]->cell->index, map->arr_cell[temp->index]->cell->is_visited, temp->weight);
+			temp = temp->next;
+		}
+		printf("\n");
+		tmp = tmp->next;
+	}
+	while (shortest_path(map) && i++ < kpath)
+	{
+		printf("asd");
+		bellman_ford_weights(map);
+		duplicate(map);
+		update_map(map, NULL, map->cells);
+	}
+	update_map(map, NULL, map->cells);
 }
 
 void	bhandari_algo(t_map *map)
 {
-	if (checkcollision(map))
+	t_cell *tmp = map->cellscopy;
+	t_neib *temp;
+	printf("BEFORE\n");
+	while (tmp)
 	{
-		delete_path(map);
-		bhandari_algo(map);
-	}
-	else
-	{
-		while (shortest_path(map))
+		printf("NAME: %s I:%ld v: %d \n", tmp->name, tmp->index, tmp->is_visited);
+		temp = tmp->next_neib;
+		while (temp)
 		{
-			save_paths(map);
-			update_map(map, map->paths);
+			printf("NEIB:%s I:%ld v: %d w: %d", map->arr_cell[temp->index]->cell->name, map->arr_cell[temp->index]->cell->index, map->arr_cell[temp->index]->cell->is_visited, temp->weight);
+			temp = temp->next;
 		}
+		printf("\n");
+		tmp = tmp->next;
 	}
+	checkcollision(map, map->maxop);
+	printf("\n\n");
+	tmp = map->cellscopy;
+	//t_neib *temp;
+	printf("AFTER\n");
+	while (tmp)
+	{
+		printf("NAME: %s I:%ld v: %d \n", tmp->name, tmp->index, tmp->is_visited);
+		temp = tmp->next_neib;
+		while (temp)
+		{
+			printf("NEIB:%s I:%ld v: %d w: %d", map->arr_cell[temp->index]->cell->name, map->arr_cell[temp->index]->cell->index, map->arr_cell[temp->index]->cell->is_visited, temp->weight);
+			temp = temp->next;
+		}
+		printf("\n");
+		tmp = tmp->next;
+	}
+	clear_hashtable(map);
+	create_hashtable(map, map->cellscopy);
+	delete_path(map);
+	while (shortest_path(map))
+	{
+		printf("qwe");
+		save_paths(map);
+		update_map(map, map->paths, map->cellscopy);
+	}
+	update_map(map, NULL, map->cellscopy);
 }

@@ -14,6 +14,7 @@
 # define LEM_IN_H
 
 # include "libft.h"
+#include <stdio.h>
 
 /*
 ** index -  neighbors index in arr_cell
@@ -131,6 +132,7 @@ typedef	struct			s_map
 	t_finpaths			*paths;
 	t_path				*delete_path;
 	t_cell				*cells;
+	t_cell				*cellscopy;
 	t_hashtable			**arr_cell;
 	t_solution			*solution;
 	char				*start_str;
@@ -139,6 +141,7 @@ typedef	struct			s_map
 	unsigned long		end;
 	int					size_hash;
 	int					maxop;
+	int					kpaths;
 }						t_map;
 /*
 ** cell operations
@@ -147,7 +150,7 @@ t_cell					*init_cell();
 void					set_cell(t_cell *cell, char *line);
 t_cell					*cell_addlast(t_map *map, char *line);
 unsigned long			search_cell(t_map *map, char *name);
-void					create_hashtable(t_map *map);
+void					create_hashtable(t_map *map, t_cell *src);
 void					arr_cellcpy(t_cell **dest, t_cell **src, int size);
 void					inc_arr_cell(t_cell ***arr_cell, int *size);
 void					parse_start_end(t_map *map, char *line);
@@ -157,7 +160,7 @@ void					add_to_arr(t_map *map, char *line);
 */
 void					parse_links(t_map *map, char *line);
 t_neib					*init_neib(void);
-t_neib					*neib_addlast(t_neib *alst, int index);
+t_neib					*neib_addlast(t_neib *alst, int index, int weight);
 void					return_neib(t_map *map);
 /*
 **checklist
@@ -169,7 +172,7 @@ t_cell					*checklist_addlast(t_cell *checklist, t_cell *new);
 t_map					*init_map();
 void					parse_map(t_map *map);
 int						parse_count(t_map *map, char *line);
-void					update_map(t_map *map, t_finpaths *p);
+void					update_map(t_map *map, t_finpaths *p, t_cell *tmp);
 /*
 ** tools
 */
@@ -187,7 +190,7 @@ t_cell					*tcell_dup(t_cell *cur);
 t_neib					*del_neib(t_map *map, t_neib *list, char *name);
 void					bhandari_algo(t_map *map);
 int						revert_weights(t_map *map,
-						t_neib *list, char *find_name);
+						t_cell *cur, t_cell *prev);
 int						get_weight(t_map *map, t_neib *list, char *find_name);
 /*
 **paths
@@ -217,7 +220,7 @@ void					move_ant(t_map *map, t_finpaths *path,
 void					ant_cross(t_map *map, int ants, int opsize);
 void					ant_cycle(t_map *map, int opsize,
 						int maxop, int *count);
-
+t_hashtable				*create_node(t_cell *cell, unsigned long h_i);
 /*
 ** print
 */
@@ -227,7 +230,7 @@ void					ft_printpair(int d, char *s);
 ** clear
 */
 void					clear_all(t_map *map);
-void					clear_hashtable(t_hashtable **hash, int hash_size);
+void					clear_hashtable(t_map *map);
 void					clear_solution(t_solution **solution);
 void					clear_cell(t_cell **cell);
 void					clear_path(t_path **path);

@@ -102,6 +102,7 @@ t_map	*init_map(void)
 	map->paths = NULL;
 	map->solution = NULL;
 	map->cells = NULL;
+	map->cellscopy = NULL;
 	map->count_end_ant = 0;
 	map->end = 0;
 	map->start = 0;
@@ -113,6 +114,7 @@ t_map	*init_map(void)
 	map->count_cells = 0;
 	map->check_count = 0;
 	map->check_hashtb = 0;
-	map->maxop = 0;
+	map->maxop = 100000;
+	map->kpaths = 0;
 	return (map);
 }

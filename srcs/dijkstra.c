@@ -50,17 +50,24 @@ int				shortest_path(t_map *map)
 	return (0);
 }
 
-void			update_map(t_map *map, t_finpaths *p)
+void			update_map(t_map *map, t_finpaths *p, t_cell *tmp)
 {
-	t_cell *tmp;
 	t_finpaths *paths;
 	t_path *temp;
+	//t_neib *neib;
 
-	p += 0;
-	tmp = map->cells;
 	paths = p;
 	while (tmp)
 	{
+		/*neib = tmp->next_neib;
+		while(neib)
+		{
+			map->arr_cell[neib->index]->cell->is_visited = 0;
+			map->arr_cell[neib->index]->cell->distance = 0;
+			map->arr_cell[neib->index]->cell->prev = NULL;
+			map->arr_cell[neib->index]->cell->sp_next = NULL;
+			neib = neib->next;
+		}*/
 		tmp->distance = 0;
 		tmp->is_visited = 0;
 		tmp->prev = NULL;
@@ -94,9 +101,9 @@ void			return_neib(t_map *map)
 		{
 			path->cell->next_neib =
 			neib_addlast(path->cell->next_neib,
-			path->next->cell->index);
-			revert_weights(map, path->next->cell->next_neib,
-			path->cell->name);
+			path->next->cell->index, 1);
+			revert_weights(map, path->next->cell,
+			path->cell);
 			path = path->next;
 		}
 		tmp = tmp->next;

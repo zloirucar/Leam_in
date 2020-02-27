@@ -19,25 +19,27 @@ void	clear_all(t_map *map)
 	clear_list_finpath(&(map->rev_paths));
 	clear_path(&(map->delete_path));
 	clear_solution(&(map->solution));
-	clear_hashtable(map->arr_cell, map->size_hash);
+	clear_hashtable(map);
 	free(map);
 }
 
-void	clear_hashtable(t_hashtable **hash, int hash_size)
+void	clear_hashtable(t_map *map)
 {
 	int i;
 
 	i = 0;
-	while (i < hash_size)
+	while (i < map->size_hash)
 	{
-		if (hash[i] != NULL)
+		if (map->arr_cell[i] != NULL)
 		{
-			free(hash[i]->key);
-			free(hash[i]);
+		//	free(hash[i]->key);
+			free(map->arr_cell[i]);
+			map->arr_cell[i] = NULL;
 		}
 		i++;
 	}
-	free(hash);
+	free(map->arr_cell);
+	map->arr_cell = NULL;
 }
 
 void	clear_solution(t_solution **solution)

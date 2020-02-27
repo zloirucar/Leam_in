@@ -67,20 +67,25 @@ t_path	*revert_path(t_path *path)
 void	delete_path(t_map *map)
 {
 	t_path *tmp;
+	t_cell *one;
+	t_cell *two;
 
 	tmp = map->delete_path;
 	while (tmp)
 	{
-		tmp->cell->next_neib =
-		del_neib(map, tmp->cell->next_neib, tmp->next->cell->name);
-		tmp->next->cell->next_neib =
-		del_neib(map, tmp->next->cell->next_neib, tmp->cell->name);
+
+		one = map->arr_cell[search_cell(map, tmp->cell->name)]->cell;
+		two = map->arr_cell[search_cell(map, tmp->next->cell->name)]->cell;
+		one->next_neib =
+		del_neib(map, one->next_neib, two->name);
+		two->next_neib =
+		del_neib(map, two->next_neib, one->name);
 		tmp = tmp->next->next;
 	}
-	while (map->delete_path)
+/*	while (map->delete_path)
 	{
 		tmp = map->delete_path;
 		map->delete_path = map->delete_path->next;
 		free(tmp);
-	}
+	}*/
 }

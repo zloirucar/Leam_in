@@ -12,6 +12,18 @@
 
 #include "lem_in.h"
 
+void	clear_neib(t_neib *neib)
+{
+	t_neib *tmp;
+
+	while (neib)
+	{
+		tmp = neib;
+		neib = neib->next;
+		free(tmp);
+	}
+}
+
 void	clear_cell(t_cell **cell)
 {
 	t_cell *tmp;
@@ -21,10 +33,13 @@ void	clear_cell(t_cell **cell)
 	while (tmp != NULL)
 	{
 		buf = tmp;
+		clear_neib(buf->next_neib);
 		tmp = tmp->next;
+		free(buf->name);
 		free(buf);
 		buf = NULL;
 	}
+	*cell = NULL;
 }
 
 void	clear_path(t_path **path)
@@ -39,6 +54,7 @@ void	clear_path(t_path **path)
 		tmp = tmp->next;
 		free(buf);
 	}
+	*path = NULL;
 }
 
 void	clear_finpath(t_finpaths **paths)
@@ -57,6 +73,7 @@ void	clear_finpath(t_finpaths **paths)
 		free(buf);
 	}
 	free(*paths);
+	*paths = NULL;
 }
 
 void	clear_list_finpath(t_finpaths **paths)
@@ -72,4 +89,5 @@ void	clear_list_finpath(t_finpaths **paths)
 		clear_finpath(&buf);
 		buf = NULL;
 	}
+	*paths = NULL;
 }

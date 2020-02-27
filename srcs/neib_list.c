@@ -18,12 +18,11 @@ t_neib			*init_neib(void)
 
 	if (!(tmp = (t_neib*)malloc(sizeof(t_neib))))
 		exit(1);
-	tmp->weight = 1;
 	tmp->next = NULL;
 	return (tmp);
 }
 
-t_neib			*neib_addlast(t_neib *alst, int index)
+t_neib			*neib_addlast(t_neib *alst, int index, int weight)
 {
 	t_neib	*tmp;
 
@@ -32,6 +31,7 @@ t_neib			*neib_addlast(t_neib *alst, int index)
 	{
 		alst = init_neib();
 		alst->index = index;
+		alst->weight = weight;
 		alst->next = NULL;
 	}
 	else
@@ -42,6 +42,7 @@ t_neib			*neib_addlast(t_neib *alst, int index)
 		tmp->next = init_neib();
 		tmp = tmp->next;
 		tmp->index = index;
+		tmp->weight = weight;
 	}
 	return (alst);
 }

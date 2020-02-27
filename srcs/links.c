@@ -17,9 +17,9 @@ static	int		add_neib(t_map *map, int check1, int check2)
 	if (check1 >= 0 && check2 >= 0 && check1 != check2)
 	{
 		map->arr_cell[check1]->cell->next_neib =
-		neib_addlast(map->arr_cell[check1]->cell->next_neib, check2);
+		neib_addlast(map->arr_cell[check1]->cell->next_neib, check2, 1);
 		map->arr_cell[check2]->cell->next_neib =
-		neib_addlast(map->arr_cell[check2]->cell->next_neib, check1);
+		neib_addlast(map->arr_cell[check2]->cell->next_neib, check1, 1);
 		return (1);
 	}
 	else
@@ -72,7 +72,7 @@ void			parse_links(t_map *map, char *line)
 {
 	if (!map->check_hashtb)
 	{
-		create_hashtable(map);
+		create_hashtable(map, map->cells);
 		map->check_hashtb = 1;
 	}
 	if (map->check_start == 1 && map->check_end == 1)

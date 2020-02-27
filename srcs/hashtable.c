@@ -54,12 +54,12 @@ unsigned	long	search_cell(t_map *map, char *name)
 	return (hash_index);
 }
 
-void				fill_hashtable(t_map *map)
+void				fill_hashtable(t_map *map, t_cell *src)
 {
 	t_cell			*tmp;
 	unsigned long	hash_index;
 
-	tmp = map->cells;
+	tmp = src;
 	while (tmp)
 	{
 		hash_index = get_hash(tmp->name, map->size_arr);
@@ -73,7 +73,7 @@ void				fill_hashtable(t_map *map)
 	}
 }
 
-void				create_hashtable(t_map *map)
+void				create_hashtable(t_map *map, t_cell *src)
 {
 	int i;
 
@@ -87,5 +87,5 @@ void				create_hashtable(t_map *map)
 		map->arr_cell[i] = NULL;
 		i++;
 	}
-	fill_hashtable(map);
+	fill_hashtable(map, src);
 }
