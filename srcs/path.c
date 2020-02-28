@@ -82,10 +82,4 @@ void	delete_path(t_map *map)
 		del_neib(map, two->next_neib, one->name);
 		tmp = tmp->next->next;
 	}
-/*	while (map->delete_path)
-	{
-		tmp = map->delete_path;
-		map->delete_path = map->delete_path->next;
-		free(tmp);
-	}*/
 }

@@ -54,20 +54,10 @@ void			update_map(t_map *map, t_finpaths *p, t_cell *tmp)
 {
 	t_finpaths *paths;
 	t_path *temp;
-	//t_neib *neib;
 
 	paths = p;
 	while (tmp)
 	{
-		/*neib = tmp->next_neib;
-		while(neib)
-		{
-			map->arr_cell[neib->index]->cell->is_visited = 0;
-			map->arr_cell[neib->index]->cell->distance = 0;
-			map->arr_cell[neib->index]->cell->prev = NULL;
-			map->arr_cell[neib->index]->cell->sp_next = NULL;
-			neib = neib->next;
-		}*/
 		tmp->distance = 0;
 		tmp->is_visited = 0;
 		tmp->prev = NULL;

@@ -32,7 +32,7 @@ void	clear_hashtable(t_map *map)
 	{
 		if (map->arr_cell[i] != NULL)
 		{
-		//	free(hash[i]->key);
+		//	free(map->arr_cell[i]->key);
 			free(map->arr_cell[i]);
 			map->arr_cell[i] = NULL;
 		}

@@ -232,26 +232,8 @@ void		checkcollision(t_map *map, int kpath)
 	int i;
 
 	i = 0;
-	printf("kpath: %d\n", kpath);
-	t_cell *tmp = map->cells;
-	t_neib *temp;
-	printf("\n");
-	printf("\n");
-	while (tmp)
-	{
-		printf("NAME: %s I:%ld v: %d \n", tmp->name, tmp->index, tmp->is_visited);
-		temp = tmp->next_neib;
-		while (temp)
-		{
-			printf("NEIB:%s I:%ld v: %d w: %d", map->arr_cell[temp->index]->cell->name, map->arr_cell[temp->index]->cell->index, map->arr_cell[temp->index]->cell->is_visited, temp->weight);
-			temp = temp->next;
-		}
-		printf("\n");
-		tmp = tmp->next;
-	}
 	while (shortest_path(map) && i++ < kpath)
 	{
-		printf("asd");
 		bellman_ford_weights(map);
 		duplicate(map);
 		update_map(map, NULL, map->cells);
@@ -261,44 +243,12 @@ void		checkcollision(t_map *map, int kpath)
 
 void	bhandari_algo(t_map *map)
 {
-	t_cell *tmp = map->cellscopy;
-	t_neib *temp;
-	printf("BEFORE\n");
-	while (tmp)
-	{
-		printf("NAME: %s I:%ld v: %d \n", tmp->name, tmp->index, tmp->is_visited);
-		temp = tmp->next_neib;
-		while (temp)
-		{
-			printf("NEIB:%s I:%ld v: %d w: %d", map->arr_cell[temp->index]->cell->name, map->arr_cell[temp->index]->cell->index, map->arr_cell[temp->index]->cell->is_visited, temp->weight);
-			temp = temp->next;
-		}
-		printf("\n");
-		tmp = tmp->next;
-	}
 	checkcollision(map, map->maxop);
-	printf("\n\n");
-	tmp = map->cellscopy;
-	//t_neib *temp;
-	printf("AFTER\n");
-	while (tmp)
-	{
-		printf("NAME: %s I:%ld v: %d \n", tmp->name, tmp->index, tmp->is_visited);
-		temp = tmp->next_neib;
-		while (temp)
-		{
-			printf("NEIB:%s I:%ld v: %d w: %d", map->arr_cell[temp->index]->cell->name, map->arr_cell[temp->index]->cell->index, map->arr_cell[temp->index]->cell->is_visited, temp->weight);
-			temp = temp->next;
-		}
-		printf("\n");
-		tmp = tmp->next;
-	}
 	clear_hashtable(map);
 	create_hashtable(map, map->cellscopy);
 	delete_path(map);
 	while (shortest_path(map))
 	{
-		printf("qwe");
 		save_paths(map);
 		update_map(map, map->paths, map->cellscopy);
 	}

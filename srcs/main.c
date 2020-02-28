@@ -120,61 +120,21 @@ int	main(void)
 	map->end = search_cell(map, map->end_str);
 	map->cellscopy = copycells(map->cells);
 	bhandari_algo(map);
-	update_map(map, NULL, map->cellscopy);
+	//update_map(map, NULL, map->cellscopy);
 	reset_graph(map);
 	map->maxop = optimal_paths(map->paths, map->count);
 	clear_path(&(map->delete_path));
 	clear_cell(&(map->cells));
 	clear_list_finpath(&(map->paths));
-	
-	
 
-	t_cell *tmp = map->cellscopy;
-	t_neib *temp;
-	printf("\n");
-	printf("\n");
-	while (tmp)
-	{
-		printf("NAME(COPY): %s I:%ld v: %d \n", tmp->name, tmp->index, tmp->is_visited);
-		temp = tmp->next_neib;
-		while (temp)
-		{
-			printf("NEIB:%s I:%ld v: %d", map->arr_cell[temp->index]->cell->name, map->arr_cell[temp->index]->cell->index, map->arr_cell[temp->index]->cell->is_visited);
-			temp = temp->next;
-		}
-		printf("\n");
-		tmp = tmp->next;
-	}
 	map->cells = copycells(map->cellscopy);
 	clear_hashtable(map);
 	create_hashtable(map, map->cells);
-	printf("\n\n---OK---\n\n");
 	bhandari_algo(map);
-
-	
-//	t_cell *tmp = map->cells;
-//	t_neib *temp;
-	printf("\n");
-	printf("\n");
-	while (tmp)
-	{
-		printf("NAME: %s I:%ld v: %d \n", tmp->name, tmp->index, tmp->is_visited);
-		temp = tmp->next_neib;
-		while (temp)
-		{
-			printf("NEIB:%s I:%ld v: %d", map->arr_cell[temp->index]->cell->name, map->arr_cell[temp->index]->cell->index, map->arr_cell[temp->index]->cell->is_visited);
-			temp = temp->next;
-		}
-		printf("\n");
-		tmp = tmp->next;
-	}
-
 	if (map->paths)
 		ant_cross(map, map->count, optimal_paths(map->paths, map->count));
 	else
 		error_msg();
-	
-	ft_printf("MAXOP: %d\n", map->maxop);
 	clear_all(map);
 	return (0);
 }
